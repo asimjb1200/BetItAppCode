@@ -9,11 +9,16 @@ import SwiftUI
 
 struct UpcomingGames: View {
     @State var upcomingGames = [DBGame]()
+    let layout = [
+        GridItem(.adaptive(minimum: 80))
+    ]
     
     var body: some View {
-        HStack {
-            List(upcomingGames, id: \.self) { game in
-                GamePreview(homeTeam: game.home_team, awayTeam: game.visitor_team)
+        ScrollView {
+            LazyVGrid(columns: layout, spacing: 20) {
+                ForEach(upcomingGames, id: \.self) { game in
+                    GamePreview(homeTeam: game.home_team, awayTeam: game.visitor_team)
+                }
             }
         }.onAppear() {
             getGamesSchedule()

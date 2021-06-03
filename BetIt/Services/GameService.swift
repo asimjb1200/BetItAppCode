@@ -11,11 +11,12 @@ class GameService {
     let fileManager = FileManager.default
     // grab the user's cache directory on their phone
     let cachesDir = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
+    let decoder = JSONDecoder()
     
     func getUpcomingGames(completion: @escaping (Result<[DBGame], CustomError>) -> Void) {
         let url = URL(string: "http://localhost:3000/sports-handler/bball/games-this-week")!
-        
-        let cachedData = try? self.searchCacheForGamesByDate(dateKey: "210602")
+//        let dateKey: String = self.convertDateToString(date: todaysDate)
+        let cachedData: [DBGame]? = try? self.searchCacheForGamesByDate(dateKey: "210603")
         if (cachedData != nil) {
             completion(.success(cachedData!))
         } else {
@@ -43,9 +44,9 @@ class GameService {
                     let dateFormatter = DateFormatter()
                     dateFormatter.locale = Locale(identifier: "en_US_POSIX")
                     dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-                    let decoder = JSONDecoder()
-                    decoder.dateDecodingStrategy = .formatted(dateFormatter)
-                    let games = try decoder.decode([DBGame].self, from: data)
+                    
+                    self.decoder.dateDecodingStrategy = .formatted(dateFormatter)
+                    let games = try self.decoder.decode([DBGame].self, from: data)
                     
                     let dateKey = self.convertDateToString(date: games[0].game_begins)
                     
@@ -58,6 +59,44 @@ class GameService {
                 }
             }.resume()
         }
+    }
+    
+    func getGamesByDate(date: Date, completion: @escaping (Result<[DBGame], GameFetchError>) -> ()) {
+        // start preparing the  url request
+        let url: URL = URL(string: "http://localhost:3000/sports-handler/bball/games-today")!
+        var request: URLRequest = URLRequest(url: url)
+        
+        // configure the req authentication
+        // request.setValue("authtoken", forHTTPHeaderField: "Authorization")
+        
+        // set up the body of the request
+        let body: [String: Date] = ["date": date]
+        guard let bodyData = try? JSONSerialization.data(withJSONObject: body, options: []) else {
+            print("unable to turn data into JSON")
+            return
+        }
+        
+        // change the URL request method to 'POST'
+        request.httpMethod = "POST"
+        request.httpBody = bodyData
+        
+        // now create the request to be sent
+        let session = URLSession.shared
+        let task = session.dataTask(with: request) {(data, response, err) in
+            if let err = err {
+                // handle error
+                print("error with request: \(err)")
+            } else if let data = data {
+                // convert the data to the type we can work with
+                do {
+                    let gameData = try self.decoder.decode([DBGame].self, from: data)
+                    completion(.success(gameData))
+                } catch let error {
+                    print("problem occurred when turning response into DBGame: \(error)")
+                    completion(.failure(.decodingError))
+                }
+            }
+        }.resume()
     }
     
     func searchCacheForGamesByDate(dateKey: String) -> [DBGame]? {

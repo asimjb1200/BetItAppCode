@@ -25,3 +25,9 @@ enum CustomError: String, Error {
     case invalidData = "The data received from the server was invalid."
 
 }
+
+enum GameFetchError: String, Error {
+    case noGamesFound = "No games on this date"
+    case serverError = "There was an error on the server"
+    case decodingError = "Had a problem when decoding the games from the server"
+}

@@ -50,26 +50,27 @@ struct GamePreview: View {
     
 
     var body: some View {
-        HStack {
+        VStack(alignment: .center, spacing: 0.0) {
             Text(self.Teams[homeTeam] ?? "Retry Request")
                 .font(.custom("Roboto-Light", size: 30))
-                .foregroundColor(Color(hue: 0.452, saturation: 0.804, brightness: 0.99))
+                .foregroundColor(.gray)
+                .multilineTextAlignment(.center)
             
             Text("vs.")
-                .foregroundColor(Color(hue: 0.452, saturation: 0.804, brightness: 0.99))
+                .foregroundColor(.gray)
             
             Text(self.Teams[awayTeam] ?? "Retry Request")
                 .font(.custom("Roboto-Light", size: 30))
-                .foregroundColor(Color(hue: 0.452, saturation: 0.804, brightness: 0.99))
-            
-            Spacer()
+                .foregroundColor(.gray)
+                .multilineTextAlignment(.center)
             Text("7:30pm ET")
-                .padding(.trailing)
-                .foregroundColor(Color(hue: 0.452, saturation: 0.804, brightness: 0.99))
+                .multilineTextAlignment(.center)
+                .padding()
+                .foregroundColor(.gray)
             .font(.custom("Roboto-Light", size: 20))
         }
-        .padding([.top, .leading, .bottom])
-        .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color.gray/*@END_MENU_TOKEN@*/)
+        .background(RoundedRectangle(cornerRadius: 25)
+                        .stroke(Color(hue: 0.452, saturation: 0.804, brightness: 0.60), lineWidth: 2))
         
     }
 }
