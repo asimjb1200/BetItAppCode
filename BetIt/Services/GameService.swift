@@ -12,6 +12,7 @@ class GameService {
     // grab the user's cache directory on their phone
     let cachesDir = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
     let decoder = JSONDecoder()
+    let dateFormatter = DateFormatter()
     
     func getUpcomingGames(completion: @escaping (Result<[DBGame], CustomError>) -> Void) {
         let url = URL(string: "http://localhost:3000/sports-handler/bball/games-this-week")!
@@ -41,11 +42,10 @@ class GameService {
                 }
                 
                 do {
-                    let dateFormatter = DateFormatter()
-                    dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-                    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+                    self.dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+                    self.dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
                     
-                    self.decoder.dateDecodingStrategy = .formatted(dateFormatter)
+                    self.decoder.dateDecodingStrategy = .formatted(self.dateFormatter)
                     let games = try self.decoder.decode([DBGame].self, from: data)
                     
                     let dateKey = self.convertDateToString(date: games[0].game_begins)
@@ -62,16 +62,20 @@ class GameService {
     }
     
     func getGamesByDate(date: Date, completion: @escaping (Result<[DBGame], GameFetchError>) -> ()) {
+        self.dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        self.dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        
+        let stringifiedDate = self.dateFormatter.string(from: date)
         // start preparing the  url request
-        let url: URL = URL(string: "http://localhost:3000/sports-handler/bball/games-today")!
+        let url: URL = URL(string: "http://localhost:3000/sports-handler/bball/games-by-date")!
         var request: URLRequest = URLRequest(url: url)
         
         // configure the req authentication
         // request.setValue("authtoken", forHTTPHeaderField: "Authorization")
         
         // set up the body of the request
-        let body: [String: Date] = ["date": date]
-        guard let bodyData = try? JSONSerialization.data(withJSONObject: body, options: []) else {
+        let body = ["date": stringifiedDate]
+        guard let bodyData = try? JSONSerialization.data(withJSONObject: body) else {
             print("unable to turn data into JSON")
             return
         }
@@ -79,16 +83,27 @@ class GameService {
         // change the URL request method to 'POST'
         request.httpMethod = "POST"
         request.httpBody = bodyData
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         // now create the request to be sent
-        let session = URLSession.shared
-        let task = session.dataTask(with: request) {(data, response, err) in
+        URLSession.shared.dataTask(with: request) {(data, response, err) in
+            // check for the OK status code
+            guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
+                print("Server error!")
+                return
+            }
+            
             if let err = err {
                 // handle error
                 print("error with request: \(err)")
             } else if let data = data {
                 // convert the data to the type we can work with
                 do {
+                    // handle the UTC date format coming in from the db
+                    self.dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+                    self.dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+                    
+                    self.decoder.dateDecodingStrategy = .formatted(self.dateFormatter)
                     let gameData = try self.decoder.decode([DBGame].self, from: data)
                     completion(.success(gameData))
                 } catch let error {
