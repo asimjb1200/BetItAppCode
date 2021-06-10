@@ -7,31 +7,71 @@
 
 import Foundation
 
-//struct Wager: Codable, Hashable {
-//    let id: UInt
-//    var bettor: String
-//    var fader: String?
-//    var wager_amount: UInt
-//    let game_id: UInt
-//    var is_active: Bool
-//    var bettor_chosen_team: UInt8
-//    var winning_team: UInt8?
-//    var escrow_address: String?
-////    init(
-////        id: UInt, bettor: String,
-////        wager_amount: UInt, game_id: UInt, is_active: Bool,
-////        bettor_chosen_team: UInt8, escrow_address: String
-////    )
-////    {
-////        self.id = id
-////        self.bettor = bettor
-////        self.wager_amount = wager_amount
-////        self.game_id = game_id
-////        self.is_active = is_active
-////        self.bettor_chosen_team = bettor_chosen_team
-////        self.escrow_address = escrow_address
-////    }
-//}
+class WagerModel: ObservableObject, Identifiable, Codable{
+    
+    enum CodingKeys: CodingKey {
+        case fader
+        case wager_amount
+        case is_active
+        case winning_team
+        case id
+        case bettor
+        case game_id
+        case bettor_chosen_team
+        case escrow_address
+    }
+    
+    let id: Int
+    let bettor: String
+    @Published var fader: String?
+    @Published var wager_amount: Int
+    let game_id: Int
+    @Published var is_active: Bool
+    let bettor_chosen_team: Int
+    @Published var winning_team: Int?
+    @Published var escrow_address: String?
+    
+    // tell swift how to decode data into the published types
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(Int.self, forKey: .id)
+        bettor = try container.decode(String.self, forKey: .bettor)
+        game_id = try container.decode(Int.self, forKey: .game_id)
+        bettor_chosen_team = try container.decode(Int.self, forKey: .bettor_chosen_team)
+        fader = try container.decodeIfPresent(String.self, forKey: .fader)
+        wager_amount = try container.decode(Int.self, forKey: .wager_amount)
+        is_active = try container.decode(Bool.self, forKey: .is_active)
+        winning_team = try container.decodeIfPresent(Int.self, forKey: .winning_team)
+        escrow_address = try container.decodeIfPresent(String.self, forKey: .escrow_address)
+    }
+    
+    init(id: Int, bettor: String, wager_amount: Int, game_id: Int, is_active: Bool, bettor_chosen_team: Int) {
+        self.id = id
+        self.bettor = bettor
+        self.wager_amount = wager_amount
+        self.game_id = game_id
+        self.is_active = is_active
+        self.bettor_chosen_team = bettor_chosen_team
+    }
+    
+    // now tell swift how to encode my type
+    func encode(to encoder: Encoder) throws {
+        var container = try encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(bettor, forKey: .bettor)
+        try container.encodeIfPresent(fader, forKey: .fader)
+        try container.encode(wager_amount, forKey: .wager_amount)
+        try container.encode(game_id, forKey: .game_id)
+        try container.encode(is_active, forKey: .is_active)
+        try container.encodeIfPresent(winning_team, forKey: .winning_team)
+        try container.encodeIfPresent(bettor_chosen_team, forKey: .bettor_chosen_team)
+        try container.encodeIfPresent(escrow_address, forKey: .escrow_address)
+    }
+}
+
+class GameWagers: ObservableObject {
+    @Published var wagers: [WagerModel] = []
+}
 
 enum WagerErrors: String, Error {
     case noWagersFound = "Not able to find wagers for that game's id"

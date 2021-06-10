@@ -7,14 +7,6 @@
 
 import SwiftUI
 
-class GameWagers: ObservableObject {
-    @Published var wagers: [WagerModel] = []
-    
-//    init(wagers: [WagerModel]) {
-//        self.wagers = wagers
-//    }
-}
-
 struct GameAndWagersView: View {
 //    @State fileprivate var wagers = [Wager]()
     @ObservedObject var wagersOnGame: GameWagers = GameWagers()
