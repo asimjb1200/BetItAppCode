@@ -13,6 +13,7 @@ class GameService {
     let cachesDir = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
     let decoder = JSONDecoder()
     let dateFormatter = DateFormatter()
+    let tempAccessToken = ""
     
     func getUpcomingGames(completion: @escaping (Result<[DBGame], CustomError>) -> Void) {
         let url = URL(string: "http://localhost:3000/sports-handler/bball/games-this-week")!
@@ -71,7 +72,7 @@ class GameService {
         var request: URLRequest = URLRequest(url: url)
         
         // configure the req authentication
-        // request.setValue("authtoken", forHTTPHeaderField: "Authorization")
+        request.setValue("Bearer \(self.tempAccessToken)", forHTTPHeaderField: "Authorization")
         
         // set up the body of the request
         let body = ["date": stringifiedDate]

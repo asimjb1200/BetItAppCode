@@ -10,6 +10,7 @@ import Foundation
 class WagerService {
     let decoder = JSONDecoder()
     let dateFormatter = DateFormatter()
+    let tempAccessToken = ""
     
     func getWagersForGameId(gameId: UInt, completion: @escaping (Result<[WagerModel], WagerErrors>) -> ()) {
         let url = URL(string: "http://localhost:3000/wager-handler/get-wagers-by-game")!
@@ -17,7 +18,7 @@ class WagerService {
         
         
         // configure the req authentication
-        // request.setValue("authtoken", forHTTPHeaderField: "Authorization")
+        request.setValue("Bearer \(self.tempAccessToken)", forHTTPHeaderField: "Authorization")
         
         // set up the body of the request
         let body = ["gameId": gameId]

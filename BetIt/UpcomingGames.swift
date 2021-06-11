@@ -11,8 +11,11 @@ struct UpcomingGames: View {
     @State private var upcomingGames = [DBGame]()
     @State private var gameScheduleDate = Date()
     
+    let pastDays = Date().addingTimeInterval(-604800)
+    
     // add 7 days to the current date
-    let range = Date() ... Date().addingTimeInterval(604800)
+//    let range = Date() ... Date().addingTimeInterval(604800)
+    let range = Date().addingTimeInterval(-604800) ... Date().addingTimeInterval(604800)
     
     let layout = [
         GridItem(.adaptive(minimum: 80))
