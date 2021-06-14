@@ -13,31 +13,34 @@ struct GamePreview: View {
     let teams = TeamsMapper().Teams
 
     var body: some View {
+        let davysGray = Color(white: 0.342)
         Button(action: {
             showDetails.toggle()
         }, label: {
             VStack(alignment: .center, spacing: 0.0) {
                 Text(teams[currentGame.home_team] ?? "Retry Request")
-                    .font(.custom("Roboto-Medium", size: 30))
-                    .foregroundColor(Color("Accent"))
+                    .font(.custom("Roboto-Light", size: 30))
+                    .foregroundColor(Color("Accent2"))
                     .multilineTextAlignment(.center)
                 
                 Text("vs.")
-                    .foregroundColor(Color("Accent"))
+                    .foregroundColor(Color("Accent2"))
                 
                 Text(teams[currentGame.visitor_team] ?? "Retry Request")
-                    .font(.custom("Roboto-Medium", size: 30))
-                    .foregroundColor(Color("Accent"))
+                    .font(.custom("Roboto-Light", size: 30))
+                    .foregroundColor(Color("Accent2"))
                     .multilineTextAlignment(.center)
                 Text("7:30pm ET")
                     .multilineTextAlignment(.center)
                     .padding()
-                    .foregroundColor(Color("Accent"))
-                .font(.custom("Roboto-Medium", size: 20))
+                    .foregroundColor(Color("Accent2"))
+                .font(.custom("Roboto-Light", size: 20))
             }
-            .background(RoundedRectangle(cornerRadius: 25)
-                            .fill(Color.gray)
-                            )
+            .padding()
+            .overlay(
+                RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
+                    .stroke(davysGray, lineWidth: 2)
+            )
         }).sheet(isPresented: $showDetails, content: {
             GameAndWagersView(selectedGame: currentGame)
         })

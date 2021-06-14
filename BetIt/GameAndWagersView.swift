@@ -14,20 +14,14 @@ struct GameAndWagersView: View {
     
     var body: some View {
         let gameHeader = "\(Teams[selectedGame.home_team]!) vs. \(Teams[selectedGame.visitor_team]!)"
+
         NavigationView {
-//            ScrollView {
-//                LazyVStack {
-//                    ForEach(wagersOnGame.wagers) { wagerForGame in
-//                        GameWagersPreview(wager: wagerForGame)
-//                    }
-//                }
                 List(wagersOnGame.wagers) { wager in
                     GameWagersPreview(wager: wager)
                 }.onAppear() {
                 self.getWagersByGameId()
                 }
-            
-            .navigationTitle(gameHeader)
+                .navigationTitle(gameHeader)
         }
     }
 }

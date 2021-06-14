@@ -56,4 +56,8 @@ class WagerService {
             }
         }.resume()
     }
+    
+    func updateWager(updatedWager: WagerModel, completion: @escaping () -> ()) {
+        // TODO: add code that posts the updated wager to the back end
+    }
 }

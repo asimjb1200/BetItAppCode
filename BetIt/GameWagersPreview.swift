@@ -11,8 +11,9 @@ struct GameWagersPreview: View {
     @ObservedObject var wager: WagerModel
     @State var showWagerDetails: Bool = false
     var body: some View {
-        let bgColor = wager.is_active ? Color.gray : Color("Accent")
-        let fgColor = wager.is_active ? Color("Accent") : Color.gray
+        let davysGray = Color(white: 0.342)
+        let bgColor = wager.is_active ? davysGray : Color("Accent2")
+        let fgColor = wager.is_active ? Color("Accent2") : davysGray
             NavigationLink(
                 destination: WagerDetailsView(wager: wager),
                 isActive: $showWagerDetails,
@@ -24,10 +25,11 @@ struct GameWagersPreview: View {
                                 .multilineTextAlignment(.center)
                                 .padding(.all)
                                 .fixedSize(horizontal: false, vertical: true)
-                                .font(.custom("Roboto-Medium", size: 25))
+                                .font(.custom("Roboto-Light", size: 25))
                                 .foregroundColor(fgColor)
-                                .background(
-                                    Capsule().fill(bgColor)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
+                                        .stroke(bgColor, lineWidth: 4)
                                 )
                         }
                     )
