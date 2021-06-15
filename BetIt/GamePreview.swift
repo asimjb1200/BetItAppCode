@@ -30,14 +30,9 @@ struct GamePreview: View {
                     .font(.custom("Roboto-Light", size: 30))
                     .foregroundColor(Color("Accent2"))
                     .multilineTextAlignment(.center)
-                Text("7:30pm ET")
-                    .multilineTextAlignment(.center)
-                    .padding()
-                    .foregroundColor(Color("Accent2"))
-                .font(.custom("Roboto-Light", size: 20))
             }
             .padding()
-            .overlay(
+            .frame(width: 150, height: 150, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
                 RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
                     .stroke(davysGray, lineWidth: 2)
             )

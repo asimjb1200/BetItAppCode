@@ -9,9 +9,15 @@ import SwiftUI
 
 @main
 struct BetItApp: App {
+    @StateObject var user: User = User()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if user.isLoggedIn {
+                ContentView().environmentObject(user)
+            } else {
+                LoginView().environmentObject(user)
+            }
         }
     }
 }

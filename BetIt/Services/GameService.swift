@@ -62,7 +62,7 @@ class GameService {
         }
     }
     
-    func getGamesByDate(date: Date, completion: @escaping (Result<[DBGame], GameFetchError>) -> ()) {
+    func getGamesByDate(token: String, date: Date, completion: @escaping (Result<[DBGame], GameFetchError>) -> ()) {
         self.dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         self.dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
         
@@ -72,7 +72,7 @@ class GameService {
         var request: URLRequest = URLRequest(url: url)
         
         // configure the req authentication
-        request.setValue("Bearer \(self.tempAccessToken)", forHTTPHeaderField: "Authorization")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
         // set up the body of the request
         let body = ["date": stringifiedDate]
@@ -126,7 +126,6 @@ class GameService {
             do {
                 let gamesTodayJson = try Data(contentsOf: fileUrl)
                 let gamesTodayEncoded = try decoder.decode([DBGame].self, from: gamesTodayJson)
-//                print(gamesTodayEncoded)
                 return gamesTodayEncoded
             } catch let err {
                 print("problem reading from file or encoding as game type: \(err)")

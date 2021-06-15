@@ -8,12 +8,12 @@
 import Foundation
 
 class User: ObservableObject, Identifiable, Codable {
-    var username: String
-    @Published var access_token: String
-    @Published var refresh_token: String
+    var username: String = ""
+    @Published var access_token: String = ""
+    @Published var refresh_token: String = ""
     @Published var isLoggedIn = false
-    @Published var exp: Int
-    var wallet_address: String
+    @Published var exp: Int = 0
+    var wallet_address: String = ""
     
     let decoder = JSONDecoder()
     
@@ -31,14 +31,16 @@ class User: ObservableObject, Identifiable, Codable {
         exp = try container.decode(Int.self, forKey: .exp)
 //        isLoggedIn = try container.decode(Bool.self, forKey: .isLoggedIn)
     }
+    
+    init() {}
 
-    init(username: String, access_token: String, refresh_token: String, wallet_address: String, exp: Int) {
-        self.username = username
-        self.access_token = access_token
-        self.refresh_token = refresh_token
-        self.wallet_address = wallet_address
-        self.exp = exp
-    }
+//    init(username: String, access_token: String, refresh_token: String, wallet_address: String, exp: Int) {
+//        self.username = username
+//        self.access_token = access_token
+//        self.refresh_token = refresh_token
+//        self.wallet_address = wallet_address
+//        self.exp = exp
+//    }
     
     func encode(to encoder: Encoder) throws {
         var container = try encoder.container(keyedBy: CodingKeys.self)
@@ -83,12 +85,13 @@ class User: ObservableObject, Identifiable, Codable {
             
             do {
                 let userData = try self.decoder.decode(User.self, from: data)
+                print(userData)
                 completion(.success(userData))
             } catch let error {
                 print("problem occurred when trying to decode the user object: \(error)")
                 completion(.failure(.failure))
             }
-        }
+        }.resume()
     }
     
     func logout() {

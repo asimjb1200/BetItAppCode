@@ -10,6 +10,7 @@ import SwiftUI
 struct UpcomingGames: View {
     @State private var upcomingGames = [DBGame]()
     @State private var gameScheduleDate = Date()
+    @EnvironmentObject var user: User
     private var testGames = [
         DBGame(game_id: 2, sport: "BBall", home_team: 5, visitor_team: 4, game_begins: Date(), home_score: 20, season: 2020),
         DBGame(game_id: 3, sport: "BBall", home_team: 6, visitor_team: 5, game_begins: Date(), home_score: 20, season: 2020),
@@ -25,7 +26,7 @@ struct UpcomingGames: View {
     let range = Date().addingTimeInterval(-604800) ... Date().addingTimeInterval(604800)
     
     let layout = [
-        GridItem(.adaptive(minimum: 100))
+        GridItem(.adaptive(minimum: 150))
     ]
     
     var body: some View {
@@ -36,7 +37,7 @@ struct UpcomingGames: View {
                 .accentColor(accentColor)
                 .onChange(of: gameScheduleDate,perform: { chosenDate in
                     // when the user picks a new date send it to the api to get games on that date
-                    self.getGamesByDate(date: chosenDate)
+                    self.getGamesByDate(token: user.access_token, date: chosenDate)
                 })
         ScrollView {
             LazyVGrid(columns: layout, spacing: 10) {
@@ -45,7 +46,7 @@ struct UpcomingGames: View {
                 }
             }
         }.onAppear() {
-            self.getGamesByDate(date: gameScheduleDate)
+            self.getGamesByDate(token: user.access_token, date: gameScheduleDate)
         }
         }
     }
@@ -65,8 +66,8 @@ extension UpcomingGames {
             })
         }
     
-    func getGamesByDate(date: Date = Date()) {
-        GameService().getGamesByDate(date: date, completion: { (todaysGames) in
+    func getGamesByDate(token: String, date: Date = Date()) {
+        GameService().getGamesByDate(token: token, date: date, completion: { (todaysGames) in
             switch todaysGames {
                 case .success(let scheduleToday):
                     DispatchQueue.main.async {
