@@ -17,7 +17,7 @@ struct WagerDetailsView: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text("You will be betting against: " +  (teams[wager.bettor_chosen_team] ?? "Reload")).foregroundColor(accentColor)
-            Text("Wager Amount: \(wager.game_id) LTC").foregroundColor(accentColor)
+            Text("Wager Amount: \(wager.wager_amount) LTC").foregroundColor(accentColor)
             Text("Amount in USD: $250").foregroundColor(accentColor)
             Button(action: {
                 // TODO: Add logic to save the bet if the fader confirms
@@ -32,10 +32,12 @@ struct WagerDetailsView: View {
                             .stroke(accentColor, lineWidth: 2)
                     )
             })
-        }.padding().overlay(
+        }.padding()
+        .overlay(
             RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
                 .stroke(Color("Accent2"), lineWidth: 4)
-        ).font(.custom("Roboto-Light", size: 20))
+        )
+        .font(.custom("Roboto-Light", size: 20))
     }
 }
 

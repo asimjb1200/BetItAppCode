@@ -88,6 +88,8 @@ class GameService {
         
         // now create the request to be sent
         URLSession.shared.dataTask(with: request) {(data, response, err) in
+//            guard let self = self else { return }
+            
             // check for the OK status code
             guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
                 print("Server error!")

@@ -17,6 +17,8 @@ class User: ObservableObject, Identifiable, Codable {
     
     let decoder = JSONDecoder()
     
+    static let shared = User()
+    
     enum CodingKeys: CodingKey {
         case access_token, refresh_token, username, wallet_address, isLoggedIn, exp
     }

@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct BetItApp: App {
-    @StateObject var user: User = User()
+    @StateObject var user: User = .shared
     
     var body: some Scene {
         WindowGroup {
@@ -17,6 +17,9 @@ struct BetItApp: App {
                 ContentView().environmentObject(user)
             } else {
                 LoginView().environmentObject(user)
+                    .onAppear(){
+                        SocketIOManager.sharedInstance.establishConnection()
+                    }
             }
         }
     }

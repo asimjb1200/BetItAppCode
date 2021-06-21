@@ -18,7 +18,9 @@ struct GameAndWagersView: View {
 
         NavigationView {
                 List(wagersOnGame.wagers) { wager in
-                    GameWagersPreview(wager: wager)
+                    if !wager.is_active {
+                        GameWagersPreview(wager: wager)
+                    }
                 }.onAppear() {
                 self.getWagersByGameId()
                 }

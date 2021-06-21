@@ -77,7 +77,9 @@ class WagerService {
         request.httpBody = bodyData
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        URLSession.shared.dataTask(with: request) { (data, response, error) in
+        URLSession.shared.dataTask(with: request) {[weak self] (data, response, error) in
+            guard let self = self else { return }
+            
             if error != nil {
                 print("there was a big error: \(String(describing: error))")
             }
