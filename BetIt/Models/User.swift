@@ -35,14 +35,6 @@ class User: ObservableObject, Identifiable, Codable {
     }
     
     init() {}
-
-//    init(username: String, access_token: String, refresh_token: String, wallet_address: String, exp: Int) {
-//        self.username = username
-//        self.access_token = access_token
-//        self.refresh_token = refresh_token
-//        self.wallet_address = wallet_address
-//        self.exp = exp
-//    }
     
     func encode(to encoder: Encoder) throws {
         var container = try encoder.container(keyedBy: CodingKeys.self)
@@ -69,6 +61,7 @@ class User: ObservableObject, Identifiable, Codable {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         session.dataTask(with: request) {(data, response, err) in
+//            guard let self = self else {return}
             // check for the OK status code
             guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
                 print("Server error!")
@@ -98,6 +91,10 @@ class User: ObservableObject, Identifiable, Codable {
     
     func logout() {
         
+    }
+    
+    deinit {
+        print("User \(username) is being destroyed")
     }
 }
 

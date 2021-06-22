@@ -9,8 +9,8 @@ import SwiftUI
 
 struct LoginView: View {
     @EnvironmentObject var user: User
-    @State var username: String = ""
-    @State var password: String = ""
+    @State private var username: String = ""
+    @State private var password: String = ""
     var body: some View {
         ZStack {
             Image("AppLogo")
@@ -29,7 +29,7 @@ struct LoginView: View {
                     user.login(username: username, pw: password, completion: { (authedUser) in
                         switch authedUser {
                             case .success(let foundUser):
-                                DispatchQueue.main.async {
+                                DispatchQueue.main.sync {
                                     user.username = foundUser.username
                                     user.access_token = foundUser.access_token
                                     user.refresh_token = foundUser.refresh_token

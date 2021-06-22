@@ -67,6 +67,10 @@ class WagerModel: ObservableObject, Identifiable, Codable{
         try container.encodeIfPresent(bettor_chosen_team, forKey: .bettor_chosen_team)
         try container.encodeIfPresent(escrow_address, forKey: .escrow_address)
     }
+    
+    deinit {
+        print("A wager is being destroyed")
+    }
 }
 
 class GameWagers: ObservableObject {
@@ -86,6 +90,10 @@ class GameWagers: ObservableObject {
                     print(err)
             }
         })
+    }
+    
+    deinit {
+        print("Game wagers is being destroyed")
     }
 }
 
