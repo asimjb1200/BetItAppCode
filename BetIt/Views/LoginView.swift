@@ -29,7 +29,7 @@ struct LoginView: View {
                     user.login(username: username, pw: password, completion: { (authedUser) in
                         switch authedUser {
                             case .success(let foundUser):
-                                DispatchQueue.main.sync {
+                                DispatchQueue.main.async {
                                     user.username = foundUser.username
                                     user.access_token = foundUser.access_token
                                     user.refresh_token = foundUser.refresh_token

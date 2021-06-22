@@ -42,12 +42,11 @@ class User: ObservableObject, Identifiable, Codable {
         try container.encode(refresh_token, forKey: .refresh_token)
         try container.encode(username, forKey: .username)
         try container.encode(wallet_address, forKey: .wallet_address)
-//        try container.encode(isLoggedIn, forKey: .isLoggedIn)
     }
     
     func login(username:String, pw: String, completion: @escaping (Result<User, UserErrors>) -> ()) {
         let url = URL(string: "http://localhost:3000/users/login")!
-        var session = URLSession.shared
+        let session = URLSession.shared
         
         let body = ["username": username, "password": pw]
         guard let bodyData = try? JSONSerialization.data(withJSONObject: body) else {
@@ -60,8 +59,8 @@ class User: ObservableObject, Identifiable, Codable {
         request.httpBody = bodyData
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        session.dataTask(with: request) {(data, response, err) in
-//            guard let self = self else {return}
+        session.dataTask(with: request) {[weak self] (data, response, err) in
+            guard let self = self else {return}
             // check for the OK status code
             guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
                 print("Server error!")

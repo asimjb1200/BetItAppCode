@@ -14,9 +14,11 @@ struct BetItApp: App {
     var body: some Scene {
         WindowGroup {
             if user.isLoggedIn {
-                ContentView().environmentObject(user)
+                ContentView()
+                    .environmentObject(user)
             } else {
-                LoginView().environmentObject(user)
+                LoginView()
+                    .environmentObject(user)
                     .onAppear(){
                         SocketIOManager.sharedInstance.establishConnection()
                     }

@@ -15,6 +15,7 @@ struct GameWagersPreview: View {
         let davysGray = Color(white: 0.342)
         let bgColor = wager.is_active ? davysGray : Color("Accent2")
         let fgColor = wager.is_active ? Color("Accent2") : davysGray
+        if !wager.is_active {
             NavigationLink(
                 destination: WagerDetailsView(wager: wager),
                 isActive: $showWagerDetails,
@@ -32,10 +33,11 @@ struct GameWagersPreview: View {
                                     RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
                                         .stroke(bgColor, lineWidth: 4)
                                 )
-                        }
+                            }
                     )
                 }
-            )
+            ).transition(.slide)
+        }
     }
 }
 

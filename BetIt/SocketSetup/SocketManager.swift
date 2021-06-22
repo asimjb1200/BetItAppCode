@@ -36,20 +36,14 @@ final class SocketIOManager: ObservableObject {
         socket.on("wager updated") { data, ack in
             do {
                 guard let dict = data[0] as? [String: Any] else { return }
-//                let wagerData = try WagerModel(from: dict["wager"] as! Decoder)
                 let wagerData = try JSONSerialization.data(withJSONObject: dict["wager"] as Any, options: [])
                 let decoded = try JSONDecoder().decode(WagerModel.self, from: wagerData)
                 completionHandler(.success(decoded))
             } catch let err {
                 print(err)
             }
-            
-//            guard let dict = data.first as? [String: Any] else { return }
-//            guard let updatedWager: WagerModel = (dict["wager"] as? WagerModel) else {
-//                return
-//            }
-//            print(updatedWager)
-//            completionHandler(.success(updatedWager))
         }
     }
+    
+    
 }

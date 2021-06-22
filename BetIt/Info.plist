@@ -48,6 +48,10 @@
 	</array>
 	<key>UIAppFonts</key>
 	<array>
+		<string>MontserratAlternates-Light.ttf</string>
+		<string>MontserratAlternates-Regular.ttf</string>
+		<string>MontserratAlternates-ThinItalic.ttf</string>
+		<string>MontserratAlternates-Thin.ttf</string>
 		<string>Roboto-Medium.ttf</string>
 		<string>Roboto-Light.ttf</string>
 	</array>

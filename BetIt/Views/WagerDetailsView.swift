@@ -9,9 +9,11 @@ import SwiftUI
 
 struct WagerDetailsView: View {
     @ObservedObject var wager: WagerModel
+    @ObservedObject var wagersOnGame: GameWagers = .shared
     @EnvironmentObject var user: User
     @State private var buttonPressed: Bool = false
     @State private var showingAlert = false
+    @State private var dataSubmitted = false
     let teams = TeamsMapper().Teams
     let accentColor = Color("Accent2")
     let davysGray = Color(white: 0.342)
@@ -22,12 +24,18 @@ struct WagerDetailsView: View {
             Text("Wager Amount: \(wager.wager_amount) LTC").foregroundColor(accentColor)
             Text("Amount in USD: $250").foregroundColor(accentColor)
             Button(action: {
+                // quick check to see if bet is still open
                 
-                // TODO: Add logic to save the bet if the fader confirms
+                // Add logic to save the bet if the fader confirms
                 self.updateWager()
                 
                 // disable the button to prevent double submittal
                 buttonPressed.toggle()
+                
+                // inform the user that the bet has been successfully submitted
+                dataSubmitted.toggle()
+                showingAlert.toggle()
+                
             }, label: {
                 Text("Take this bet")
                     .padding()
@@ -38,8 +46,21 @@ struct WagerDetailsView: View {
                     )
             })
             .alert(isPresented: $showingAlert) {
-                        Alert(title: Text("Important message"), message: Text("You can't take your own bet. Go back and choose another one."), dismissButton: .default(Text("Got it!")))
-                    }
+                if self.dataSubmitted {
+                    return  Alert(
+                                    title: Text("Important message"),
+                                    message: Text("The wager is now active. The wager amount will be sent to escrow from your wallet. Once the game is over, the person who chose the correct team will have their wallet funded with the winnings."),
+                                    dismissButton: .default(Text("Got it!"))
+                            )
+                } else {
+                    return  Alert(
+                                    title: Text("Important message"),
+                                    message: Text("You can't take your own bet. Go back and choose another one."),
+                                    dismissButton: .default(Text("Got it!"))
+                            )
+                }
+                
+            }
         }.padding()
         .overlay(
             RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
@@ -49,8 +70,8 @@ struct WagerDetailsView: View {
         .disabled(buttonPressed)
         .onAppear() {
             if (bettorAndFaderAddressMatch()) {
-                self.showingAlert.toggle()
                 self.buttonPressed.toggle()
+                self.showingAlert.toggle()
             }
         }
     }
@@ -60,13 +81,15 @@ extension WagerDetailsView {
     func updateWager() {
         WagerService().updateWager(token: user.access_token, wagerId: wager.id, fader: user.wallet_address, completion: { (updatedWager) in
             switch updatedWager {
-                case .success(let newWager):
-                    DispatchQueue.main.async {
-                        wager.fader = newWager.fader
-                        wager.is_active = true
-                    }
-                case .failure(let err):
-                    print(err)
+            case .success(let newWager):
+                DispatchQueue.main.async {
+                    //                        wager.fader = newWager.fader
+                    //                        wager.is_active = true
+                    // remove the wager from the list of wagers
+                    self.wagersOnGame.wagers = self.wagersOnGame.wagers.filter{$0.id != newWager.id}
+                }
+            case .failure(let err):
+                print(err)
             }
         })
     }

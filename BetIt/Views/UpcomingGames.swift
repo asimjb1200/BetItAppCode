@@ -22,8 +22,8 @@ struct UpcomingGames: View {
     let pastDays = Date().addingTimeInterval(-604800)
     
     // add 7 days to the current date
-//    let range = Date() ... Date().addingTimeInterval(604800)
-    let range = Date().addingTimeInterval(-1004800) ... Date().addingTimeInterval(604800)
+    let range = Date() ... Date().addingTimeInterval(604800)
+//    let range = Date().addingTimeInterval(-1004800) ... Date().addingTimeInterval(604800)
     
     let layout = [
         GridItem(.adaptive(minimum: 150))
