@@ -9,16 +9,16 @@ import SwiftUI
 
 @main
 struct BetItApp: App {
-    @StateObject var user: User = .shared
+    @StateObject var userManager: UserManager = UserManager.shared
     
     var body: some Scene {
         WindowGroup {
-            if user.isLoggedIn {
+            if userManager.user.isLoggedIn {
                 ContentView()
-                    .environmentObject(user)
+                    .environmentObject(userManager)
             } else {
                 LoginView()
-                    .environmentObject(user)
+                    .environmentObject(userManager)
                     .onAppear(){
                         SocketIOManager.sharedInstance.establishConnection()
                     }

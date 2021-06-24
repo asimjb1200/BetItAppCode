@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct LoginView: View {
-    @EnvironmentObject var user: User
+//    @EnvironmentObject var user: User
+    @EnvironmentObject var userManager: UserManager
     @State private var username: String = ""
     @State private var password: String = ""
     var body: some View {
@@ -26,15 +27,16 @@ struct LoginView: View {
                     .background(Capsule().fill(Color(white: 0.3, opacity: 0.734)))
                     .frame(width: 300.0)
                 Button(action: {
-                    user.login(username: username, pw: password, completion: { (authedUser) in
+                    userManager.user.login(username: username, pw: password, completion: { (authedUser) in
                         switch authedUser {
                             case .success(let foundUser):
                                 DispatchQueue.main.async {
-                                    user.username = foundUser.username
-                                    user.access_token = foundUser.access_token
-                                    user.refresh_token = foundUser.refresh_token
-                                    user.wallet_address = foundUser.wallet_address
-                                    user.isLoggedIn = true
+//                                    userManager.user.username = foundUser.username
+//                                    userManager.user.access_token = foundUser.access_token
+//                                    userManager.user.refresh_token = foundUser.refresh_token
+//                                    userManager.user.wallet_address = foundUser.wallet_address
+//                                    userManager.user.isLoggedIn = true
+                                    self.userManager.updateUser(username: foundUser.username, access_token: foundUser.access_token, refresh_token: foundUser.refresh_token, wallet_address: foundUser.wallet_address)
                                 }
                             case .failure(let err):
                                 print(err)

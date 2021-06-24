@@ -33,8 +33,7 @@ class GameService {
                 
                 // check for the OK status code
                 guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
-                                print("Server error!")
-                                return
+                    return
                 }
                 
                 guard let data = data else {

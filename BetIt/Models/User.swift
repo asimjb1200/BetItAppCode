@@ -8,21 +8,21 @@
 import Foundation
 
 class User: ObservableObject, Identifiable, Codable {
-    var username: String = ""
+    @Published var username: String = ""
     @Published var access_token: String = ""
     @Published var refresh_token: String = ""
     @Published var isLoggedIn = false
-    @Published var exp: Int = 0
-    var wallet_address: String = ""
-    
+    var exp: Int = 0
+    @Published var wallet_address: String = ""
+
     let decoder = JSONDecoder()
-    
+
     static let shared = User()
-    
+
     enum CodingKeys: CodingKey {
         case access_token, refresh_token, username, wallet_address, isLoggedIn, exp
     }
-    
+
     // tell swift how to decode data into the published types
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -33,9 +33,9 @@ class User: ObservableObject, Identifiable, Codable {
         exp = try container.decode(Int.self, forKey: .exp)
 //        isLoggedIn = try container.decode(Bool.self, forKey: .isLoggedIn)
     }
-    
+
     init() {}
-    
+
     func encode(to encoder: Encoder) throws {
         var container = try encoder.container(keyedBy: CodingKeys.self)
         try container.encode(access_token, forKey: .access_token)
@@ -43,22 +43,22 @@ class User: ObservableObject, Identifiable, Codable {
         try container.encode(username, forKey: .username)
         try container.encode(wallet_address, forKey: .wallet_address)
     }
-    
+
     func login(username:String, pw: String, completion: @escaping (Result<User, UserErrors>) -> ()) {
         let url = URL(string: "http://localhost:3000/users/login")!
         let session = URLSession.shared
-        
+
         let body = ["username": username, "password": pw]
         guard let bodyData = try? JSONSerialization.data(withJSONObject: body) else {
             print("Unable to serialize into JSON")
             return
         }
-        
+
         var request: URLRequest = URLRequest(url: url)
         request.httpMethod = "POST"
         request.httpBody = bodyData
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
+
         session.dataTask(with: request) {[weak self] (data, response, err) in
             guard let self = self else {return}
             // check for the OK status code
@@ -66,17 +66,17 @@ class User: ObservableObject, Identifiable, Codable {
                 print("Server error!")
                 return
             }
-            
+
             if err != nil || data == nil {
                 print("there was a big error: \(String(describing: err))")
                 completion(.failure(.failure))
             }
-            
+
             guard let data = data else {
                 completion(.failure(.failure))
                 return
             }
-            
+
             do {
                 let userData = try self.decoder.decode(User.self, from: data)
                 print(userData)
@@ -87,15 +87,32 @@ class User: ObservableObject, Identifiable, Codable {
             }
         }.resume()
     }
-    
+
     func logout() {
-        
+
     }
-    
+
     deinit {
         print("User \(username) is being destroyed")
     }
 }
+
+class UserManager: ObservableObject {
+    @Published var user: User = User()
+    static let shared = UserManager()
+    
+    private init() {
+    }
+    
+    func updateUser(username: String, access_token: String, refresh_token: String, wallet_address: String) {
+        self.user.username = username
+        self.user.access_token = access_token
+        self.user.refresh_token = refresh_token
+        self.user.wallet_address = wallet_address
+        self.user.isLoggedIn = true
+        objectWillChange.send()
+    }
+}  
 
 enum UserErrors: String, Error {
     case success = "Successfully logged in user"

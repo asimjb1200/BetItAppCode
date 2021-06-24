@@ -9,7 +9,8 @@ import SwiftUI
 
 struct GameAndWagersView: View {
     @ObservedObject var wagersOnGame: GameWagers = .shared
-    @EnvironmentObject var user: User
+//    @EnvironmentObject var user: User
+    @EnvironmentObject var userManager: UserManager
     var selectedGame: DBGame
     private let Teams: [UInt8: String] = TeamsMapper().Teams
     
@@ -29,7 +30,7 @@ struct GameAndWagersView: View {
 
 extension GameAndWagersView {
     func getWagersByGameId() {
-        WagerService().getWagersForGameId(token: user.access_token, gameId: selectedGame.game_id, completion: { (wagers) in
+        WagerService().getWagersForGameId(token: userManager.user.access_token, gameId: selectedGame.game_id, completion: { (wagers) in
             switch wagers {
             case .success(let gameWagers):
                 DispatchQueue.main.async {
