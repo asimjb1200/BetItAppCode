@@ -52,13 +52,7 @@ struct UpcomingGames: View {
                     self.getGamesByDate(token: userManager.user.access_token, date: gameScheduleDate)
                 }
             } else {
-                Text("No games available for: \(dateFormatting(date: gameScheduleDate))")
-                    .bold()
-                    .font(.custom("MontserratAlternates-Regular", size: 30))
-                    .foregroundColor(Color("Accent2"))
-                Text("Try another date.")
-                    .font(.custom("MontserratAlternates-Thin", size: 20))
-                
+                GamesNotFound(date: dateFormatting(date: gameScheduleDate))
             }
         }
     }
