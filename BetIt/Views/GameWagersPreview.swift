@@ -16,27 +16,24 @@ struct GameWagersPreview: View {
         let bgColor = wager.is_active ? davysGray : Color("Accent2")
         let fgColor = wager.is_active ? Color("Accent2") : davysGray
         if !wager.is_active {
-            NavigationLink(
-                destination: WagerDetailsView(wager: wager),
-                isActive: $showWagerDetails,
-                label: {
-                    Button(action: {
-                            self.showWagerDetails.toggle()
-                        }, label: {
-                            Text("\(wager.wager_amount) Ltc \n Bettor's Pick: \(teams[wager.bettor_chosen_team] ?? "can't find team")")
-                                .multilineTextAlignment(.center)
-                                .padding(.all)
-                                .fixedSize(horizontal: false, vertical: true)
-                                .font(.custom("Roboto-Light", size: 25))
-                                .foregroundColor(fgColor)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
-                                        .stroke(bgColor, lineWidth: 4)
-                                )
-                            }
-                    )
-                }
-            ).transition(.slide)
+            VStack {
+                NavigationLink( destination: WagerDetailsView(wager: wager),isActive: $showWagerDetails) {EmptyView()}.hidden()
+                Button(action: {
+                        self.showWagerDetails = true
+                    }, label: {
+                        Text("\(wager.wager_amount) Ltc \n Bettor's Pick: \(teams[wager.bettor_chosen_team] ?? "can't find team")")
+                            .multilineTextAlignment(.center)
+                            .padding(.all)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .font(.custom("MontserratAlternates-Regular", size: 25))
+                            .foregroundColor(fgColor)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
+                                    .stroke(bgColor, lineWidth: 4)
+                            )
+                    }
+                )
+            }
         }
     }
 }

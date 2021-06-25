@@ -11,26 +11,16 @@ class WagerService {
     let decoder = JSONDecoder()
     let dateFormatter = DateFormatter()
     let tempAccessToken = ""
+    let networker: Networker = .shared
     
     func getWagersForGameId(token: String, gameId: UInt, completion: @escaping (Result<[WagerModel], WagerErrors>) -> ()) {
-        let url = URL(string: "http://localhost:3000/wager-handler/get-wagers-by-game")!
-        var request: URLRequest = URLRequest(url: url)
-        
-        
-        // configure the req authentication
-        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        
+
+        let reqWithoutBody = networker.constructRequest(uri: "http://localhost:3000/wager-handler/get-wagers-by-game", token: token, post: true)
+      
         // set up the body of the request
         let body = ["gameId": gameId]
-        guard let bodyData = try? JSONSerialization.data(withJSONObject: body) else {
-            print("unable to turn data into JSON")
-            return
-        }
         
-        // change the URL request method to 'POST'
-        request.httpMethod = "POST"
-        request.httpBody = bodyData
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        let request = networker.buildReqBody(req: reqWithoutBody, body: body)
         
         // now set up the api hit
         URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -59,35 +49,33 @@ class WagerService {
     
     func updateWager(token: String, wagerId: Int, fader: String, completion: @escaping (Result<WagerModel, WagerErrors>) -> ()) {
         // TODO: add code that posts the updated wager to the back end
-        let url = URL(string: "http://localhost:3000/wager-handler/add-fader-to-wager")!
-        var request: URLRequest = URLRequest(url: url)
+        let reqWithoutBody = networker.constructRequest(uri: "http://localhost:3000/wager-handler/add-fader-to-wager", token: token, post: true)
         
         let body: [String : Any] = ["wager_id": wagerId, "fader_address": fader]
-        
-        guard let bodyData = try? JSONSerialization.data(withJSONObject: body) else {
-            print("unable to turn data into JSON")
-            return
-        }
-        
-        // configure the req authentication
-        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        
-        // change the URL request method to 'POST'
-        request.httpMethod = "POST"
-        request.httpBody = bodyData
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
+        let request = networker.buildReqBody(req: reqWithoutBody, body: body)
+ 
         URLSession.shared.dataTask(with: request) {[weak self] (data, response, error) in
             guard let self = self else { return }
             
             if error != nil {
                 print("there was a big error: \(String(describing: error))")
             }
-            guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
-                print("Server error!")
+//            guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
+//                print("Server error!")
+//                return
+//            }
+            guard let response = response as? HTTPURLResponse else {
+                completion(.failure(.generalError))
                 return
             }
             
+            let isOK = self.networker.checkOkStatus(res: response)
+            if !isOK {
+                completion(.failure(.generalError))
+                return
+            }
+            
+            // unwrapping the optional
             guard let data = data else {
                 completion(.failure(.generalError))
                 return

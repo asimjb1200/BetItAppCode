@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct GameAndWagersView: View {
-    @ObservedObject var wagersOnGame: GameWagers = .shared
-//    @EnvironmentObject var user: User
-    @EnvironmentObject var userManager: UserManager
+    @ObservedObject private var wagersOnGame: GameWagers = .shared
+    //    @EnvironmentObject var user: User
+    @EnvironmentObject private var userManager: UserManager
+    @State private var wagersNotFound: Bool = false
     var selectedGame: DBGame
     private let Teams: [UInt8: String] = TeamsMapper().Teams
     
@@ -18,12 +19,23 @@ struct GameAndWagersView: View {
         let gameHeader = "\(Teams[selectedGame.home_team]!) vs. \(Teams[selectedGame.visitor_team]!)"
         
         NavigationView {
-            List(wagersOnGame.wagers) { wager in
-                GameWagersPreview(wager: wager).transition(.slide)
-            }.onAppear() {
-                self.getWagersByGameId()
+            if wagersNotFound {
+                VStack {
+                    Text("No wagers available for this game yet.")
+                        .bold()
+                        .font(.custom("MontserratAlternates-Regular", size: 30))
+                        .foregroundColor(Color("Accent2"))
+                    Text("Be the first to create one!")
+                        .font(.custom("MontserratAlternates-Thin", size: 20))
+                        .foregroundColor(Color("Accent2"))
+                }.navigationTitle(gameHeader)
+            } else {
+                List(wagersOnGame.wagers) { wager in
+                    GameWagersPreview(wager: wager)
+                }.onAppear() {
+                    self.getWagersByGameId()
+                }.navigationTitle(gameHeader)
             }
-            .navigationTitle(gameHeader)
         }
     }
 }
@@ -33,8 +45,13 @@ extension GameAndWagersView {
         WagerService().getWagersForGameId(token: userManager.user.access_token, gameId: selectedGame.game_id, completion: { (wagers) in
             switch wagers {
             case .success(let gameWagers):
-                DispatchQueue.main.async {
-                    self.wagersOnGame.wagers = gameWagers
+                if gameWagers.isEmpty {
+                    self.wagersNotFound = true
+                } else {
+                    self.wagersNotFound = false
+                    DispatchQueue.main.async {
+                        self.wagersOnGame.wagers = gameWagers
+                    }
                 }
             case .failure(let err):
                 print("error occurred: \(err)")

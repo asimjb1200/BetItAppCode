@@ -12,12 +12,11 @@ class User: ObservableObject, Identifiable, Codable {
     @Published var access_token: String = ""
     @Published var refresh_token: String = ""
     @Published var isLoggedIn = false
-    var exp: Int = 0
+    @Published var exp: Int = 0
     @Published var wallet_address: String = ""
 
     let decoder = JSONDecoder()
-
-    static let shared = User()
+    let networker: Networker = .shared
 
     enum CodingKeys: CodingKey {
         case access_token, refresh_token, username, wallet_address, isLoggedIn, exp
@@ -45,19 +44,10 @@ class User: ObservableObject, Identifiable, Codable {
     }
 
     func login(username:String, pw: String, completion: @escaping (Result<User, UserErrors>) -> ()) {
-        let url = URL(string: "http://localhost:3000/users/login")!
+        let reqWithoutBody = networker.constructRequest(uri: "http://localhost:3000/users/login", token: self.access_token, post: true)
         let session = URLSession.shared
-
         let body = ["username": username, "password": pw]
-        guard let bodyData = try? JSONSerialization.data(withJSONObject: body) else {
-            print("Unable to serialize into JSON")
-            return
-        }
-
-        var request: URLRequest = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.httpBody = bodyData
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        let request = networker.buildReqBody(req: reqWithoutBody, body: body)
 
         session.dataTask(with: request) {[weak self] (data, response, err) in
             guard let self = self else {return}
@@ -91,6 +81,10 @@ class User: ObservableObject, Identifiable, Codable {
     func logout() {
 
     }
+    
+    func checkWalletBalance() {
+        
+    }
 
     deinit {
         print("User \(username) is being destroyed")
@@ -104,11 +98,12 @@ class UserManager: ObservableObject {
     private init() {
     }
     
-    func updateUser(username: String, access_token: String, refresh_token: String, wallet_address: String) {
+    func updateUser(username: String, access_token: String, refresh_token: String, wallet_address: String, exp: Int) {
         self.user.username = username
         self.user.access_token = access_token
         self.user.refresh_token = refresh_token
         self.user.wallet_address = wallet_address
+        self.user.exp = exp
         self.user.isLoggedIn = true
         objectWillChange.send()
     }

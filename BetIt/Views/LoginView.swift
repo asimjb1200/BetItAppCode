@@ -12,6 +12,7 @@ struct LoginView: View {
     @EnvironmentObject var userManager: UserManager
     @State private var username: String = ""
     @State private var password: String = ""
+    @State private var invalidLogin: Bool = false
     var body: some View {
         ZStack {
             Image("AppLogo")
@@ -27,16 +28,15 @@ struct LoginView: View {
                     .background(Capsule().fill(Color(white: 0.3, opacity: 0.734)))
                     .frame(width: 300.0)
                 Button(action: {
+                    guard !username.isEmpty, !password.isEmpty else {
+                        invalidLogin.toggle()
+                        return
+                    }
                     userManager.user.login(username: username, pw: password, completion: { (authedUser) in
                         switch authedUser {
                             case .success(let foundUser):
                                 DispatchQueue.main.async {
-//                                    userManager.user.username = foundUser.username
-//                                    userManager.user.access_token = foundUser.access_token
-//                                    userManager.user.refresh_token = foundUser.refresh_token
-//                                    userManager.user.wallet_address = foundUser.wallet_address
-//                                    userManager.user.isLoggedIn = true
-                                    self.userManager.updateUser(username: foundUser.username, access_token: foundUser.access_token, refresh_token: foundUser.refresh_token, wallet_address: foundUser.wallet_address)
+                                    self.userManager.updateUser(username: foundUser.username, access_token: foundUser.access_token, refresh_token: foundUser.refresh_token, wallet_address: foundUser.wallet_address, exp: foundUser.exp)
                                 }
                             case .failure(let err):
                                 print(err)
@@ -50,6 +50,9 @@ struct LoginView: View {
                         )
                         .foregroundColor(.black)
                 })
+                .alert(isPresented: $invalidLogin) {
+                    Alert(title: Text("No Login Info"), message: Text("Please fill out the login fields"), dismissButton: .default(Text("OK")))
+                }
             }.offset(y: 175)
         }
     }

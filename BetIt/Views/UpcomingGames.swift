@@ -52,7 +52,7 @@ struct UpcomingGames: View {
                     self.getGamesByDate(token: userManager.user.access_token, date: gameScheduleDate)
                 }
             } else {
-                Text("No games available for this date.")
+                Text("No games available for: \(dateFormatting(date: gameScheduleDate))")
                     .bold()
                     .font(.custom("MontserratAlternates-Regular", size: 30))
                     .foregroundColor(Color("Accent2"))
@@ -78,16 +78,26 @@ extension UpcomingGames {
         })
     }
     
+    func dateFormatting(date: Date) -> String {
+        // Create Date Formatter
+        let dateFormatter = DateFormatter()
+
+        // Set Date Format
+        dateFormatter.dateFormat = "MM/dd/YY"
+        
+        // Convert Date to String
+        return dateFormatter.string(from: date)
+    }
+    
     func getGamesByDate(token: String, date: Date = Date()) {
         GameService().getGamesByDate(token: token, date: date, completion: { (todaysGames) in
             switch todaysGames {
             case .success(let scheduleToday):
-                DispatchQueue.main.async {
-                    print(scheduleToday)
-                    if scheduleToday.isEmpty {
-                        self.gamesAvailable = false
-                    } else {
-                        self.gamesAvailable = true
+                if scheduleToday.isEmpty {
+                    self.gamesAvailable = false
+                } else {
+                    self.gamesAvailable = true
+                    DispatchQueue.main.async { // this block is running twice for some reason
                         self.upcomingGames = scheduleToday
                     }
                 }

@@ -14,6 +14,7 @@ class GameService {
     let decoder = JSONDecoder()
     let dateFormatter = DateFormatter()
     let tempAccessToken = ""
+    let networker: Networker = .shared
     
     func getUpcomingGames(completion: @escaping (Result<[DBGame], CustomError>) -> Void) {
         let url = URL(string: "http://localhost:3000/sports-handler/bball/games-this-week")!
@@ -66,29 +67,17 @@ class GameService {
         self.dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
         
         let stringifiedDate = self.dateFormatter.string(from: date)
-        // start preparing the  url request
-        let url: URL = URL(string: "http://localhost:3000/sports-handler/bball/games-by-date")!
-        var request: URLRequest = URLRequest(url: url)
-        
-        // configure the req authentication
-        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
         // set up the body of the request
         let body = ["date": stringifiedDate]
-        guard let bodyData = try? JSONSerialization.data(withJSONObject: body) else {
-            print("unable to turn data into JSON")
-            return
-        }
         
-        // change the URL request method to 'POST'
-        request.httpMethod = "POST"
-        request.httpBody = bodyData
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        // start preparing the url request
+        let reqWithoutBody = networker.constructRequest(uri: "http://localhost:3000/sports-handler/bball/games-by-date", token: token, post: true)
+        
+        let request = networker.buildReqBody(req: reqWithoutBody, body: body)
         
         // now create the request to be sent
         URLSession.shared.dataTask(with: request) {(data, response, err) in
-//            guard let self = self else { return }
-            
             // check for the OK status code
             guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
                 print("Server error!")

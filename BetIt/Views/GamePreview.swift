@@ -19,7 +19,7 @@ struct GamePreview: View {
         }, label: {
             VStack(alignment: .center, spacing: 0.0) {
                 Text(teams[currentGame.home_team] ?? "Retry Request")
-                    .font(.custom("Roboto-Light", size: 30))
+                    .font(.custom("MontserratAlternates-Regular", size: 25))
                     .foregroundColor(Color("Accent2"))
                     .multilineTextAlignment(.center)
                 
@@ -27,7 +27,7 @@ struct GamePreview: View {
                     .foregroundColor(Color("Accent2"))
                 
                 Text(teams[currentGame.visitor_team] ?? "Retry Request")
-                    .font(.custom("Roboto-Light", size: 30))
+                    .font(.custom("MontserratAlternates-Regular", size: 25))
                     .foregroundColor(Color("Accent2"))
                     .multilineTextAlignment(.center)
             }
