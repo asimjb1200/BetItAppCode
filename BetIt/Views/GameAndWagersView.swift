@@ -20,15 +20,8 @@ struct GameAndWagersView: View {
         
         NavigationView {
             if wagersNotFound {
-                VStack {
-                    Text("No wagers available for this game yet.")
-                        .bold()
-                        .font(.custom("MontserratAlternates-Regular", size: 30))
-                        .foregroundColor(Color("Accent2"))
-                    Text("Be the first to create one!")
-                        .font(.custom("MontserratAlternates-Thin", size: 20))
-                        .foregroundColor(Color("Accent2"))
-                }.navigationTitle(gameHeader)
+                WagersNotFound()
+                .navigationTitle(gameHeader)
             } else {
                 List(wagersOnGame.wagers) { wager in
                     GameWagersPreview(wager: wager)
