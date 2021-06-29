@@ -10,8 +10,7 @@ import SwiftUI
 struct WagerDetailsView: View {
     @ObservedObject var wager: WagerModel
     @ObservedObject var wagersOnGame: GameWagers = .shared
-//    @EnvironmentObject var user: User
-    @EnvironmentObject var userManager: UserManager
+    @EnvironmentObject var user: UserModel
     @State private var buttonPressed: Bool = false
     @State private var showingAlert = false
     @State private var dataSubmitted = false
@@ -80,11 +79,6 @@ struct WagerDetailsView: View {
 
 extension WagerDetailsView {
     func updateWager() {
-        guard
-            let user = userManager.user
-        else
-            { return }
-        
         WagerService().updateWager(token: user.accessToken, wagerId: wager.id, fader: user.walletAddress, completion: { (updatedWager) in
             switch updatedWager {
             case .success(let newWager):
@@ -101,7 +95,7 @@ extension WagerDetailsView {
     }
     
     func bettorAndFaderAddressMatch() -> Bool {
-        return userManager.user?.walletAddress == wager.bettor ? true : false
+        return user.walletAddress == wager.bettor ? true : false
     }
 }
 

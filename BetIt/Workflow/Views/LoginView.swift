@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LoginView: View {
-    @EnvironmentObject var userManager: UserManager
+    @EnvironmentObject var user: UserModel
     @State private var username: String = ""
     @State private var password: String = ""
     @State private var invalidLogin: Bool = false
@@ -31,11 +31,12 @@ struct LoginView: View {
                         invalidLogin.toggle()
                         return
                     }
-                    userManager.login(username: username, pw: password, completion: { (authedUser) in
+                    UserNetworking().login(username: username, pw: password, completion: { (authedUser) in
+                        print("login pressed")
                         switch authedUser {
                             case .success(let foundUser):
                                 DispatchQueue.main.async {
-                                    self.userManager.updateUser(with: foundUser)
+                                    user.logUserIn(usr: foundUser)
                                 }
                             case .failure(let err):
                                 print(err)

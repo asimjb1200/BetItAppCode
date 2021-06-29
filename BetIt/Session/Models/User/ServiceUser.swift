@@ -18,7 +18,7 @@ struct ServiceUser: UserProtocol, Codable, HasJSONEncoder, HasJSONDecoder {
 
 extension ServiceUser {
     
-    static func from(_ user: User) -> ServiceUser {
+    static func from(_ user: UserModel) -> ServiceUser {
         
         return .init(
             username: user.username,
