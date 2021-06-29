@@ -11,7 +11,6 @@ struct UpcomingGames: View {
     @State private var upcomingGames = [DBGame]()
     @State private var gameScheduleDate = Date()
     @State private var gamesAvailable = true
-    //    @EnvironmentObject var user: User
     @EnvironmentObject var userManager: UserManager
     private var testGames = [
         DBGame(game_id: 2, sport: "BBall", home_team: 5, visitor_team: 4, game_begins: Date(), home_score: 20, season: 2020),
@@ -39,7 +38,7 @@ struct UpcomingGames: View {
                 .accentColor(accentColor)
                 .onChange(of: gameScheduleDate,perform: { chosenDate in
                     // when the user picks a new date send it to the api to get games on that date
-                    self.getGamesByDate(token: userManager.user.access_token, date: chosenDate)
+                    self.getGamesByDate(date: chosenDate)
                 })
             if gamesAvailable {
                 ScrollView {
@@ -49,7 +48,9 @@ struct UpcomingGames: View {
                         }
                     }
                 }.onAppear() {
-                    self.getGamesByDate(token: userManager.user.access_token, date: gameScheduleDate)
+                    if self.upcomingGames.isEmpty {
+                        self.getGamesByDate(date: gameScheduleDate)
+                    }
                 }
             } else {
                 GamesNotFound(date: dateFormatting(date: gameScheduleDate))
@@ -83,8 +84,9 @@ extension UpcomingGames {
         return dateFormatter.string(from: date)
     }
     
-    func getGamesByDate(token: String, date: Date = Date()) {
-        GameService().getGamesByDate(token: token, date: date, completion: { (todaysGames) in
+    func getGamesByDate(date: Date = Date()) {
+        guard let user = userManager.user else {return}
+        GameService().getGamesByDate(token: user.accessToken, date: date, completion: { (todaysGames) in
             switch todaysGames {
             case .success(let scheduleToday):
                 if scheduleToday.isEmpty {

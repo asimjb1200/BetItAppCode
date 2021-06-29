@@ -9,12 +9,17 @@
 /* Begin PBXBuildFile section */
 		6810217C26699CB3006BF130 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6810217B26699CB3006BF130 /* Roboto-Medium.ttf */; };
 		68189DBB266B3E6100D767C4 /* Wagers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68189DBA266B3E6100D767C4 /* Wagers.swift */; };
+		681AD4A6268B6C8700EE4348 /* ServiceUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681AD4A5268B6C8700EE4348 /* ServiceUser.swift */; };
+		681AD4A8268B6CAA00EE4348 /* UserProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681AD4A7268B6CAA00EE4348 /* UserProtocol.swift */; };
+		681AD4AA268B6CE500EE4348 /* UserErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681AD4A9268B6CE500EE4348 /* UserErrors.swift */; };
+		681AD4AC268B6D1200EE4348 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681AD4AB268B6D1200EE4348 /* UserManager.swift */; };
+		681AD4AF268B6DD600EE4348 /* HasJSONEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681AD4AE268B6DD600EE4348 /* HasJSONEncoder.swift */; };
+		681AD4B1268B6DED00EE4348 /* HasJSONDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681AD4B0268B6DED00EE4348 /* HasJSONDecoder.swift */; };
 		6835648B2662BF7900344E6C /* BetItApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835648A2662BF7900344E6C /* BetItApp.swift */; };
 		6835648D2662BF7900344E6C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835648C2662BF7900344E6C /* ContentView.swift */; };
 		6835648F2662BF7B00344E6C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6835648E2662BF7B00344E6C /* Assets.xcassets */; };
 		683564922662BF7B00344E6C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 683564912662BF7B00344E6C /* Preview Assets.xcassets */; };
 		6835649D2662BF7B00344E6C /* BetItTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835649C2662BF7B00344E6C /* BetItTests.swift */; };
-		683564A82662BF7B00344E6C /* BetItUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683564A72662BF7B00344E6C /* BetItUITests.swift */; };
 		685E8E312677EFD8006AA79E /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685E8E302677EFD8006AA79E /* LoginView.swift */; };
 		686D492226641DE100605AD5 /* GameService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686D492126641DE100605AD5 /* GameService.swift */; };
 		687A851A2680D605003732B1 /* SocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687A85192680D605003732B1 /* SocketManager.swift */; };
@@ -61,6 +66,12 @@
 /* Begin PBXFileReference section */
 		6810217B26699CB3006BF130 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		68189DBA266B3E6100D767C4 /* Wagers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wagers.swift; sourceTree = "<group>"; };
+		681AD4A5268B6C8700EE4348 /* ServiceUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceUser.swift; sourceTree = "<group>"; };
+		681AD4A7268B6CAA00EE4348 /* UserProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProtocol.swift; sourceTree = "<group>"; };
+		681AD4A9268B6CE500EE4348 /* UserErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserErrors.swift; sourceTree = "<group>"; };
+		681AD4AB268B6D1200EE4348 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		681AD4AE268B6DD600EE4348 /* HasJSONEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasJSONEncoder.swift; sourceTree = "<group>"; };
+		681AD4B0268B6DED00EE4348 /* HasJSONDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasJSONDecoder.swift; sourceTree = "<group>"; };
 		683564872662BF7900344E6C /* BetIt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BetIt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6835648A2662BF7900344E6C /* BetItApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetItApp.swift; sourceTree = "<group>"; };
 		6835648C2662BF7900344E6C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -71,8 +82,6 @@
 		6835649C2662BF7B00344E6C /* BetItTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetItTests.swift; sourceTree = "<group>"; };
 		6835649E2662BF7B00344E6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		683564A32662BF7B00344E6C /* BetItUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BetItUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		683564A72662BF7B00344E6C /* BetItUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetItUITests.swift; sourceTree = "<group>"; };
-		683564A92662BF7B00344E6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		685E8E302677EFD8006AA79E /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		686D492126641DE100605AD5 /* GameService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameService.swift; sourceTree = "<group>"; };
 		687A85192680D605003732B1 /* SocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketManager.swift; sourceTree = "<group>"; };
@@ -124,12 +133,53 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		681AD4A4268B6C2000EE4348 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				68CE1CCB2663DF6E00632279 /* User.swift */,
+				681AD4A5268B6C8700EE4348 /* ServiceUser.swift */,
+				681AD4A7268B6CAA00EE4348 /* UserProtocol.swift */,
+				681AD4A9268B6CE500EE4348 /* UserErrors.swift */,
+				681AD4AB268B6D1200EE4348 /* UserManager.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		681AD4AD268B6D9800EE4348 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				681AD4AE268B6DD600EE4348 /* HasJSONEncoder.swift */,
+				681AD4B0268B6DED00EE4348 /* HasJSONDecoder.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		681AD4B2268B6EAA00EE4348 /* Session */ = {
+			isa = PBXGroup;
+			children = (
+				681AD4AD268B6D9800EE4348 /* Utilities */,
+				687A85182680D5EE003732B1 /* SocketSetup */,
+				686D492026641DC600605AD5 /* Services */,
+				68CE1CCA2663DF5A00632279 /* Models */,
+			);
+			path = Session;
+			sourceTree = "<group>";
+		};
+		681AD4B3268B6EEA00EE4348 /* Workflow */ = {
+			isa = PBXGroup;
+			children = (
+				6835648A2662BF7900344E6C /* BetItApp.swift */,
+				6835648C2662BF7900344E6C /* ContentView.swift */,
+				68A9713E2681754F0005FE58 /* Views */,
+			);
+			path = Workflow;
+			sourceTree = "<group>";
+		};
 		6835647E2662BF7900344E6C = {
 			isa = PBXGroup;
 			children = (
 				683564892662BF7900344E6C /* BetIt */,
 				6835649B2662BF7B00344E6C /* BetItTests */,
-				683564A62662BF7B00344E6C /* BetItUITests */,
 				683564882662BF7900344E6C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -147,14 +197,9 @@
 		683564892662BF7900344E6C /* BetIt */ = {
 			isa = PBXGroup;
 			children = (
+				681AD4B3268B6EEA00EE4348 /* Workflow */,
+				681AD4B2268B6EAA00EE4348 /* Session */,
 				68A9713F268180F90005FE58 /* Fonts */,
-				68A9713E2681754F0005FE58 /* Views */,
-				687A85182680D5EE003732B1 /* SocketSetup */,
-				686D492026641DC600605AD5 /* Services */,
-				68CE1CCA2663DF5A00632279 /* Models */,
-				68CE1CC92663D7DC00632279 /* AcctDetails */,
-				6835648A2662BF7900344E6C /* BetItApp.swift */,
-				6835648C2662BF7900344E6C /* ContentView.swift */,
 				6835648E2662BF7B00344E6C /* Assets.xcassets */,
 				683564932662BF7B00344E6C /* Info.plist */,
 				683564902662BF7B00344E6C /* Preview Content */,
@@ -177,15 +222,6 @@
 				6835649E2662BF7B00344E6C /* Info.plist */,
 			);
 			path = BetItTests;
-			sourceTree = "<group>";
-		};
-		683564A62662BF7B00344E6C /* BetItUITests */ = {
-			isa = PBXGroup;
-			children = (
-				683564A72662BF7B00344E6C /* BetItUITests.swift */,
-				683564A92662BF7B00344E6C /* Info.plist */,
-			);
-			path = BetItUITests;
 			sourceTree = "<group>";
 		};
 		686D492026641DC600605AD5 /* Services */ = {
@@ -238,17 +274,10 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
-		68CE1CC92663D7DC00632279 /* AcctDetails */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = AcctDetails;
-			sourceTree = "<group>";
-		};
 		68CE1CCA2663DF5A00632279 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				68CE1CCB2663DF6E00632279 /* User.swift */,
+				681AD4A4268B6C2000EE4348 /* User */,
 				68CE1CD02663DF8C00632279 /* Game.swift */,
 				68189DBA266B3E6100D767C4 /* Wagers.swift */,
 			);
@@ -404,18 +433,24 @@
 				68EC37CA266324A900E99FE5 /* GamePreview.swift in Sources */,
 				68CE1CD12663DF8C00632279 /* Game.swift in Sources */,
 				6882F0412670577800046367 /* WagerService.swift in Sources */,
+				681AD4A6268B6C8700EE4348 /* ServiceUser.swift in Sources */,
 				687A851A2680D605003732B1 /* SocketManager.swift in Sources */,
+				681AD4A8268B6CAA00EE4348 /* UserProtocol.swift in Sources */,
+				681AD4AA268B6CE500EE4348 /* UserErrors.swift in Sources */,
 				68CE1CCC2663DF6E00632279 /* User.swift in Sources */,
+				681AD4AC268B6D1200EE4348 /* UserManager.swift in Sources */,
 				6835648D2662BF7900344E6C /* ContentView.swift in Sources */,
 				689E31602671BF210052452D /* WagerDetailsView.swift in Sources */,
 				68AE2B9026864275001BD37D /* GamesNotFound.swift in Sources */,
 				6835648B2662BF7900344E6C /* BetItApp.swift in Sources */,
 				68AE2B9226864D4A001BD37D /* WagersNotFound.swift in Sources */,
+				681AD4AF268B6DD600EE4348 /* HasJSONEncoder.swift in Sources */,
 				685E8E312677EFD8006AA79E /* LoginView.swift in Sources */,
 				6882F04326705EB800046367 /* GameAndWagersView.swift in Sources */,
 				68EC37C52663241A00E99FE5 /* UpcomingGames.swift in Sources */,
 				686D492226641DE100605AD5 /* GameService.swift in Sources */,
 				68189DBB266B3E6100D767C4 /* Wagers.swift in Sources */,
+				681AD4B1268B6DED00EE4348 /* HasJSONDecoder.swift in Sources */,
 				6882F03F26704E0400046367 /* GameWagersPreview.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -432,7 +467,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				683564A82662BF7B00344E6C /* BetItUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

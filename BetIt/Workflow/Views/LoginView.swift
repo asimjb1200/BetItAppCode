@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct LoginView: View {
-//    @EnvironmentObject var user: User
     @EnvironmentObject var userManager: UserManager
     @State private var username: String = ""
     @State private var password: String = ""
@@ -32,11 +31,11 @@ struct LoginView: View {
                         invalidLogin.toggle()
                         return
                     }
-                    userManager.user.login(username: username, pw: password, completion: { (authedUser) in
+                    userManager.login(username: username, pw: password, completion: { (authedUser) in
                         switch authedUser {
                             case .success(let foundUser):
                                 DispatchQueue.main.async {
-                                    self.userManager.updateUser(username: foundUser.username, access_token: foundUser.access_token, refresh_token: foundUser.refresh_token, wallet_address: foundUser.wallet_address, exp: foundUser.exp)
+                                    self.userManager.updateUser(with: foundUser)
                                 }
                             case .failure(let err):
                                 print(err)
@@ -60,6 +59,7 @@ struct LoginView: View {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView().environmentObject(User())
+        Text("hi")
+//        LoginView().environmentObject(User())
     }
 }

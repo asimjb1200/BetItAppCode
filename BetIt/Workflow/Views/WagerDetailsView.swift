@@ -80,7 +80,12 @@ struct WagerDetailsView: View {
 
 extension WagerDetailsView {
     func updateWager() {
-        WagerService().updateWager(token: userManager.user.access_token, wagerId: wager.id, fader: userManager.user.wallet_address, completion: { (updatedWager) in
+        guard
+            let user = userManager.user
+        else
+            { return }
+        
+        WagerService().updateWager(token: user.accessToken, wagerId: wager.id, fader: user.walletAddress, completion: { (updatedWager) in
             switch updatedWager {
             case .success(let newWager):
                 DispatchQueue.main.async {
@@ -96,7 +101,7 @@ extension WagerDetailsView {
     }
     
     func bettorAndFaderAddressMatch() -> Bool {
-        return userManager.user.wallet_address == wager.bettor ? true : false
+        return userManager.user?.walletAddress == wager.bettor ? true : false
     }
 }
 
