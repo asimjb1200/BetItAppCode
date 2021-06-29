@@ -10,7 +10,7 @@ import Foundation
 class Networker {
     static let shared = Networker()
     private init() {}
-    func constructRequest(uri: String, token: String, post: Bool = false) -> URLRequest {
+    func constructRequest(uri: String, token: String = "", post: Bool = false) -> URLRequest {
         let url = URL(string: uri)!
 
         var request: URLRequest = URLRequest(url: url)

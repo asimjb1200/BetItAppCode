@@ -9,7 +9,6 @@ import SwiftUI
 
 struct GameAndWagersView: View {
     @ObservedObject private var wagersOnGame: GameWagers = .shared
-    //    @EnvironmentObject var user: User
     @EnvironmentObject private var userManager: UserManager
     @State private var wagersNotFound: Bool = false
     var selectedGame: DBGame
@@ -35,7 +34,11 @@ struct GameAndWagersView: View {
 
 extension GameAndWagersView {
     func getWagersByGameId() {
-        WagerService().getWagersForGameId(token: userManager.user.access_token, gameId: selectedGame.game_id, completion: { (wagers) in
+        guard
+            let user = userManager.user
+        else
+            { return }
+        WagerService().getWagersForGameId(token: user.accessToken, gameId: selectedGame.game_id, completion: { (wagers) in
             switch wagers {
             case .success(let gameWagers):
                 if gameWagers.isEmpty {
@@ -55,7 +58,6 @@ extension GameAndWagersView {
 
 struct GameAndWagersView_Previews: PreviewProvider {
     static var previews: some View {
-        //        Text("hi")
         GameAndWagersView(selectedGame: DBGame(game_id: 5, sport: "bball", home_team: 5, visitor_team: 9, game_begins: Date(), season: 2019))
     }
 }

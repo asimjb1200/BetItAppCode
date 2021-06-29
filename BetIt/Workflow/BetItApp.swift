@@ -13,7 +13,7 @@ struct BetItApp: App {
     
     var body: some Scene {
         WindowGroup {
-            if userManager.user.isLoggedIn {
+            if userManager.user?.isLoggedIn == true {
                 ContentView()
                     .environmentObject(userManager)
             } else {
