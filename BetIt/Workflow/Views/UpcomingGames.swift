@@ -11,7 +11,7 @@ struct UpcomingGames: View {
     @State private var upcomingGames = [DBGame]()
     @State private var gameScheduleDate = Date()
     @State private var gamesAvailable = true
-    @EnvironmentObject var userManager: UserManager
+    @EnvironmentObject var user: UserModel
     private var testGames = [
         DBGame(game_id: 2, sport: "BBall", home_team: 5, visitor_team: 4, game_begins: Date(), home_score: 20, season: 2020),
         DBGame(game_id: 3, sport: "BBall", home_team: 6, visitor_team: 5, game_begins: Date(), home_score: 20, season: 2020),
@@ -85,7 +85,6 @@ extension UpcomingGames {
     }
     
     func getGamesByDate(date: Date = Date()) {
-        guard let user = userManager.user else {return}
         GameService().getGamesByDate(token: user.accessToken, date: date, completion: { (todaysGames) in
             switch todaysGames {
             case .success(let scheduleToday):
