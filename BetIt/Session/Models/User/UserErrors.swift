@@ -11,3 +11,8 @@ enum UserErrors: String, Error {
     case success = "Successfully logged in user"
     case failure = "Not abble to log user in"
 }
+
+enum LogoutErrors: String, Error {
+    case notFound = "User object could not be found"
+    case serverError = "There was an error on the server side"
+}

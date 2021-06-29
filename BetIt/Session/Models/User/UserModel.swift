@@ -20,6 +20,10 @@ class UserModel: ObservableObject, Identifiable, Codable {
      enum CodingKeys: CodingKey {
          case accessToken, refreshToken, username, walletAddress, isLoggedIn, exp
      }
+    
+    static func buildUser(username: String, access_token: String, refresh_token: String, wallet_address: String, exp: Int, isLoggedIn: Bool) -> UserModel {
+        return UserModel(username: username, access_token: access_token, refresh_token: refresh_token, wallet_address: wallet_address, exp: exp, isLoggedIn: isLoggedIn)
+    }
 
      // tell swift how to decode data into the published types
      required init(from decoder: Decoder) throws {
@@ -31,7 +35,7 @@ class UserModel: ObservableObject, Identifiable, Codable {
          exp = try container.decode(Int.self, forKey: .exp)
      }
 
-    init(username: String, access_token: String, refresh_token: String, wallet_address: String, exp: Int, isLoggedIn: Bool) {
+    private init(username: String, access_token: String, refresh_token: String, wallet_address: String, exp: Int, isLoggedIn: Bool) {
          self.username = username
          self.accessToken = access_token
          self.refreshToken = refresh_token
@@ -70,5 +74,14 @@ extension UserModel {
         self.walletAddress = usr.walletAddress
         self.exp = usr.exp
         self.isLoggedIn = true
+    }
+    
+    func logUserOut() -> () {
+        self.username = ""
+        self.accessToken = ""
+        self.refreshToken = ""
+        self.walletAddress = ""
+        self.exp = 0
+        self.isLoggedIn = false
     }
 }

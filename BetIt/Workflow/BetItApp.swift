@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct BetItApp: App {
-    @StateObject var user: UserModel = UserModel(username: "", access_token: "", refresh_token: "", wallet_address: "", exp: 0, isLoggedIn: false)
+    @StateObject var user: UserModel = UserModel.buildUser(username: "", access_token: "", refresh_token: "", wallet_address: "", exp: 0, isLoggedIn: false)
     
     var body: some Scene {
         WindowGroup {
