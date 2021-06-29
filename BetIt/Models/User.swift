@@ -8,12 +8,12 @@
 import Foundation
 
 class User: ObservableObject, Identifiable, Codable {
-    @Published var username: String = ""
-    @Published var access_token: String = ""
-    @Published var refresh_token: String = ""
+    @Published var username: String
+    @Published var access_token: String
+    @Published var refresh_token: String
     @Published var isLoggedIn = false
-    @Published var exp: Int = 0
-    @Published var wallet_address: String = ""
+    @Published var exp: Int
+    @Published var wallet_address: String
 
     let decoder = JSONDecoder()
     let networker: Networker = .shared
@@ -35,13 +35,13 @@ class User: ObservableObject, Identifiable, Codable {
 
     init() {}
 
-    func encode(to encoder: Encoder) throws {
-        var container = try encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(access_token, forKey: .access_token)
-        try container.encode(refresh_token, forKey: .refresh_token)
-        try container.encode(username, forKey: .username)
-        try container.encode(wallet_address, forKey: .wallet_address)
-    }
+//    func encode(to encoder: Encoder) throws {
+//        var container = try encoder.container(keyedBy: CodingKeys.self)
+//        try container.encode(access_token, forKey: .access_token)
+//        try container.encode(refresh_token, forKey: .refresh_token)
+//        try container.encode(username, forKey: .username)
+//        try container.encode(wallet_address, forKey: .wallet_address)
+//    }
 
     func login(username:String, pw: String, completion: @escaping (Result<User, UserErrors>) -> ()) {
         let reqWithoutBody = networker.constructRequest(uri: "http://localhost:3000/users/login", token: self.access_token, post: true)
