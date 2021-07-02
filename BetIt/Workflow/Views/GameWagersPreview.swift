@@ -19,27 +19,33 @@ struct GameWagersPreview: View {
             VStack {
                 NavigationLink( destination: WagerDetailsView(wager: wager),isActive: $showWagerDetails) {EmptyView()}.hidden()
                 Button(action: {
-                        self.showWagerDetails = true
-                    }, label: {
-                        Text("\(wager.wager_amount) Ltc \n Bettor's Pick: \(teams[wager.bettor_chosen_team] ?? "can't find team")")
-                            .multilineTextAlignment(.center)
-                            .padding(.all)
-                            .fixedSize(horizontal: false, vertical: true)
-                            .font(.custom("MontserratAlternates-Regular", size: 25))
-                            .foregroundColor(fgColor)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
-                                    .stroke(bgColor, lineWidth: 4)
-                            )
+                    self.showWagerDetails = true
+                }, label: {
+                    Text("\(wager.wager_amount) Ltc \n Bettor's Pick: \(teams[wager.bettor_chosen_team] ?? "can't find team")")
+                        .multilineTextAlignment(.center)
+                        .padding(.all)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .font(.custom("MontserratAlternates-Regular", size: 25))
+                        .foregroundColor(.white)
+                        .background(
+                            RoundedRectangle(cornerRadius: 25.0, style: .continuous)
+                                .fill(
+                                    LinearGradient(
+                                        gradient: Gradient(colors: [bgColor, fgColor]),
+                                        startPoint: .top,
+                                        endPoint: .bottom
+                                    )
+                                )
+                        )
                     }
                 )
-            }
+            }.padding([.top, .bottom])
         }
     }
 }
 
 struct GameWagersPreview_Previews: PreviewProvider {
     static var previews: some View {
-        GameWagersPreview(wager: WagerModel(id: 5, bettor: "Asim", wager_amount: 5, game_id: 6, is_active: true, bettor_chosen_team: 8))
+        GameWagersPreview(wager: WagerModel(id: 5, bettor: "Asim", wager_amount: 5, game_id: 6, is_active: false, bettor_chosen_team: 8))
     }
 }

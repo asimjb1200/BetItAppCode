@@ -22,15 +22,23 @@ struct GameAndWagersView: View {
                 WagersNotFound()
                 .navigationTitle(gameHeader)
             } else {
-                List(wagersOnGame.wagers) { wager in
-                    GameWagersPreview(wager: wager)
-                }.onAppear() {
+                ScrollView {
+                    LazyVStack{
+                        ForEach(wagersOnGame.wagers) { wager in
+                            GameWagersPreview(wager: wager)
+                        }
+                    }
+               }.onAppear() {
                     self.getWagersByGameId()
                 }.navigationTitle(gameHeader)
             }
         }
     }
 }
+
+//List(wagersOnGame.wagers) { wager in
+//    GameWagersPreview(wager: wager)
+//}
 
 extension GameAndWagersView {
     func getWagersByGameId() {

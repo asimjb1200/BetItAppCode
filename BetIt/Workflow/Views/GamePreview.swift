@@ -14,27 +14,36 @@ struct GamePreview: View {
 
     var body: some View {
         let davysGray = Color(white: 0.342)
+        let accent1 = Color("Accent")
+        let accent2 = Color("Accent2")
         Button(action: {
             showDetails.toggle()
         }, label: {
             VStack(alignment: .center, spacing: 0.0) {
                 Text(teams[currentGame.home_team] ?? "Retry Request")
                     .font(.custom("MontserratAlternates-Regular", size: 25))
-                    .foregroundColor(Color("Accent2"))
+                    .foregroundColor(davysGray)
                     .multilineTextAlignment(.center)
                 
                 Text("vs.")
-                    .foregroundColor(Color("Accent2"))
+                    .foregroundColor(davysGray)
                 
                 Text(teams[currentGame.visitor_team] ?? "Retry Request")
                     .font(.custom("MontserratAlternates-Regular", size: 25))
-                    .foregroundColor(Color("Accent2"))
+                    .foregroundColor(davysGray)
                     .multilineTextAlignment(.center)
             }
             .padding()
-            .frame(width: 150, height: 150, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
+            .frame(width: 150, height: 150, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+            .background(
                 RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
-                    .stroke(davysGray, lineWidth: 2)
+                    .fill(
+                        LinearGradient(
+                            gradient: Gradient(colors: [accent1, accent2]),
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
+                    )
             )
         }).sheet(isPresented: $showDetails, content: {
             GameAndWagersView(selectedGame: currentGame)

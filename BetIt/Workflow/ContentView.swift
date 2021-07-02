@@ -18,24 +18,27 @@ struct ContentView: View {
                 AccountDetails()
                 .tabItem {
                     Image(systemName: "person.fill")
+                        .foregroundColor(.red)
                 }
             
             Text("The content of the third view")
                 .tabItem {
                     Image(systemName: "plus")
-                }
+                }.foregroundColor(Color("Accent2"))
             
             Text("The content of the fourth view")
                 .tabItem {
                     Image(systemName: "dollarsign.circle")
+                        .foregroundColor(Color("Accent2"))
                     
                 }
             
             Text("The content of the fifth view")
                 .tabItem {
                     Image(systemName: "percent")
+                        .foregroundColor(Color("Accent2"))
                 }
-        }
+        }.accentColor(Color("Accent2"))
         
     }
 }
