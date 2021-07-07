@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		6810217C26699CB3006BF130 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6810217B26699CB3006BF130 /* Roboto-Medium.ttf */; };
+		681097AC2695F91F000E323F /* WalletDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681097AB2695F91F000E323F /* WalletDetailsView.swift */; };
+		681097B126960D0C000E323F /* QRGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681097B026960D0C000E323F /* QRGenerator.swift */; };
 		68189DBB266B3E6100D767C4 /* Wagers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68189DBA266B3E6100D767C4 /* Wagers.swift */; };
 		681AD4A6268B6C8700EE4348 /* ServiceUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681AD4A5268B6C8700EE4348 /* ServiceUser.swift */; };
 		681AD4A8268B6CAA00EE4348 /* UserProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681AD4A7268B6CAA00EE4348 /* UserProtocol.swift */; };
@@ -66,6 +68,8 @@
 
 /* Begin PBXFileReference section */
 		6810217B26699CB3006BF130 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
+		681097AB2695F91F000E323F /* WalletDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletDetailsView.swift; sourceTree = "<group>"; };
+		681097B026960D0C000E323F /* QRGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRGenerator.swift; sourceTree = "<group>"; };
 		68189DBA266B3E6100D767C4 /* Wagers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wagers.swift; sourceTree = "<group>"; };
 		681AD4A5268B6C8700EE4348 /* ServiceUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceUser.swift; sourceTree = "<group>"; };
 		681AD4A7268B6CAA00EE4348 /* UserProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProtocol.swift; sourceTree = "<group>"; };
@@ -135,6 +139,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		681097AD2695F96E000E323F /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = ViewModels;
+			sourceTree = "<group>";
+		};
 		681AD4A4268B6C2000EE4348 /* User */ = {
 			isa = PBXGroup;
 			children = (
@@ -151,6 +162,7 @@
 			children = (
 				681AD4AE268B6DD600EE4348 /* HasJSONEncoder.swift */,
 				681AD4B0268B6DED00EE4348 /* HasJSONDecoder.swift */,
+				681097B026960D0C000E323F /* QRGenerator.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -247,6 +259,7 @@
 		68A9713E2681754F0005FE58 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				681097AD2695F96E000E323F /* ViewModels */,
 				68EC37C9266324A900E99FE5 /* GamePreview.swift */,
 				6882F03E26704E0400046367 /* GameWagersPreview.swift */,
 				6882F04226705EB800046367 /* GameAndWagersView.swift */,
@@ -256,6 +269,7 @@
 				68AE2B8F26864275001BD37D /* GamesNotFound.swift */,
 				68AE2B9126864D4A001BD37D /* WagersNotFound.swift */,
 				681AD4BA268BB1FA00EE4348 /* AccountDetails.swift */,
+				681097AB2695F91F000E323F /* WalletDetailsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -442,12 +456,14 @@
 				687A851A2680D605003732B1 /* SocketManager.swift in Sources */,
 				681AD4A8268B6CAA00EE4348 /* UserProtocol.swift in Sources */,
 				681AD4AA268B6CE500EE4348 /* UserErrors.swift in Sources */,
+				681097B126960D0C000E323F /* QRGenerator.swift in Sources */,
 				681AD4B7268BA26F00EE4348 /* UserModel.swift in Sources */,
 				6835648D2662BF7900344E6C /* ContentView.swift in Sources */,
 				689E31602671BF210052452D /* WagerDetailsView.swift in Sources */,
 				68AE2B9026864275001BD37D /* GamesNotFound.swift in Sources */,
 				6835648B2662BF7900344E6C /* BetItApp.swift in Sources */,
 				68AE2B9226864D4A001BD37D /* WagersNotFound.swift in Sources */,
+				681097AC2695F91F000E323F /* WalletDetailsView.swift in Sources */,
 				681AD4AF268B6DD600EE4348 /* HasJSONEncoder.swift in Sources */,
 				685E8E312677EFD8006AA79E /* LoginView.swift in Sources */,
 				6882F04326705EB800046367 /* GameAndWagersView.swift in Sources */,
