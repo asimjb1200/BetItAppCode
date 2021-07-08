@@ -73,33 +73,6 @@ class WagerModel: ObservableObject, Identifiable, Codable{
     }
 }
 
-class GameWagers: ObservableObject {
-    @Published var wagers: [WagerModel] = []
-    static let shared = GameWagers()
-    
-    // keep track of wagers that are updated
-    init() {
-        SocketIOManager.sharedInstance.getUpdatedWagers(completionHandler: { (newWager) in
-            switch newWager {
-                case .success(let wager):
-                    DispatchQueue.main.async {
-                        if let index = self.wagers.firstIndex(where: {$0.id == wager.id}) {
-//                            self.wagers[index].is_active = wager.is_active
-//                            self.wagers.remove(at: index)
-                            self.wagers = self.wagers.filter{$0.id != wager.id}
-                        }
-                    }
-                case .failure(let err):
-                    print(err)
-            }
-        })
-    }
-    
-    deinit {
-        print("Game wagers is being destroyed")
-    }
-}
-
 enum WagerErrors: String, Error {
     case noWagersFound = "Not able to find wagers for that game's id"
     case wagerOver = "This wager has been settled already"
