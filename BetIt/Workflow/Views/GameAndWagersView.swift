@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct GameAndWagersView: View {
-    @StateObject private var viewModel: GameWagers = .shared
+    @StateObject private var viewModel: GameWagersViewModel = .shared
     @EnvironmentObject private var user: UserModel
     var selectedGame: DBGame
     private let Teams: [UInt8: String] = TeamsMapper().Teams
@@ -19,7 +19,7 @@ struct GameAndWagersView: View {
         NavigationView {
             if viewModel.wagersNotFound {
                 WagersNotFound()
-                .navigationTitle(gameHeader)
+                    .navigationTitle(gameHeader)
             } else {
                 ScrollView {
                     LazyVStack{
@@ -27,10 +27,10 @@ struct GameAndWagersView: View {
                             GameWagersPreview(wager: wager)
                         }
                     }
-               }.onAppear() {
-                viewModel.getWagersByGameId(token: user.accessToken, gameId: selectedGame.game_id)
                 }.navigationTitle(gameHeader)
             }
+        }.onAppear() {
+            viewModel.getWagersByGameId(token: user.accessToken, gameId: selectedGame.game_id)
         }
     }
 }

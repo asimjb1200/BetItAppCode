@@ -27,21 +27,13 @@ struct LoginView: View {
                     .background(Capsule().fill(Color(white: 0.3, opacity: 0.734)))
                     .frame(width: 300.0)
                 Button(action: {
-                    guard !username.isEmpty, !password.isEmpty else {
+                    guard
+                        !username.isEmpty, !password.isEmpty
+                    else {
                         invalidLogin.toggle()
                         return
                     }
-                    UserNetworking().login(username: username, pw: password, completion: { (authedUser) in
-                        print("login pressed")
-                        switch authedUser {
-                            case .success(let foundUser):
-                                DispatchQueue.main.async {
-                                    user.logUserIn(usr: foundUser)
-                                }
-                            case .failure(let err):
-                                print(err)
-                        }
-                    });
+                    self.login(username: username, password: password)
                 }, label: {
                     Text("Log In")
                         .padding()
@@ -55,6 +47,22 @@ struct LoginView: View {
                 }
             }.offset(y: 175)
         }
+    }
+}
+
+extension LoginView {
+    func login(username: String, password: String) {
+        UserNetworking().login(username: username, pw: password, completion: { (authedUser) in
+            print("login pressed")
+            switch authedUser {
+                case .success(let foundUser):
+                    DispatchQueue.main.async {
+                        user.logUserIn(usr: foundUser)
+                    }
+                case .failure(let err):
+                    print(err)
+            }
+        })
     }
 }
 

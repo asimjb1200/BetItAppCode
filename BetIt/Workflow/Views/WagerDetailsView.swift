@@ -9,7 +9,7 @@ import SwiftUI
 
 struct WagerDetailsView: View {
     @ObservedObject var wager: WagerModel
-    @StateObject var wagersOnGame: GameWagers = .shared
+    @StateObject var viewModel: GameWagersViewModel = .shared
     @EnvironmentObject var user: UserModel
     @State private var buttonPressed: Bool = false
     @State private var showingAlert = false
@@ -27,7 +27,7 @@ struct WagerDetailsView: View {
                 // quick check to see if bet is still open
                 
                 // Add logic to save the bet if the fader confirms
-                wagersOnGame.updateWager(token: user.accessToken, wagerId: wager.id, fader: user.walletAddress)
+                viewModel.updateWager(token: user.accessToken, wagerId: wager.id, fader: user.walletAddress)
                 
                 // disable the button to prevent double submittal
                 buttonPressed.toggle()
@@ -48,16 +48,16 @@ struct WagerDetailsView: View {
             .alert(isPresented: $showingAlert) {
                 if self.dataSubmitted {
                     return  Alert(
-                                    title: Text("Important message"),
-                                    message: Text("The wager is now active. The wager amount will be sent to escrow from your wallet. Once the game is over, the person who chose the correct team will have their wallet funded with the winnings."),
-                                    dismissButton: .default(Text("Got it!"))
-                            )
+                        title: Text("Important message"),
+                        message: Text("The wager is now active. The wager amount will be sent to escrow from your wallet. Once the game is over, the person who chose the correct team will have their wallet funded with the winnings."),
+                        dismissButton: .default(Text("Got it!"))
+                    )
                 } else {
                     return  Alert(
-                                    title: Text("Important message"),
-                                    message: Text("You can't take your own bet. Go back and choose another one."),
-                                    dismissButton: .default(Text("Got it!"))
-                            )
+                        title: Text("Important message"),
+                        message: Text("You can't take your own bet. Go back and choose another one."),
+                        dismissButton: .default(Text("Got it!"))
+                    )
                 }
                 
             }
@@ -69,32 +69,13 @@ struct WagerDetailsView: View {
         .font(.custom("Roboto-Light", size: 20))
         .disabled(buttonPressed)
         .onAppear() {
-            if (wagersOnGame.bettorAndFaderAddressMatch(fader: user.walletAddress, bettor: wager.bettor)) {
+            if (viewModel.bettorAndFaderAddressMatch(fader: user.walletAddress, bettor: wager.bettor)) {
                 self.buttonPressed.toggle()
                 self.showingAlert.toggle()
             }
         }
     }
 }
-
-//extension WagerDetailsView {
-//    func updateWager() {
-//        WagerService().updateWager(token: user.accessToken, wagerId: wager.id, fader: user.walletAddress, completion: { (updatedWager) in
-//            switch updatedWager {
-//            case .success(let newWager):
-//                DispatchQueue.main.async {
-//                    self.wagersOnGame.wagers = self.wagersOnGame.wagers.filter{$0.id != newWager.id}
-//                }
-//            case .failure(let err):
-//                print(err)
-//            }
-//        })
-//    }
-//    
-//    func bettorAndFaderAddressMatch() -> Bool {
-//        return user.walletAddress == wager.bettor ? true : false
-//    }
-//}
 
 struct WagerDetailsView_Previews: PreviewProvider {
     static var previews: some View {
