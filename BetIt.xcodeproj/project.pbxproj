@@ -29,6 +29,9 @@
 		6882F0412670577800046367 /* WagerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6882F0402670577800046367 /* WagerService.swift */; };
 		6882F04326705EB800046367 /* GameAndWagersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6882F04226705EB800046367 /* GameAndWagersView.swift */; };
 		689E31602671BF210052452D /* WagerDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689E315F2671BF210052452D /* WagerDetailsView.swift */; };
+		689F9D0B269725C3001DB52E /* GameWagersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689F9D0A269725C3001DB52E /* GameWagersViewModel.swift */; };
+		689F9D0D26972EE4001DB52E /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689F9D0C26972EE4001DB52E /* LoginViewModel.swift */; };
+		689F9D0F26974654001DB52E /* UpcomingGamesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689F9D0E26974654001DB52E /* UpcomingGamesViewModel.swift */; };
 		68A97148268182470005FE58 /* MontserratAlternates-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68A97140268182460005FE58 /* MontserratAlternates-Regular.ttf */; };
 		68A97149268182470005FE58 /* MontserratAlternates-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68A97141268182460005FE58 /* MontserratAlternates-LightItalic.ttf */; };
 		68A9714A268182470005FE58 /* MontserratAlternates-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68A97142268182470005FE58 /* MontserratAlternates-Light.ttf */; };
@@ -92,6 +95,9 @@
 		6882F0402670577800046367 /* WagerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WagerService.swift; sourceTree = "<group>"; };
 		6882F04226705EB800046367 /* GameAndWagersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameAndWagersView.swift; sourceTree = "<group>"; };
 		689E315F2671BF210052452D /* WagerDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WagerDetailsView.swift; sourceTree = "<group>"; };
+		689F9D0A269725C3001DB52E /* GameWagersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameWagersViewModel.swift; sourceTree = "<group>"; };
+		689F9D0C26972EE4001DB52E /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		689F9D0E26974654001DB52E /* UpcomingGamesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingGamesViewModel.swift; sourceTree = "<group>"; };
 		68A97140268182460005FE58 /* MontserratAlternates-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MontserratAlternates-Regular.ttf"; sourceTree = "<group>"; };
 		68A97141268182460005FE58 /* MontserratAlternates-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MontserratAlternates-LightItalic.ttf"; sourceTree = "<group>"; };
 		68A97142268182470005FE58 /* MontserratAlternates-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MontserratAlternates-Light.ttf"; sourceTree = "<group>"; };
@@ -135,6 +141,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		681097B226967C48000E323F /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				689F9D0A269725C3001DB52E /* GameWagersViewModel.swift */,
+				689F9D0C26972EE4001DB52E /* LoginViewModel.swift */,
+				689F9D0E26974654001DB52E /* UpcomingGamesViewModel.swift */,
+			);
+			name = ViewModels;
+			sourceTree = "<group>";
+		};
 		681AD4A4268B6C2000EE4348 /* User */ = {
 			isa = PBXGroup;
 			children = (
@@ -247,6 +263,7 @@
 		68A9713E2681754F0005FE58 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				681097B226967C48000E323F /* ViewModels */,
 				68EC37C9266324A900E99FE5 /* GamePreview.swift */,
 				6882F03E26704E0400046367 /* GameWagersPreview.swift */,
 				6882F04226705EB800046367 /* GameAndWagersView.swift */,
@@ -438,7 +455,10 @@
 				68EC37CA266324A900E99FE5 /* GamePreview.swift in Sources */,
 				68CE1CD12663DF8C00632279 /* Game.swift in Sources */,
 				6882F0412670577800046367 /* WagerService.swift in Sources */,
+				689F9D0B269725C3001DB52E /* GameWagersViewModel.swift in Sources */,
 				681AD4A6268B6C8700EE4348 /* ServiceUser.swift in Sources */,
+				689F9D0F26974654001DB52E /* UpcomingGamesViewModel.swift in Sources */,
+				689F9D0D26972EE4001DB52E /* LoginViewModel.swift in Sources */,
 				687A851A2680D605003732B1 /* SocketManager.swift in Sources */,
 				681AD4A8268B6CAA00EE4348 /* UserProtocol.swift in Sources */,
 				681AD4AA268B6CE500EE4348 /* UserErrors.swift in Sources */,
