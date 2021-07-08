@@ -135,6 +135,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		681097B226967C48000E323F /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = ViewModels;
+			sourceTree = "<group>";
+		};
 		681AD4A4268B6C2000EE4348 /* User */ = {
 			isa = PBXGroup;
 			children = (
@@ -247,6 +254,7 @@
 		68A9713E2681754F0005FE58 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				681097B226967C48000E323F /* ViewModels */,
 				68EC37C9266324A900E99FE5 /* GamePreview.swift */,
 				6882F03E26704E0400046367 /* GameWagersPreview.swift */,
 				6882F04226705EB800046367 /* GameAndWagersView.swift */,

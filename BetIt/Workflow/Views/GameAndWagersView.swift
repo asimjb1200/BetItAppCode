@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct GameAndWagersView: View {
-    @ObservedObject private var wagersOnGame: GameWagers = .shared
+    @StateObject private var viewModel: GameWagers = .shared
     @EnvironmentObject private var user: UserModel
-    @State private var wagersNotFound: Bool = false
     var selectedGame: DBGame
     private let Teams: [UInt8: String] = TeamsMapper().Teams
     
@@ -18,45 +17,21 @@ struct GameAndWagersView: View {
         let gameHeader = "\(Teams[selectedGame.home_team]!) vs. \(Teams[selectedGame.visitor_team]!)"
         
         NavigationView {
-            if wagersNotFound {
+            if viewModel.wagersNotFound {
                 WagersNotFound()
                 .navigationTitle(gameHeader)
             } else {
                 ScrollView {
                     LazyVStack{
-                        ForEach(wagersOnGame.wagers) { wager in
+                        ForEach(viewModel.wagers) { wager in
                             GameWagersPreview(wager: wager)
                         }
                     }
                }.onAppear() {
-                    self.getWagersByGameId()
+                viewModel.getWagersByGameId(token: user.accessToken, gameId: selectedGame.game_id)
                 }.navigationTitle(gameHeader)
             }
         }
-    }
-}
-
-//List(wagersOnGame.wagers) { wager in
-//    GameWagersPreview(wager: wager)
-//}
-
-extension GameAndWagersView {
-    func getWagersByGameId() {
-        WagerService().getWagersForGameId(token: user.accessToken, gameId: selectedGame.game_id, completion: { (wagers) in
-            switch wagers {
-            case .success(let gameWagers):
-                if gameWagers.isEmpty {
-                    self.wagersNotFound = true
-                } else {
-                    self.wagersNotFound = false
-                    DispatchQueue.main.async {
-                        self.wagersOnGame.wagers = gameWagers
-                    }
-                }
-            case .failure(let err):
-                print("error occurred: \(err)")
-            }
-        })
     }
 }
 

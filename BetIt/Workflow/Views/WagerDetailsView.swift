@@ -9,7 +9,7 @@ import SwiftUI
 
 struct WagerDetailsView: View {
     @ObservedObject var wager: WagerModel
-    @ObservedObject var wagersOnGame: GameWagers = .shared
+    @StateObject var wagersOnGame: GameWagers = .shared
     @EnvironmentObject var user: UserModel
     @State private var buttonPressed: Bool = false
     @State private var showingAlert = false
@@ -27,7 +27,7 @@ struct WagerDetailsView: View {
                 // quick check to see if bet is still open
                 
                 // Add logic to save the bet if the fader confirms
-                self.updateWager()
+                wagersOnGame.updateWager(token: user.accessToken, wagerId: wager.id, fader: user.walletAddress)
                 
                 // disable the button to prevent double submittal
                 buttonPressed.toggle()
@@ -69,7 +69,7 @@ struct WagerDetailsView: View {
         .font(.custom("Roboto-Light", size: 20))
         .disabled(buttonPressed)
         .onAppear() {
-            if (bettorAndFaderAddressMatch()) {
+            if (wagersOnGame.bettorAndFaderAddressMatch(fader: user.walletAddress, bettor: wager.bettor)) {
                 self.buttonPressed.toggle()
                 self.showingAlert.toggle()
             }
@@ -77,27 +77,24 @@ struct WagerDetailsView: View {
     }
 }
 
-extension WagerDetailsView {
-    func updateWager() {
-        WagerService().updateWager(token: user.accessToken, wagerId: wager.id, fader: user.walletAddress, completion: { (updatedWager) in
-            switch updatedWager {
-            case .success(let newWager):
-                DispatchQueue.main.async {
-                    //                        wager.fader = newWager.fader
-                    //                        wager.is_active = true
-                    // remove the wager from the list of wagers
-                    self.wagersOnGame.wagers = self.wagersOnGame.wagers.filter{$0.id != newWager.id}
-                }
-            case .failure(let err):
-                print(err)
-            }
-        })
-    }
-    
-    func bettorAndFaderAddressMatch() -> Bool {
-        return user.walletAddress == wager.bettor ? true : false
-    }
-}
+//extension WagerDetailsView {
+//    func updateWager() {
+//        WagerService().updateWager(token: user.accessToken, wagerId: wager.id, fader: user.walletAddress, completion: { (updatedWager) in
+//            switch updatedWager {
+//            case .success(let newWager):
+//                DispatchQueue.main.async {
+//                    self.wagersOnGame.wagers = self.wagersOnGame.wagers.filter{$0.id != newWager.id}
+//                }
+//            case .failure(let err):
+//                print(err)
+//            }
+//        })
+//    }
+//    
+//    func bettorAndFaderAddressMatch() -> Bool {
+//        return user.walletAddress == wager.bettor ? true : false
+//    }
+//}
 
 struct WagerDetailsView_Previews: PreviewProvider {
     static var previews: some View {
