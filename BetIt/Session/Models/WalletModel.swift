@@ -9,5 +9,5 @@ import Foundation
 
 struct WalletModel: Codable {
     let balance: Decimal
-    var dollarEquivalent: Decimal?
+    var dollarEquivalent: Decimal
 }

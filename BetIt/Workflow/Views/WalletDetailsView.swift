@@ -47,7 +47,7 @@ struct WalletDetailsView: View {
                     viewModel.getLtcBalance(username: user.username, address: user.walletAddress, token: user.accessToken)
                 }
 
-            Text("3 LTC ≈ $400")
+            Text("\(viewModel.ltcBalance) LTC ≈ $\(viewModel.dollarBalance)" as String)
                 .padding()
                 .font(.custom("MontserratAlternates-Regular", size: 35))
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 50, alignment: .center)

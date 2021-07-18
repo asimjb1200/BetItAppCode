@@ -72,7 +72,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "836B0628-B7D1-4830-BF13-FA47AE8AF0F6"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BetIt/Session/Services/WalletService.swift"
@@ -84,11 +84,11 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "836B0628-B7D1-4830-BF13-FA47AE8AF0F6 - f6810291110a7571"
+                  uuid = "836B0628-B7D1-4830-BF13-FA47AE8AF0F6 - e608510a07003875"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "BetIt.WalletService.getWalletBalance(address: Swift.String, username: Swift.String, token: Swift.String, completion: (Swift.Result&lt;__C.NSDecimal, BetIt.WalletErrors&gt;) -&gt; ()) -&gt; ()"
+                  symbolName = "BetIt.WalletService.getWalletBalance(address: Swift.String, username: Swift.String, token: Swift.String, completion: (Swift.Result&lt;BetIt.WalletModel, BetIt.WalletErrors&gt;) -&gt; ()) -&gt; ()"
                   moduleName = "BetIt"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Volumes/ExternalDrive/MobileApps/BetIt/BetIt/Session/Services/WalletService.swift"
@@ -96,14 +96,14 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "25"
                   endingLineNumber = "25"
-                  offsetFromSymbolStart = "1335">
+                  offsetFromSymbolStart = "1297">
                </Location>
                <Location
-                  uuid = "836B0628-B7D1-4830-BF13-FA47AE8AF0F6 - a111ae4378ad6bd2"
+                  uuid = "836B0628-B7D1-4830-BF13-FA47AE8AF0F6 - ee21dab4877290a8"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in BetIt.WalletService.getWalletBalance(address: Swift.String, username: Swift.String, token: Swift.String, completion: (Swift.Result&lt;__C.NSDecimal, BetIt.WalletErrors&gt;) -&gt; ()) -&gt; ()"
+                  symbolName = "closure #1 (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in BetIt.WalletService.getWalletBalance(address: Swift.String, username: Swift.String, token: Swift.String, completion: (Swift.Result&lt;BetIt.WalletModel, BetIt.WalletErrors&gt;) -&gt; ()) -&gt; ()"
                   moduleName = "BetIt"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Volumes/ExternalDrive/MobileApps/BetIt/BetIt/Session/Services/WalletService.swift"
@@ -111,9 +111,25 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "26"
                   endingLineNumber = "26"
-                  offsetFromSymbolStart = "303">
+                  offsetFromSymbolStart = "332">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8E35760C-CB4D-438F-8786-C553C2124B11"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BetIt/Workflow/Views/WalletDetailsView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "33"
+            endingLineNumber = "33"
+            landmarkName = "body"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

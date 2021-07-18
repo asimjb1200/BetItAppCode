@@ -22,6 +22,7 @@ final class WalletDetailsViewModel: ObservableObject {
                     print(balPresent)
                     DispatchQueue.main.async {
                         self.ltcBalance = balPresent.balance
+                        self.dollarBalance = balPresent.dollarEquivalent
                     }
                 case .failure(let err):
                     print(err)
