@@ -37,7 +37,6 @@ final class GameWagersViewModel: ObservableObject {
                         self.wagersNotFound = true
                     }
                 } else {
-                    print(gameWagers)
                     DispatchQueue.main.async {
                         self.wagers = gameWagers
                         self.wagersNotFound = false

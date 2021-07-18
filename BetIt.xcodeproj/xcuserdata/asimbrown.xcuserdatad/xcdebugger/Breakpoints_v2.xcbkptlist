@@ -68,5 +68,53 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "836B0628-B7D1-4830-BF13-FA47AE8AF0F6"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BetIt/Session/Services/WalletService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "getWalletBalance(address:username:token:completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "836B0628-B7D1-4830-BF13-FA47AE8AF0F6 - f6810291110a7571"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BetIt.WalletService.getWalletBalance(address: Swift.String, username: Swift.String, token: Swift.String, completion: (Swift.Result&lt;__C.NSDecimal, BetIt.WalletErrors&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "BetIt"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/ExternalDrive/MobileApps/BetIt/BetIt/Session/Services/WalletService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "25"
+                  endingLineNumber = "25"
+                  offsetFromSymbolStart = "1335">
+               </Location>
+               <Location
+                  uuid = "836B0628-B7D1-4830-BF13-FA47AE8AF0F6 - a111ae4378ad6bd2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in BetIt.WalletService.getWalletBalance(address: Swift.String, username: Swift.String, token: Swift.String, completion: (Swift.Result&lt;__C.NSDecimal, BetIt.WalletErrors&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "BetIt"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/ExternalDrive/MobileApps/BetIt/BetIt/Session/Services/WalletService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "26"
+                  endingLineNumber = "26"
+                  offsetFromSymbolStart = "303">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
