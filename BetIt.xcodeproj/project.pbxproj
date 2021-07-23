@@ -29,6 +29,7 @@
 		685E8E312677EFD8006AA79E /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685E8E302677EFD8006AA79E /* LoginView.swift */; };
 		686D492226641DE100605AD5 /* GameService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686D492126641DE100605AD5 /* GameService.swift */; };
 		687A851A2680D605003732B1 /* SocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687A85192680D605003732B1 /* SocketManager.swift */; };
+		687B338026AB75CF00ED7C68 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687B337F26AB75CF00ED7C68 /* LoadingView.swift */; };
 		6882F03F26704E0400046367 /* GameWagersPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6882F03E26704E0400046367 /* GameWagersPreview.swift */; };
 		6882F0412670577800046367 /* WagerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6882F0402670577800046367 /* WagerService.swift */; };
 		6882F04326705EB800046367 /* GameAndWagersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6882F04226705EB800046367 /* GameAndWagersView.swift */; };
@@ -100,6 +101,7 @@
 		685E8E302677EFD8006AA79E /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		686D492126641DE100605AD5 /* GameService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameService.swift; sourceTree = "<group>"; };
 		687A85192680D605003732B1 /* SocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketManager.swift; sourceTree = "<group>"; };
+		687B337F26AB75CF00ED7C68 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		6882F03E26704E0400046367 /* GameWagersPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameWagersPreview.swift; sourceTree = "<group>"; };
 		6882F0402670577800046367 /* WagerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WagerService.swift; sourceTree = "<group>"; };
 		6882F04226705EB800046367 /* GameAndWagersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameAndWagersView.swift; sourceTree = "<group>"; };
@@ -287,6 +289,7 @@
 				68AE2B9126864D4A001BD37D /* WagersNotFound.swift */,
 				681AD4BA268BB1FA00EE4348 /* AccountDetails.swift */,
 				681097AB2695F91F000E323F /* WalletDetailsView.swift */,
+				687B337F26AB75CF00ED7C68 /* LoadingView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -478,6 +481,7 @@
 				687A851A2680D605003732B1 /* SocketManager.swift in Sources */,
 				681AD4A8268B6CAA00EE4348 /* UserProtocol.swift in Sources */,
 				689F9D1126975ADB001DB52E /* WalletDetailsViewModel.swift in Sources */,
+				687B338026AB75CF00ED7C68 /* LoadingView.swift in Sources */,
 				681AD4AA268B6CE500EE4348 /* UserErrors.swift in Sources */,
 				681097B126960D0C000E323F /* QRGenerator.swift in Sources */,
 				681AD4B7268BA26F00EE4348 /* UserModel.swift in Sources */,

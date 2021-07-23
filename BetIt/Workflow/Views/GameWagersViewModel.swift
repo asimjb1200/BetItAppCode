@@ -29,17 +29,20 @@ final class GameWagersViewModel: ObservableObject {
     }
     
     func getWagersByGameId(token: String, gameId: UInt) {
-        WagerService().getWagersForGameId(token: token, gameId: gameId, completion: {[self] (wagers) in
+        self.wagers = []
+        WagerService().getWagersForGameId(token: token, gameId: gameId, completion: {[weak self] (wagers) in
             switch wagers {
             case .success(let gameWagers):
                 if gameWagers.isEmpty {
                     DispatchQueue.main.async {
-                        self.wagersNotFound = true
+                        self?.isLoading = false
+                        self?.wagersNotFound = true
                     }
                 } else {
                     DispatchQueue.main.async {
-                        self.wagers = gameWagers
-                        self.wagersNotFound = false
+                        self?.wagers = gameWagers
+                        self?.wagersNotFound = false
+                        self?.isLoading = false
                     }
                 }
             case .failure(let err):

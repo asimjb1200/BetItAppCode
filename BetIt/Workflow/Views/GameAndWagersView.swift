@@ -15,19 +15,22 @@ struct GameAndWagersView: View {
     
     var body: some View {
         let gameHeader = "\(Teams[selectedGame.home_team]!) vs. \(Teams[selectedGame.visitor_team]!)"
-        
         NavigationView {
-            if viewModel.wagersNotFound {
-                WagersNotFound()
-                    .navigationTitle(gameHeader)
+            if viewModel.wagers.isEmpty {
+                LoadingView()
             } else {
-                ScrollView {
-                    LazyVStack{
-                        ForEach(viewModel.wagers) { wager in
-                            GameWagersPreview(wager: wager)
+                if viewModel.wagersNotFound {
+                    WagersNotFound()
+                        .navigationTitle(gameHeader)
+                } else {
+                    ScrollView {
+                        LazyVStack{
+                            ForEach(viewModel.wagers) { wager in
+                                GameWagersPreview(wager: wager)
+                            }
                         }
-                    }
-                }.navigationTitle(gameHeader)
+                    }.navigationTitle(gameHeader)
+                }
             }
         }.onAppear() {
             viewModel.getWagersByGameId(token: user.accessToken, gameId: selectedGame.game_id)

@@ -15,7 +15,6 @@ final class WalletDetailsViewModel: ObservableObject {
     private var escrowAddress: String = "testStringHere"
     
     func getLtcBalance(username: String, address: String, token: String) -> () {
-        print("getLtcBalance being called")
         walletService.getWalletBalance(address: address, username: username, token: token, completion: { (walletData) in
             switch walletData {
                 case .success(let balPresent):
