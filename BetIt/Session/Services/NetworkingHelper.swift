@@ -20,7 +20,9 @@ class Networker {
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         }
         
-        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        if !token.isEmpty {
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
 
         return request
     }

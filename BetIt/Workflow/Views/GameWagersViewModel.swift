@@ -10,7 +10,9 @@ import Foundation
 final class GameWagersViewModel: ObservableObject {
     @Published var wagers: [WagerModel] = []
     @Published var wagersNotFound: Bool = false
+    @Published var usdPrice: Float = 0.0
     static let shared = GameWagersViewModel()
+    let service: WalletService = .shared
     
     // keep track of wagers that are updated
     init() {
@@ -35,14 +37,12 @@ final class GameWagersViewModel: ObservableObject {
             case .success(let gameWagers):
                 if gameWagers.isEmpty {
                     DispatchQueue.main.async {
-                        self?.isLoading = false
                         self?.wagersNotFound = true
                     }
                 } else {
                     DispatchQueue.main.async {
                         self?.wagers = gameWagers
                         self?.wagersNotFound = false
-                        self?.isLoading = false
                     }
                 }
             case .failure(let err):
@@ -66,6 +66,19 @@ final class GameWagersViewModel: ObservableObject {
     
     func bettorAndFaderAddressMatch(fader: String, bettor: String) -> Bool {
         return fader == bettor ? true : false
+    }
+    
+    func getCurrentLtcPrice() {
+        service.getCurrentLtcPrice(completion: {[weak self] (priceData) in
+            switch priceData {
+            case .success(let data):
+                DispatchQueue.main.async {
+                    self?.usdPrice = Float(data.data.amount) ?? 0.0
+                }
+            case .failure(let err):
+                print(err)
+            }
+        })
     }
     
     deinit {

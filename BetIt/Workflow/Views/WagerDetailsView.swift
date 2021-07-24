@@ -14,6 +14,8 @@ struct WagerDetailsView: View {
     @State private var buttonPressed: Bool = false
     @State private var showingAlert = false
     @State private var dataSubmitted = false
+    var usdPrice: Float = 0.0
+    var service: WalletService = .shared
     let teams = TeamsMapper().Teams
     let accentColor = Color("Accent2")
     let davysGray = Color(white: 0.342)
@@ -22,7 +24,7 @@ struct WagerDetailsView: View {
         VStack(alignment: .leading) {
             Text("You will be betting against: " +  (teams[wager.bettor_chosen_team] ?? "Reload")).foregroundColor(accentColor)
             Text("Wager Amount: \(wager.wager_amount) LTC").foregroundColor(accentColor)
-            Text("Amount in USD: $250").foregroundColor(accentColor)
+            Text("Amount in USD: $\(Float(wager.wager_amount) * viewModel.usdPrice, specifier: "%.2f")").foregroundColor(accentColor)
             Button(action: {
                 // quick check to see if bet is still open
                 
@@ -72,6 +74,9 @@ struct WagerDetailsView: View {
             if (viewModel.bettorAndFaderAddressMatch(fader: user.walletAddress, bettor: wager.bettor)) {
                 self.buttonPressed.toggle()
                 self.showingAlert.toggle()
+            }
+            if viewModel.usdPrice == 0.0 {
+                viewModel.getCurrentLtcPrice()
             }
         }
     }

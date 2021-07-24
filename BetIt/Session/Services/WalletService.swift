@@ -52,6 +52,41 @@ final class WalletService {
             }
         }.resume()
     }
+    
+    func getCurrentLtcPrice(completion: @escaping (Result<CoinbasePriceDataResponse, CoinbaseErrors>) -> ()) {
+        let req: URLRequest = networker.constructRequest(uri: "https://api.coinbase.com/v2/prices/LTC-USD/buy");
+        let session = URLSession.shared
+        session.dataTask(with: req) { (data, response, error) in
+            if error != nil || data == nil {
+                print("there was a big error: \(String(describing: error))")
+                completion(.failure(.failure))
+            }
+            
+            guard let response = response else {
+              print("Cannot find the response")
+                completion(.failure(.failure))
+                return
+            }
+            let httpResponse = response as! HTTPURLResponse
+            
+            if httpResponse.statusCode == 200 {
+                guard let data = data else {
+                    completion(.failure(.failure))
+                    return
+                }
+                
+                do {
+                    let priceData = try self.decoder.decode(CoinbasePriceDataResponse.self, from: data)
+                    completion(.success(priceData))
+                    print(priceData)
+                } catch let err {
+                    print(err)
+                }
+            } else {
+                completion(.failure(.failure))
+            }
+        }.resume()
+    }
 }
 
 enum WalletErrors: String, Error {

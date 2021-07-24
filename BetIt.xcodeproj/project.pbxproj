@@ -30,6 +30,7 @@
 		686D492226641DE100605AD5 /* GameService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686D492126641DE100605AD5 /* GameService.swift */; };
 		687A851A2680D605003732B1 /* SocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687A85192680D605003732B1 /* SocketManager.swift */; };
 		687B338026AB75CF00ED7C68 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687B337F26AB75CF00ED7C68 /* LoadingView.swift */; };
+		687B338226AB917F00ED7C68 /* CoinbaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687B338126AB917F00ED7C68 /* CoinbaseResponse.swift */; };
 		6882F03F26704E0400046367 /* GameWagersPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6882F03E26704E0400046367 /* GameWagersPreview.swift */; };
 		6882F0412670577800046367 /* WagerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6882F0402670577800046367 /* WagerService.swift */; };
 		6882F04326705EB800046367 /* GameAndWagersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6882F04226705EB800046367 /* GameAndWagersView.swift */; };
@@ -102,6 +103,7 @@
 		686D492126641DE100605AD5 /* GameService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameService.swift; sourceTree = "<group>"; };
 		687A85192680D605003732B1 /* SocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketManager.swift; sourceTree = "<group>"; };
 		687B337F26AB75CF00ED7C68 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		687B338126AB917F00ED7C68 /* CoinbaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinbaseResponse.swift; sourceTree = "<group>"; };
 		6882F03E26704E0400046367 /* GameWagersPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameWagersPreview.swift; sourceTree = "<group>"; };
 		6882F0402670577800046367 /* WagerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WagerService.swift; sourceTree = "<group>"; };
 		6882F04226705EB800046367 /* GameAndWagersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameAndWagersView.swift; sourceTree = "<group>"; };
@@ -318,6 +320,7 @@
 				68CE1CD02663DF8C00632279 /* Game.swift */,
 				68189DBA266B3E6100D767C4 /* Wagers.swift */,
 				684FF22D26A3BE0C004FA282 /* WalletModel.swift */,
+				687B338126AB917F00ED7C68 /* CoinbaseResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -475,6 +478,7 @@
 				6882F0412670577800046367 /* WagerService.swift in Sources */,
 				684FF22E26A3BE0C004FA282 /* WalletModel.swift in Sources */,
 				689F9D0B269725C3001DB52E /* GameWagersViewModel.swift in Sources */,
+				687B338226AB917F00ED7C68 /* CoinbaseResponse.swift in Sources */,
 				681AD4A6268B6C8700EE4348 /* ServiceUser.swift in Sources */,
 				689F9D0F26974654001DB52E /* UpcomingGamesViewModel.swift in Sources */,
 				689F9D0D26972EE4001DB52E /* LoginViewModel.swift in Sources */,
