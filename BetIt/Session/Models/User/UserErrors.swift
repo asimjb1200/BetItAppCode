@@ -9,7 +9,8 @@ import Foundation
 
 enum UserErrors: String, Error {
     case success = "Successfully logged in user"
-    case failure = "Not abble to log user in"
+    case failure = "Not able to log user in"
+    case badCreds = "Credentials weren't accepted by the server"
 }
 
 enum LogoutErrors: String, Error {
