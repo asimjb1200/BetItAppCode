@@ -13,6 +13,7 @@ struct LoginView: View {
     @State private var password: String = ""
     @State private var invalidLogin: Bool = false
     @State private var isLoading: Bool = false
+    @State private var badPw: Bool = false
     var body: some View {
         if isLoading {
             LoadingView()
@@ -37,7 +38,7 @@ struct LoginView: View {
                             invalidLogin.toggle()
                             return
                         }
-                        self.isLoading = true
+                        self.isLoading.toggle()
                         self.login(username: username, password: password)
                     }, label: {
                         Text("Log In")
@@ -48,8 +49,14 @@ struct LoginView: View {
                             .foregroundColor(.black)
                     })
                     .alert(isPresented: $invalidLogin) {
-                        Alert(title: Text("No Login Info"), message: Text("Please fill out the login fields"), dismissButton: .default(Text("OK")))
+                        switch badPw {
+                            case true:
+                                return Alert(title: Text("Invalid Credentials"), message: Text("Bad username/password combination attempted."), dismissButton: .default(Text("OK")))
+                            case false:
+                                return Alert(title: Text("No Login Info"), message: Text("Please fill out the login fields"), dismissButton: .default(Text("OK")))
+                        }
                     }
+                    
                 }.offset(y: 175)
             }
         }
@@ -62,11 +69,13 @@ extension LoginView {
             switch authedUser {
                 case .success(let foundUser):
                     DispatchQueue.main.async {
-                        self.isLoading = false
+                        self.isLoading.toggle()
                         user.logUserIn(usr: foundUser)
                     }
-                case .failure(let err):
-                    print(err)
+                case .failure( _):
+                    self.isLoading.toggle()
+                    self.badPw = true
+                    self.invalidLogin = true
             }
         })
     }

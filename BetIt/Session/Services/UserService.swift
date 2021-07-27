@@ -31,6 +31,7 @@ class UserNetworking {
                 200...299 ~= response.statusCode
             else {
                 print("Server error!")
+                completion(.failure(.badCreds))
                 return
             }
 
@@ -41,7 +42,6 @@ class UserNetworking {
 
             do {
                 let serviceUser = try ServiceUser.decoder.decode(ServiceUser.self, from: data)
-                print(serviceUser)
                 completion(.success(serviceUser))
             } catch let error {
                 print("problem occurred when trying to decode the user object: \(error)")
