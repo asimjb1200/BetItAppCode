@@ -50,6 +50,7 @@
 		68A9ECE8267C1120000F4FC1 /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = 68A9ECE7267C1120000F4FC1 /* SocketIO */; };
 		68AE2B9026864275001BD37D /* GamesNotFound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AE2B8F26864275001BD37D /* GamesNotFound.swift */; };
 		68AE2B9226864D4A001BD37D /* WagersNotFound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AE2B9126864D4A001BD37D /* WagersNotFound.swift */; };
+		68CA44AE26AFB12900B4784F /* AccountDetailsEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CA44AD26AFB12900B4784F /* AccountDetailsEnum.swift */; };
 		68CC10312684F5A400207C81 /* NetworkingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CC10302684F5A400207C81 /* NetworkingHelper.swift */; };
 		68CE1CD12663DF8C00632279 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CE1CD02663DF8C00632279 /* Game.swift */; };
 		68EC37C52663241A00E99FE5 /* UpcomingGames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68EC37C42663241A00E99FE5 /* UpcomingGames.swift */; };
@@ -122,6 +123,7 @@
 		68A97147268182470005FE58 /* MontserratAlternates-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MontserratAlternates-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
 		68AE2B8F26864275001BD37D /* GamesNotFound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesNotFound.swift; sourceTree = "<group>"; };
 		68AE2B9126864D4A001BD37D /* WagersNotFound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WagersNotFound.swift; sourceTree = "<group>"; };
+		68CA44AD26AFB12900B4784F /* AccountDetailsEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsEnum.swift; sourceTree = "<group>"; };
 		68CC10302684F5A400207C81 /* NetworkingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingHelper.swift; sourceTree = "<group>"; };
 		68CE1CD02663DF8C00632279 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		68EC37C42663241A00E99FE5 /* UpcomingGames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingGames.swift; sourceTree = "<group>"; };
@@ -321,6 +323,7 @@
 				68189DBA266B3E6100D767C4 /* Wagers.swift */,
 				684FF22D26A3BE0C004FA282 /* WalletModel.swift */,
 				687B338126AB917F00ED7C68 /* CoinbaseResponse.swift */,
+				68CA44AD26AFB12900B4784F /* AccountDetailsEnum.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -494,6 +497,7 @@
 				68AE2B9026864275001BD37D /* GamesNotFound.swift in Sources */,
 				6835648B2662BF7900344E6C /* BetItApp.swift in Sources */,
 				68AE2B9226864D4A001BD37D /* WagersNotFound.swift in Sources */,
+				68CA44AE26AFB12900B4784F /* AccountDetailsEnum.swift in Sources */,
 				681097AC2695F91F000E323F /* WalletDetailsView.swift in Sources */,
 				681AD4AF268B6DD600EE4348 /* HasJSONEncoder.swift in Sources */,
 				685E8E312677EFD8006AA79E /* LoginView.swift in Sources */,
