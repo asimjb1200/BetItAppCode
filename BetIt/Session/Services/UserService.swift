@@ -74,4 +74,36 @@ class UserNetworking {
             
         }.resume()
     }
+    
+    func changePassword(newPassword: String, username: String, oldPassword: String, token: String, completion: @escaping (Result<String, UpdatePasswordErrors>) -> ()) {
+        let reqWithoutBody: URLRequest = networker.constructRequest(uri: "http://localhost:3000/users/change-password", token: token, post: true)
+        
+        let body = ["username": username, "newPassword": newPassword, "oldPassword": oldPassword]
+        
+        let request = networker.buildReqBody(req: reqWithoutBody, body: body)
+        
+        URLSession.shared.dataTask(with: request) { (_, response, err) in
+            if err != nil {
+                print("Something went bad with the request: \(String(describing: err))")
+                completion(.failure(.generalError))
+            }
+            
+            guard
+                let response = response as? HTTPURLResponse,
+                200 ~= response.statusCode
+            else {
+                completion(.failure(.couldNotSave))
+                return
+            }
+            
+            completion(.success("OK"))
+        }.resume()
+
+    }
+}
+
+enum UpdatePasswordErrors: String, Error {
+    case userNotFound = "That username was not found"
+    case couldNotSave = "The new password couldn't be saved to the database"
+    case generalError = "Something went wrong with the request"
 }

@@ -14,7 +14,7 @@ var signalAlert = PassthroughSubject<Void,Never>()
 struct AccountDetails: View {
     @EnvironmentObject var user: UserModel
 //    @State private var showingCustomSheet = false
-    var accountOptions = ["Email", "Username", "Password", "Support", "Deactivate", "Log Out",]
+    var accountOptions = ["Email", "Password", "Support", "Deactivate", "Log Out"]
     @State private var email: String = ""
     @State private var username: String = ""
     @State private var password: String = ""
@@ -25,10 +25,8 @@ struct AccountDetails: View {
                     switch item {
                     case AccountDeets.email.rawValue:
                         NavigationLink("\(item)", destination: TextField("Change Email: ", text: $email))
-                    case AccountDeets.username.rawValue:
-                        NavigationLink("\(item)", destination: TextField("Change Username: ", text: $username))
                     case AccountDeets.password.rawValue:
-                        NavigationLink("\(item)", destination: TextField("Change Password: ", text: $password))
+                        NavigationLink("\(item)", destination: ChangePassword())
                     case AccountDeets.support.rawValue:
                         NavigationLink("\(item)", destination: Text("Contact Support"))
                     case AccountDeets.deactivate.rawValue:
@@ -56,22 +54,6 @@ struct AccountDetails: View {
         }
     }
 }
-
-//                Button(action: {
-//                    UserNetworking().logout(accessToken: user.accessToken, completion: { loggedOutStatus in
-//                        switch loggedOutStatus {
-//                        case .success( _):
-//                            DispatchQueue.main.async {
-//                                user.logUserOut()
-//                            }
-//                        case .failure(let err):
-//                            print(err)
-//                        }
-//
-//                    })
-//                }, label: {
-//                    Text("Log Out")
-//                })
 
 
 struct AccountDetails_Previews: PreviewProvider {
