@@ -12,7 +12,7 @@ var window = UIApplication.shared.windows.first
 var signalAlert = PassthroughSubject<Void,Never>()
 
 struct AccountDetails: View {
-    @EnvironmentObject var user: UserModel
+    @EnvironmentObject private var user: UserModel
 //    @State private var showingCustomSheet = false
     var accountOptions = ["Email", "Password", "Support", "Deactivate", "Log Out"]
     @State private var email: String = ""
@@ -24,7 +24,7 @@ struct AccountDetails: View {
                 ForEach(accountOptions, id: \.self) { item in
                     switch item {
                     case AccountDeets.email.rawValue:
-                        NavigationLink("\(item)", destination: TextField("Change Email: ", text: $email))
+                        NavigationLink("\(item)", destination: ChangeEmail())
                     case AccountDeets.password.rawValue:
                         NavigationLink("\(item)", destination: ChangePassword())
                     case AccountDeets.support.rawValue:

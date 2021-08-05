@@ -75,7 +75,7 @@ class UserNetworking {
         }.resume()
     }
     
-    func changePassword(newPassword: String, username: String, oldPassword: String, token: String, completion: @escaping (Result<String, UpdatePasswordErrors>) -> ()) {
+    func changePassword(newPassword: String, username: String, oldPassword: String, token: String, completion: @escaping (Result<PasswordStates, UpdatePasswordErrors>) -> ()) {
         let reqWithoutBody: URLRequest = networker.constructRequest(uri: "http://localhost:3000/users/change-password", token: token, post: true)
         
         let body = ["username": username, "newPassword": newPassword, "oldPassword": oldPassword]
@@ -89,16 +89,55 @@ class UserNetworking {
             }
             
             guard
-                let response = response as? HTTPURLResponse,
-                200 ~= response.statusCode
+                let response = response as? HTTPURLResponse
             else {
                 completion(.failure(.couldNotSave))
                 return
             }
             
-            completion(.success("OK"))
+            if response.statusCode ~= 200 {
+                completion(.success(.updated))
+            } else if response.statusCode ~= 403 {
+                completion(.success(.incorrectPassword))
+            } else if response.statusCode ~= 404 {
+                completion(.success(.passwordNotFound))
+            } else {
+                completion(.failure(.generalError))
+            }
+            
         }.resume()
-
+    }
+    
+    func changeEmail(username: String, password: String, email: String, token: String, completion: @escaping (Result<EmailStates, EmailStatesErrors>) -> ()) {
+        let reqWithoutBody: URLRequest = networker.constructRequest(uri: "http://localhost:3000/users/change-email", token: token, post: true)
+        
+        let body = ["username": username, "password": password, "newEmail": email]
+        
+        let request = networker.buildReqBody(req: reqWithoutBody, body: body)
+        
+        URLSession.shared.dataTask(with: request) { (_, response, err) in
+            if err != nil {
+                print("Something went bad with the request: \(String(describing: err))")
+                completion(.failure(.generalError))
+            }
+            
+            guard
+                let response = response as? HTTPURLResponse
+            else {
+                completion(.failure(.couldNotSave))
+                return
+            }
+            
+            if response.statusCode ~= 200 {
+                completion(.success(.updated))
+            } else if response.statusCode ~= 403 {
+                completion(.success(.incorrectPassword))
+            } else if response.statusCode ~= 404 {
+                completion(.success(.usernameNotFound))
+            } else {
+                completion(.failure(.generalError))
+            }
+        }.resume()
     }
 }
 
@@ -106,4 +145,18 @@ enum UpdatePasswordErrors: String, Error {
     case userNotFound = "That username was not found"
     case couldNotSave = "The new password couldn't be saved to the database"
     case generalError = "Something went wrong with the request"
+}
+
+enum EmailStatesErrors: String, Error {
+    case userNotFound = "That username was not found"
+    case couldNotSave = "The new email couldn't be saved to the database"
+    case generalError = "Something went wrong with the request"
+}
+
+enum EmailStates: Int {
+    case updated = 0
+    case incorrectPassword = 1
+    case usernameNotFound = 2
+    case noActionYet = 3
+    case passwordOrEmailEmpty = 5
 }
