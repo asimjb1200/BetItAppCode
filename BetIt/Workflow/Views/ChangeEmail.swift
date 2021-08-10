@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ChangeEmail: View {
-    //@EnvironmentObject private var user: UserModel
+    @EnvironmentObject private var user: UserModel
     @State private var emailAddress = ""
     @State private var password = ""
     @State private var showAlert = false
@@ -35,7 +35,7 @@ struct ChangeEmail: View {
                     emailState = .passwordOrEmailEmpty
                     return
                 }
-                //self.updateEmail(username: user.username, password: password)
+                self.updateEmail(username: user.username, password: password)
             }
             .padding(.all)
             .foregroundColor(.white)
@@ -79,33 +79,33 @@ struct ChangeEmail: View {
     }
 }
 
-//extension ChangeEmail {
-//    func updateEmail(username: String, password: String) {
-//        UserNetworking().changeEmail(username: username, password: self.password, email: self.emailAddress, token: user.accessToken, completion: {emailState in
-//            switch emailState {
-//            case .success(let status):
-//                if status == .updated {
-//                    DispatchQueue.main.async {
-//                        self.emailState = status
-//                        self.showAlert = true
-//                    }
-//                } else if status == .incorrectPassword {
-//                    DispatchQueue.main.async {
-//                        self.emailState = status
-//                        self.showAlert = true
-//                    }
-//                } else if status == .usernameNotFound {
-//                    DispatchQueue.main.async {
-//                        self.emailState = status
-//                        self.showAlert = true
-//                    }
-//                }
-//            case .failure(let err):
-//                print(err)
-//            }
-//        })
-//    }
-//}
+extension ChangeEmail {
+    func updateEmail(username: String, password: String) {
+        UserNetworking().changeEmail(username: username, password: self.password, email: self.emailAddress, token: user.accessToken, completion: {emailState in
+            switch emailState {
+            case .success(let status):
+                if status == .updated {
+                    DispatchQueue.main.async {
+                        self.emailState = status
+                        self.showAlert = true
+                    }
+                } else if status == .incorrectPassword {
+                    DispatchQueue.main.async {
+                        self.emailState = status
+                        self.showAlert = true
+                    }
+                } else if status == .usernameNotFound {
+                    DispatchQueue.main.async {
+                        self.emailState = status
+                        self.showAlert = true
+                    }
+                }
+            case .failure(let err):
+                print(err)
+            }
+        })
+    }
+}
 
 struct ChangeEmail_Previews: PreviewProvider {
     static var previews: some View {
