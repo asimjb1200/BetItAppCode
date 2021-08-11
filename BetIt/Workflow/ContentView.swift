@@ -20,7 +20,7 @@ struct ContentView: View {
                     Image(systemName: "person.fill")
                 }
 
-            Text("The content of the third view")
+            CreateWager()
                 .tabItem {
                     Image(systemName: "plus")
                 }.foregroundColor(Color("Accent2"))

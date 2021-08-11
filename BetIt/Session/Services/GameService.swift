@@ -15,6 +15,7 @@ class GameService {
     let dateFormatter = DateFormatter()
     let tempAccessToken = ""
     let networker: Networker = .shared
+    static let shared: GameService = GameService()
     
     func getUpcomingGames(completion: @escaping (Result<[DBGame], CustomError>) -> Void) {
         let url = URL(string: "http://localhost:3000/sports-handler/bball/games-this-week")!

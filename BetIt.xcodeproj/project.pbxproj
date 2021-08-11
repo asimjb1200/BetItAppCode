@@ -36,6 +36,7 @@
 		6882F03F26704E0400046367 /* GameWagersPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6882F03E26704E0400046367 /* GameWagersPreview.swift */; };
 		6882F0412670577800046367 /* WagerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6882F0402670577800046367 /* WagerService.swift */; };
 		6882F04326705EB800046367 /* GameAndWagersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6882F04226705EB800046367 /* GameAndWagersView.swift */; };
+		688EDF0E26C220D000A4EAB7 /* CreateWager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688EDF0D26C220D000A4EAB7 /* CreateWager.swift */; };
 		689E31602671BF210052452D /* WagerDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689E315F2671BF210052452D /* WagerDetailsView.swift */; };
 		689F9D0B269725C3001DB52E /* GameWagersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689F9D0A269725C3001DB52E /* GameWagersViewModel.swift */; };
 		689F9D0D26972EE4001DB52E /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689F9D0C26972EE4001DB52E /* LoginViewModel.swift */; };
@@ -50,6 +51,7 @@
 		68A9714E268182470005FE58 /* MontserratAlternates-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68A97146268182470005FE58 /* MontserratAlternates-Italic.ttf */; };
 		68A9714F268182470005FE58 /* MontserratAlternates-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68A97147268182470005FE58 /* MontserratAlternates-ExtraLightItalic.ttf */; };
 		68A9ECE8267C1120000F4FC1 /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = 68A9ECE7267C1120000F4FC1 /* SocketIO */; };
+		68ADCFD626C358B2000D4644 /* CreateWagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68ADCFD526C358B2000D4644 /* CreateWagerViewModel.swift */; };
 		68AE2B9026864275001BD37D /* GamesNotFound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AE2B8F26864275001BD37D /* GamesNotFound.swift */; };
 		68AE2B9226864D4A001BD37D /* WagersNotFound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AE2B9126864D4A001BD37D /* WagersNotFound.swift */; };
 		68CA44AE26AFB12900B4784F /* AccountDetailsEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CA44AD26AFB12900B4784F /* AccountDetailsEnum.swift */; };
@@ -112,6 +114,7 @@
 		6882F03E26704E0400046367 /* GameWagersPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameWagersPreview.swift; sourceTree = "<group>"; };
 		6882F0402670577800046367 /* WagerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WagerService.swift; sourceTree = "<group>"; };
 		6882F04226705EB800046367 /* GameAndWagersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameAndWagersView.swift; sourceTree = "<group>"; };
+		688EDF0D26C220D000A4EAB7 /* CreateWager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWager.swift; sourceTree = "<group>"; };
 		689E315F2671BF210052452D /* WagerDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WagerDetailsView.swift; sourceTree = "<group>"; };
 		689F9D0A269725C3001DB52E /* GameWagersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameWagersViewModel.swift; sourceTree = "<group>"; };
 		689F9D0C26972EE4001DB52E /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -125,6 +128,7 @@
 		68A97145268182470005FE58 /* MontserratAlternates-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MontserratAlternates-Thin.ttf"; sourceTree = "<group>"; };
 		68A97146268182470005FE58 /* MontserratAlternates-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MontserratAlternates-Italic.ttf"; sourceTree = "<group>"; };
 		68A97147268182470005FE58 /* MontserratAlternates-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MontserratAlternates-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
+		68ADCFD526C358B2000D4644 /* CreateWagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWagerViewModel.swift; sourceTree = "<group>"; };
 		68AE2B8F26864275001BD37D /* GamesNotFound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesNotFound.swift; sourceTree = "<group>"; };
 		68AE2B9126864D4A001BD37D /* WagersNotFound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WagersNotFound.swift; sourceTree = "<group>"; };
 		68CA44AD26AFB12900B4784F /* AccountDetailsEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsEnum.swift; sourceTree = "<group>"; };
@@ -168,6 +172,7 @@
 				689F9D0C26972EE4001DB52E /* LoginViewModel.swift */,
 				689F9D0E26974654001DB52E /* UpcomingGamesViewModel.swift */,
 				689F9D1026975ADB001DB52E /* WalletDetailsViewModel.swift */,
+				68ADCFD526C358B2000D4644 /* CreateWagerViewModel.swift */,
 			);
 			name = ViewModels;
 			sourceTree = "<group>";
@@ -286,8 +291,8 @@
 		68A9713E2681754F0005FE58 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				681097AD2695F96E000E323F /* ViewModels */,
 				68EC37C9266324A900E99FE5 /* GamePreview.swift */,
+				681097AD2695F96E000E323F /* ViewModels */,
 				6882F03E26704E0400046367 /* GameWagersPreview.swift */,
 				6882F04226705EB800046367 /* GameAndWagersView.swift */,
 				689E315F2671BF210052452D /* WagerDetailsView.swift */,
@@ -300,6 +305,7 @@
 				687B337F26AB75CF00ED7C68 /* LoadingView.swift */,
 				6878B1AB26B650CB003C3FF9 /* ChangePassword.swift */,
 				687D867C26BB79D1005E5A52 /* ChangeEmail.swift */,
+				688EDF0D26C220D000A4EAB7 /* CreateWager.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -505,6 +511,7 @@
 				6835648B2662BF7900344E6C /* BetItApp.swift in Sources */,
 				68AE2B9226864D4A001BD37D /* WagersNotFound.swift in Sources */,
 				68CA44AE26AFB12900B4784F /* AccountDetailsEnum.swift in Sources */,
+				688EDF0E26C220D000A4EAB7 /* CreateWager.swift in Sources */,
 				681097AC2695F91F000E323F /* WalletDetailsView.swift in Sources */,
 				681AD4AF268B6DD600EE4348 /* HasJSONEncoder.swift in Sources */,
 				685E8E312677EFD8006AA79E /* LoginView.swift in Sources */,
@@ -513,6 +520,7 @@
 				68EC37C52663241A00E99FE5 /* UpcomingGames.swift in Sources */,
 				686D492226641DE100605AD5 /* GameService.swift in Sources */,
 				68189DBB266B3E6100D767C4 /* Wagers.swift in Sources */,
+				68ADCFD626C358B2000D4644 /* CreateWagerViewModel.swift in Sources */,
 				681AD4B1268B6DED00EE4348 /* HasJSONDecoder.swift in Sources */,
 				684FF22C26A3A74B004FA282 /* WalletService.swift in Sources */,
 				6882F03F26704E0400046367 /* GameWagersPreview.swift in Sources */,
