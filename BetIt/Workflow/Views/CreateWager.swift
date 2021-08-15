@@ -11,13 +11,6 @@ struct CreateWager: View {
     @EnvironmentObject private var user: UserModel
     @StateObject var viewModel = CreateWagerViewModel()
     let teams = TeamsMapper().Teams
-    // private var testGames = [
-//            DBGame(game_id: 2, sport: "BBall", home_team: 5, visitor_team: 4, game_begins: Date().addingTimeInterval(-604800), home_score: 20, season: 2020),
-//            DBGame(game_id: 3, sport: "BBall", home_team: 6, visitor_team: 5, game_begins: Date(), home_score: 20, season: 2020),
-//            DBGame(game_id: 4, sport: "BBall", home_team: 7, visitor_team: 6, game_begins: Date(), home_score: 20, season: 2020),
-//            DBGame(game_id: 5, sport: "BBall", home_team: 8, visitor_team: 7, game_begins: Date(), home_score: 20, season: 2020),
-//            DBGame(game_id: 6, sport: "BBall", home_team: 9, visitor_team: 8, game_begins: Date(), home_score: 20, season: 2020)
-//        ]
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -26,39 +19,55 @@ struct CreateWager: View {
                 .onChange(of: viewModel.selectedDate, perform: { chosenDate in
                     viewModel.loadGames(date: chosenDate, token: user.accessToken)
                 })
-            
-            Picker("Which Game? ", selection: $viewModel.selectedGame) {
-                ForEach(viewModel.games, id: \.self) {
-                    Text("\(teams[$0.home_team] ?? "N/A") vs. \(teams[$0.visitor_team] ?? "N/A")")
-                }
-            }
-            .padding(.vertical, 20.0)
-            .pickerStyle(MenuPickerStyle())
-            
-            Text("Selected Game: \(teams[viewModel.selectedGame.home_team] ?? "not found") vs. \(teams[viewModel.selectedGame.visitor_team] ?? "not found")")
-                .padding(.vertical)
+            if viewModel.games.isEmpty {
+                Text("No games are being played on that date. Pick another.")
+            } else {
                 
-            Text("Game Time: \(viewModel.dateToString)")
+                Picker("Which Game? ", selection: $viewModel.selectedGame) {
+                    ForEach(viewModel.games, id: \.self) {
+                        Text("\(teams[$0.home_team] ?? "Try Another Date") vs. \(teams[$0.visitor_team] ?? "Try Another Date")")
+                    }
+                }
+                .padding(.vertical, 20.0)
+                .pickerStyle(MenuPickerStyle())
+                
+                Text("Selected Game: \(teams[viewModel.selectedGame.home_team] ?? "Try Another Date") vs. \(teams[viewModel.selectedGame.visitor_team] ?? "Try Another Date")")
+                    .padding(.vertical)
+                    
+                Text("Game Time: \(viewModel.dateToString)")
+                    .padding(.vertical)
+                
+                Text("I'm betting on: \(teams[viewModel.selectedTeam]!) to win.")
+                Picker("I'm betting on: ", selection: $viewModel.selectedTeam) {
+                    Text("\(teams[viewModel.selectedGame.visitor_team]!)").tag(viewModel.selectedGame.visitor_team)
+                    Text("\(teams[viewModel.selectedGame.home_team]!)").tag(viewModel.selectedGame.home_team)
+                }
+                .foregroundColor(Color("Accent2"))
+                .pickerStyle(SegmentedPickerStyle())
+                
+                Text("Wager Amount:")
+                    .padding(.top, 20.0)
+                TextField("LTC", text: $viewModel.wagerAmount)
+                    .padding(.bottom)
+                    .keyboardType(.numberPad)
+                
+                Button("Place Wager") {
+                    viewModel.placeBet(token: user.accessToken, bettor: user.walletAddress)
+                }
                 .padding(.vertical)
-            
-            Picker("I'm betting on: ", selection: $viewModel.selectedTeam) {
-                Text("\(viewModel.selectedGame.home_team)")
-                Text("\(viewModel.selectedGame.visitor_team)")
             }
-            
-            Text("Wager Amount:")
-                .padding(.top, 20.0)
-            TextField("LTC", text: $viewModel.wagerAmount)
-                .padding(.bottom)
-                .keyboardType(.numberPad)
-            
-            Button("Place Wager") {
-                viewModel.placeBet(token: user.accessToken, bettor: user.walletAddress)
+        }.onAppear() {
+            if viewModel.games.isEmpty {
+                viewModel.loadGames(date: viewModel.selectedDate, token: user.accessToken)
             }
-            .padding(.vertical)
-        }
-        .onAppear() {
-            viewModel.loadGames(date: viewModel.selectedDate, token: user.accessToken)
+        }.alert(isPresented: $viewModel.showAlert) {
+            switch viewModel.wagerCreated {
+                case true:
+                    return Alert(title: Text("Success"), message: Text("Your wager was created and entered into the pool."), dismissButton: .default(Text("OK")))
+                
+                case false:
+                 return Alert(title: Text("Something went wrong"), message: Text("Your wager couldn't be created. Try again."), dismissButton: .default(Text("OK")))
+            }
         }
     }
 }

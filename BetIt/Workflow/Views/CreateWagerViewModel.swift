@@ -8,11 +8,14 @@
 import Foundation
 
 final class CreateWagerViewModel: ObservableObject {
+    
     @Published var selectedDate = Date()
     @Published var wagerAmount = "0.0"
     @Published var games = [DBGame]()
     @Published var selectedGame = DBGame(game_id: 0, sport: "", home_team: 0, visitor_team: 0, game_begins: Date(), season: 0)
-    @Published var selectedTeam = 0
+    @Published var selectedTeam: UInt8 = 0
+    @Published var showAlert = false
+    var wagerCreated = false
     private var gameService: GameService = .shared
     private var wagerService: WagerService = .shared
     private var dateFormatter = DateFormatter()
@@ -34,10 +37,12 @@ final class CreateWagerViewModel: ObservableObject {
         gameService.getGamesByDate(token: token, date: date, completion: {gameResults in
             switch gameResults {
             case .success(let gamesOnDate):
-                DispatchQueue.main.async {
-                    self.games = gamesOnDate
-                    self.selectedGame = gamesOnDate[0]
-                }
+                    DispatchQueue.main.async {
+                        self.games = gamesOnDate
+                        if !gamesOnDate.isEmpty {
+                            self.selectedGame = gamesOnDate[0]
+                        }
+                    }
             case .failure(let err):
                 print(err)
             }
@@ -47,12 +52,17 @@ final class CreateWagerViewModel: ObservableObject {
     func placeBet(token: String, bettor: String) {
         wagerService.createNewWager(token: token, bettor: bettor, wagerAmount: UInt(self.wagerAmount) ?? 0, gameId: self.selectedGame.game_id, bettorChosenTeam: UInt(self.selectedTeam), completion: { wagerResult in
             switch wagerResult {
-            case .success(let wagerCreated):
+            case .success(let newWagerCreated):
                 DispatchQueue.main.async {
-                    print("Wager created")
+                    self.wagerCreated = newWagerCreated
+                    self.showAlert = true
                 }
             case .failure(let err):
-                print(err)
+                DispatchQueue.main.async {
+                    self.wagerCreated = false
+                    self.showAlert = true
+                    print(err)
+                }
             }
         })
     }

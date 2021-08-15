@@ -21,6 +21,7 @@ struct DBGame: Codable, Hashable {
 
 struct TeamsMapper {
     let Teams: [UInt8: String] = [
+        0: "N/A",
         1: "ATL",
         2: "BOS",
         3: "BKN",
