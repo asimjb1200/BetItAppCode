@@ -41,6 +41,11 @@ struct CreateWager: View {
             Text("Game Time: \(viewModel.dateToString)")
                 .padding(.vertical)
             
+            Picker("I'm betting on: ", selection: $viewModel.selectedTeam) {
+                Text("\(viewModel.selectedGame.home_team)")
+                Text("\(viewModel.selectedGame.visitor_team)")
+            }
+            
             Text("Wager Amount:")
                 .padding(.top, 20.0)
             TextField("LTC", text: $viewModel.wagerAmount)
@@ -48,7 +53,7 @@ struct CreateWager: View {
                 .keyboardType(.numberPad)
             
             Button("Place Wager") {
-                print("Wager Placed")
+                viewModel.placeBet(token: user.accessToken, bettor: user.walletAddress)
             }
             .padding(.vertical)
         }

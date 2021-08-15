@@ -11,9 +11,10 @@ final class UpcomingGamesViewModel: ObservableObject {
     @Published var upcomingGames = [DBGame]()
     @Published var gameScheduleDate = Date()
     @Published var gamesAvailable = true
+    let gameService: GameService = .shared
     
     func getGamesSchedule() {
-        GameService().getUpcomingGames(completion: { (games) in
+        gameService.getUpcomingGames(completion: { (games) in
             switch games {
             case .success(let gameData):
                 DispatchQueue.main.async {
@@ -37,7 +38,7 @@ final class UpcomingGamesViewModel: ObservableObject {
     }
     
     func getGamesByDate(date: Date = Date(), token: String, selectedDate: Date) {
-        GameService().getGamesByDate(token: token, date: selectedDate, completion: { (todaysGames) in
+        gameService.getGamesByDate(token: token, date: selectedDate, completion: { (todaysGames) in
             switch todaysGames {
             case .success(let scheduleToday):
                 if scheduleToday.isEmpty {

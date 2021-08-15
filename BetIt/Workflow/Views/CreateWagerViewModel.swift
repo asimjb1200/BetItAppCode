@@ -12,7 +12,9 @@ final class CreateWagerViewModel: ObservableObject {
     @Published var wagerAmount = "0.0"
     @Published var games = [DBGame]()
     @Published var selectedGame = DBGame(game_id: 0, sport: "", home_team: 0, visitor_team: 0, game_begins: Date(), season: 0)
+    @Published var selectedTeam = 0
     private var gameService: GameService = .shared
+    private var wagerService: WagerService = .shared
     private var dateFormatter = DateFormatter()
     var dateToString: String {
         return formatDate()
@@ -35,6 +37,19 @@ final class CreateWagerViewModel: ObservableObject {
                 DispatchQueue.main.async {
                     self.games = gamesOnDate
                     self.selectedGame = gamesOnDate[0]
+                }
+            case .failure(let err):
+                print(err)
+            }
+        })
+    }
+    
+    func placeBet(token: String, bettor: String) {
+        wagerService.createNewWager(token: token, bettor: bettor, wagerAmount: UInt(self.wagerAmount) ?? 0, gameId: self.selectedGame.game_id, bettorChosenTeam: UInt(self.selectedTeam), completion: { wagerResult in
+            switch wagerResult {
+            case .success(let wagerCreated):
+                DispatchQueue.main.async {
+                    print("Wager created")
                 }
             case .failure(let err):
                 print(err)

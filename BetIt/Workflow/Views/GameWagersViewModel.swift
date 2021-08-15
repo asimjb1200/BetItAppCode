@@ -13,6 +13,7 @@ final class GameWagersViewModel: ObservableObject {
     @Published var usdPrice: Float = 0.0
     static let shared = GameWagersViewModel()
     let service: WalletService = .shared
+    let wagerService: WagerService = .shared
     
     // keep track of wagers that are updated
     init() {
@@ -32,7 +33,7 @@ final class GameWagersViewModel: ObservableObject {
     
     func getWagersByGameId(token: String, gameId: UInt) {
         self.wagers = []
-        WagerService().getWagersForGameId(token: token, gameId: gameId, completion: {[weak self] (wagers) in
+        wagerService.getWagersForGameId(token: token, gameId: gameId, completion: {[weak self] (wagers) in
             switch wagers {
             case .success(let gameWagers):
                 if gameWagers.isEmpty {
@@ -52,7 +53,7 @@ final class GameWagersViewModel: ObservableObject {
     }
     
     func updateWager(token: String, wagerId: Int, fader: String) {
-        WagerService().updateWager(token: token, wagerId: wagerId, fader: fader, completion: { [self] (updatedWager) in
+        wagerService.updateWager(token: token, wagerId: wagerId, fader: fader, completion: { [self] (updatedWager) in
             switch updatedWager {
             case .success(let newWager):
                 DispatchQueue.main.async {
