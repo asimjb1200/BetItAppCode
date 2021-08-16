@@ -12,7 +12,11 @@ final class CreateWagerViewModel: ObservableObject {
     @Published var selectedDate = Date()
     @Published var wagerAmount = "0.0"
     @Published var games = [DBGame]()
-    @Published var selectedGame = DBGame(game_id: 0, sport: "", home_team: 0, visitor_team: 0, game_begins: Date(), season: 0)
+    @Published var selectedGame = DBGame(game_id: 0, sport: "", home_team: 0, visitor_team: 0, game_begins: Date(), season: 0) {
+        didSet {
+            selectedTeam = 0
+        }
+    }
     @Published var selectedTeam: UInt8 = 0
     @Published var showAlert = false
     var wagerCreated = false
@@ -42,6 +46,8 @@ final class CreateWagerViewModel: ObservableObject {
                         if !gamesOnDate.isEmpty {
                             self.selectedGame = gamesOnDate[0]
                         }
+                        // reset the selected team everytime a game is loaded
+                        self.selectedTeam = 0
                     }
             case .failure(let err):
                 print(err)

@@ -12,33 +12,46 @@ struct CreateWager: View {
     @StateObject var viewModel = CreateWagerViewModel()
     let teams = TeamsMapper().Teams
     
+    init() {
+        // custom setting the segmented picker's colors in normal and selected states
+        UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(Color("Accent2"))
+        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor(Color("Accent2"))], for: .normal)
+        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
+    }
+    
     var body: some View {
         VStack(alignment: .leading) {
             DatePicker("Game Date: ",  selection: $viewModel.selectedDate, in: viewModel.range, displayedComponents: .date)
+                .font(.custom("MontserratAlternates-Regular", size: 15))
                 .padding(.bottom, 20.0)
                 .onChange(of: viewModel.selectedDate, perform: { chosenDate in
                     viewModel.loadGames(date: chosenDate, token: user.accessToken)
                 })
             if viewModel.games.isEmpty {
-                Text("No games are being played on that date. Pick another.")
+                Text("No games are being played on that date. Pick another.").font(.custom("MontserratAlternates-Regular", size: 15))
             } else {
-                
-                Picker("Which Game? ", selection: $viewModel.selectedGame) {
+                Text("Which Game?")
+                    .font(.custom("MontserratAlternates-Regular", size: 15))
+                Picker("", selection: $viewModel.selectedGame) {
                     ForEach(viewModel.games, id: \.self) {
                         Text("\(teams[$0.home_team] ?? "Try Another Date") vs. \(teams[$0.visitor_team] ?? "Try Another Date")")
+                        .font(.custom("MontserratAlternates-Regular", size: 15))
                     }
                 }
-                .padding(.vertical, 20.0)
-                .pickerStyle(MenuPickerStyle())
-                
-                Text("Selected Game: \(teams[viewModel.selectedGame.home_team] ?? "Try Another Date") vs. \(teams[viewModel.selectedGame.visitor_team] ?? "Try Another Date")")
-                    .padding(.vertical)
+                .font(.custom("MontserratAlternates-Regular", size: 15))
+                .padding(.bottom, 20.0)
                     
                 Text("Game Time: \(viewModel.dateToString)")
+                    .font(.custom("MontserratAlternates-Regular", size: 15))
                     .padding(.vertical)
                 
-                Text("I'm betting on: \(teams[viewModel.selectedTeam]!) to win.")
-                Picker("I'm betting on: ", selection: $viewModel.selectedTeam) {
+                if viewModel.selectedTeam == 0 {
+                    Text("Select a team").font(.custom("MontserratAlternates-Regular", size: 15))
+                } else {
+                    Text("I'm betting on: \(teams[viewModel.selectedTeam]!) to win.").font(.custom("MontserratAlternates-Regular", size: 15))
+                }
+                
+                Picker("", selection: $viewModel.selectedTeam) {
                     Text("\(teams[viewModel.selectedGame.visitor_team]!)").tag(viewModel.selectedGame.visitor_team)
                     Text("\(teams[viewModel.selectedGame.home_team]!)").tag(viewModel.selectedGame.home_team)
                 }
@@ -54,9 +67,17 @@ struct CreateWager: View {
                 Button("Place Wager") {
                     viewModel.placeBet(token: user.accessToken, bettor: user.walletAddress)
                 }
-                .padding(.vertical)
+                .font(.custom("MontserratAlternates-Regular", size: 10))
+                .padding(.all)
+                .background(
+                    RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/).fill(Color.gray)
+                )
+                .foregroundColor(Color("Accent2"))
             }
         }.onAppear() {
+            // TODO: make sure the user doesn't already have more than 2 bets in the db already
+            
+            
             if viewModel.games.isEmpty {
                 viewModel.loadGames(date: viewModel.selectedDate, token: user.accessToken)
             }
