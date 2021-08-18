@@ -19,6 +19,7 @@ final class CreateWagerViewModel: ObservableObject {
     }
     @Published var selectedTeam: UInt8 = 0
     @Published var showAlert = false
+    @Published var canWager: Bool = true
     var wagerCreated = false
     private var gameService: GameService = .shared
     private var wagerService: WagerService = .shared
@@ -35,6 +36,23 @@ final class CreateWagerViewModel: ObservableObject {
     
     init() {
         self.dateFormatter.dateFormat = "EEE, MMM d, yyyy"
+    }
+    
+    func checkWagerCount(bettor: String, token: String) {
+        wagerService.checkUserWagerCount(token: token, bettor: bettor, completion: {apiResponse in
+            switch apiResponse {
+            case .success(let numOfWagers):
+                DispatchQueue.main.async {
+                    if numOfWagers >= 2 {
+                        self.canWager = false
+                    } else {
+                        self.canWager = true
+                    }
+                }
+            case .failure(let err):
+                print(err)
+            }
+        })
     }
     
     func loadGames(date: Date, token: String) {

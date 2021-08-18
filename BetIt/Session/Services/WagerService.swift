@@ -93,6 +93,40 @@ class WagerService {
         }.resume()
     }
     
+    func checkUserWagerCount(token: String, bettor: String, completion: @escaping (Result<Int, WagerErrors>) -> ()) {
+        let request = networker.constructRequest(uri: "http://localhost:3000/wager-handler/check-number-of-bets?walletAddress=\(bettor)", token: token)
+        URLSession.shared.dataTask(with: request) {[weak self] (data, response, err) in
+            guard let self = self else { return }
+            if err != nil {
+                print("there was a big error: \(String(describing: err))")
+            }
+            
+            guard let response = response as? HTTPURLResponse else {
+                completion(.failure(.generalError))
+                return
+            }
+            
+            let isOK = self.networker.checkOkStatus(res: response)
+            
+            // unwrapping the optional
+            guard let data = data else {
+                completion(.failure(.generalError))
+                return
+            }
+            
+            if isOK {
+                do {
+                    let numberOfWagers = try self.decoder.decode(WagerCountResponse.self, from: data)
+                    completion(.success(numberOfWagers.numberOfBets))
+                } catch let error {
+                    print(error)
+                    completion(.failure(.generalError))
+                }
+                
+            }
+        }.resume()
+    }
+    
     func createNewWager(token: String, bettor: String, wagerAmount: UInt, gameId: UInt, bettorChosenTeam: UInt, completion: @escaping (Result<Bool, WagerErrors>) -> ()) {
         let reqWithoutBody = networker.constructRequest(uri: "http://localhost:3000/wager-handler/create-wager", token: token, post: true)
         
@@ -124,4 +158,7 @@ class WagerService {
     }
 }
 
+struct WagerCountResponse: Decodable {
+    var numberOfBets: Int
+}
 

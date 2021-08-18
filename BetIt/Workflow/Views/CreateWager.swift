@@ -21,65 +21,75 @@ struct CreateWager: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            DatePicker("Game Date: ",  selection: $viewModel.selectedDate, in: viewModel.range, displayedComponents: .date)
-                .font(.custom("MontserratAlternates-Regular", size: 15))
-                .padding(.bottom, 20.0)
-                .onChange(of: viewModel.selectedDate, perform: { chosenDate in
-                    viewModel.loadGames(date: chosenDate, token: user.accessToken)
-                })
-            if viewModel.games.isEmpty {
-                Text("No games are being played on that date. Pick another.").font(.custom("MontserratAlternates-Regular", size: 15))
-            } else {
-                Text("Which Game?")
-                    .font(.custom("MontserratAlternates-Regular", size: 15))
-                Picker("", selection: $viewModel.selectedGame) {
-                    ForEach(viewModel.games, id: \.self) {
-                        Text("\(teams[$0.home_team] ?? "Try Another Date") vs. \(teams[$0.visitor_team] ?? "Try Another Date")")
+                if viewModel.canWager {
+                    DatePicker("Game Date: ",  selection: $viewModel.selectedDate, in: viewModel.range, displayedComponents: .date)
                         .font(.custom("MontserratAlternates-Regular", size: 15))
+                        .padding(.bottom, 20.0)
+                        .onChange(of: viewModel.selectedDate, perform: { chosenDate in
+                            viewModel.loadGames(date: chosenDate, token: user.accessToken)
+                        })
+                    if viewModel.games.isEmpty {
+                        Text("No games are being played on that date. Pick another.").font(.custom("MontserratAlternates-Regular", size: 15))
+                    } else {
+                        // Text("Which Game?").font(.custom("MontserratAlternates-Regular", size: 15))
+                        Picker("Press Here To Select A Game", selection: $viewModel.selectedGame) {
+                            ForEach(viewModel.games, id: \.self) {
+                                Text("\(teams[$0.home_team] ?? "Try Another Date") vs. \(teams[$0.visitor_team] ?? "Try Another Date")")
+                                .font(.custom("MontserratAlternates-Regular", size: 15))
+                            }
+                        }
+                        .font(.custom("MontserratAlternates-Regular", size: 15))
+                        .pickerStyle(MenuPickerStyle())
+                        
+                        if viewModel.selectedGame.game_id == 0 {
+                            Text("Pick A Game to Bet On Above!").font(.custom("MontserratAlternates-Regular", size: 15))
+                        } else {
+                            Text("\(teams[viewModel.selectedGame.home_team]!) vs. \(teams[viewModel.selectedGame.visitor_team]!)").font(.custom("MontserratAlternates-Regular", size: 15))
+                        }
+                            
+                        Text("Game Time: \(viewModel.dateToString)")
+                            .font(.custom("MontserratAlternates-Regular", size: 15))
+                            .padding(.vertical)
+                        
+                        if viewModel.selectedTeam == 0 {
+                            Text("Select a team").font(.custom("MontserratAlternates-Regular", size: 15))
+                        } else {
+                            Text("I'm betting on: \(teams[viewModel.selectedTeam]!) to win.").font(.custom("MontserratAlternates-Regular", size: 15))
+                        }
+                        
+                        Picker("", selection: $viewModel.selectedTeam) {
+                            Text("\(teams[viewModel.selectedGame.visitor_team]!)").tag(viewModel.selectedGame.visitor_team)
+                            Text("\(teams[viewModel.selectedGame.home_team]!)").tag(viewModel.selectedGame.home_team)
+                        }
+                        .foregroundColor(Color("Accent2"))
+                        .pickerStyle(SegmentedPickerStyle())
+                        
+                        Text("Wager Amount:")
+                            .padding(.top, 20.0)
+                        TextField("LTC", text: $viewModel.wagerAmount)
+                            .padding(.bottom)
+                            .keyboardType(.numberPad)
+                        
+                        Button("Place Wager") {
+                            viewModel.placeBet(token: user.accessToken, bettor: user.walletAddress)
+                        }
+                        .font(.custom("MontserratAlternates-Regular", size: 10))
+                        .padding(.all)
+                        .background(
+                            RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/).fill(Color(white: 0.342))
+                        )
+                        .foregroundColor(Color("Accent2"))
                     }
-                }
-                .font(.custom("MontserratAlternates-Regular", size: 15))
-                .padding(.bottom, 20.0)
-                    
-                Text("Game Time: \(viewModel.dateToString)")
-                    .font(.custom("MontserratAlternates-Regular", size: 15))
-                    .padding(.vertical)
-                
-                if viewModel.selectedTeam == 0 {
-                    Text("Select a team").font(.custom("MontserratAlternates-Regular", size: 15))
                 } else {
-                    Text("I'm betting on: \(teams[viewModel.selectedTeam]!) to win.").font(.custom("MontserratAlternates-Regular", size: 15))
+                    Text("You can not have more than 2 active wagers at a time, please wait until one of your wagers concludes. Or cancel one.")
                 }
-                
-                Picker("", selection: $viewModel.selectedTeam) {
-                    Text("\(teams[viewModel.selectedGame.visitor_team]!)").tag(viewModel.selectedGame.visitor_team)
-                    Text("\(teams[viewModel.selectedGame.home_team]!)").tag(viewModel.selectedGame.home_team)
-                }
-                .foregroundColor(Color("Accent2"))
-                .pickerStyle(SegmentedPickerStyle())
-                
-                Text("Wager Amount:")
-                    .padding(.top, 20.0)
-                TextField("LTC", text: $viewModel.wagerAmount)
-                    .padding(.bottom)
-                    .keyboardType(.numberPad)
-                
-                Button("Place Wager") {
-                    viewModel.placeBet(token: user.accessToken, bettor: user.walletAddress)
-                }
-                .font(.custom("MontserratAlternates-Regular", size: 10))
-                .padding(.all)
-                .background(
-                    RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/).fill(Color.gray)
-                )
-                .foregroundColor(Color("Accent2"))
-            }
         }.onAppear() {
-            // TODO: make sure the user doesn't already have more than 2 bets in the db already
+            viewModel.checkWagerCount(bettor: user.walletAddress, token: user.accessToken)
             
-            
-            if viewModel.games.isEmpty {
-                viewModel.loadGames(date: viewModel.selectedDate, token: user.accessToken)
+            if viewModel.canWager {
+                if viewModel.games.isEmpty {
+                    viewModel.loadGames(date: viewModel.selectedDate, token: user.accessToken)
+                }
             }
         }.alert(isPresented: $viewModel.showAlert) {
             switch viewModel.wagerCreated {

@@ -18,6 +18,8 @@ class Networker {
         if post {
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        } else {
+            request.httpMethod = "GET"
         }
         
         if !token.isEmpty {
