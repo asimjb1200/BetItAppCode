@@ -31,7 +31,6 @@ struct CreateWager: View {
                     if viewModel.games.isEmpty {
                         Text("No games are being played on that date. Pick another.").font(.custom("MontserratAlternates-Regular", size: 15))
                     } else {
-                        // Text("Which Game?").font(.custom("MontserratAlternates-Regular", size: 15))
                         Picker("Press Here To Select A Game", selection: $viewModel.selectedGame) {
                             ForEach(viewModel.games, id: \.self) {
                                 Text("\(teams[$0.home_team] ?? "Try Another Date") vs. \(teams[$0.visitor_team] ?? "Try Another Date")")
@@ -71,14 +70,13 @@ struct CreateWager: View {
                             .keyboardType(.numberPad)
                         
                         Button("Place Wager") {
-                            viewModel.placeBet(token: user.accessToken, bettor: user.walletAddress)
+                            viewModel.checkWalletBalance(address: user.accessToken, username: user.username, token: user.accessToken)
                         }
-                        .font(.custom("MontserratAlternates-Regular", size: 10))
-                        .padding(.all)
+                        .padding()
                         .background(
-                            RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/).fill(Color(white: 0.342))
+                            RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/).fill(Color("Accent2"))
                         )
-                        .foregroundColor(Color("Accent2"))
+                        .foregroundColor(.black)
                     }
                 } else {
                     Text("You can not have more than 2 active wagers at a time, please wait until one of your wagers concludes. Or cancel one.")
@@ -91,13 +89,18 @@ struct CreateWager: View {
                     viewModel.loadGames(date: viewModel.selectedDate, token: user.accessToken)
                 }
             }
-        }.alert(isPresented: $viewModel.showAlert) {
-            switch viewModel.wagerCreated {
-                case true:
-                    return Alert(title: Text("Success"), message: Text("Your wager was created and entered into the pool."), dismissButton: .default(Text("OK")))
-                
-                case false:
-                 return Alert(title: Text("Something went wrong"), message: Text("Your wager couldn't be created. Try again."), dismissButton: .default(Text("OK")))
+        }
+        .alert(isPresented: $viewModel.showAlert) {
+            if viewModel.notEnoughCrypto {
+                return Alert(title: Text("Insufficient Crypto"), message: Text("You don't have enough crytpo in your wallet to place this bet."), dismissButton: .default(Text("OK")))
+            } else {
+                switch viewModel.wagerCreated {
+                    case true:
+                        return Alert(title: Text("Success"), message: Text("Your wager was created and entered into the pool."), dismissButton: .default(Text("OK")))
+
+                    case false:
+                        return Alert(title: Text("Something went wrong"), message: Text("Your wager couldn't be created. Try again."), dismissButton: .default(Text("OK")))
+                }
             }
         }
     }

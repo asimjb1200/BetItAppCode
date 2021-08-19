@@ -12,18 +12,21 @@ final class CreateWagerViewModel: ObservableObject {
     @Published var selectedDate = Date()
     @Published var wagerAmount = "0.0"
     @Published var games = [DBGame]()
+    @Published var selectedTeam: UInt8 = 0
+    @Published var showAlert = false
+    @Published var canWager: Bool = true
+    @Published var notEnoughCrypto: Bool = false
     @Published var selectedGame = DBGame(game_id: 0, sport: "", home_team: 0, visitor_team: 0, game_begins: Date(), season: 0) {
         didSet {
             selectedTeam = 0
         }
     }
-    @Published var selectedTeam: UInt8 = 0
-    @Published var showAlert = false
-    @Published var canWager: Bool = true
     var wagerCreated = false
     private var gameService: GameService = .shared
     private var wagerService: WagerService = .shared
     private var dateFormatter = DateFormatter()
+    private var walletService: WalletService = .shared
+    private var ltcFeeWiggleRoom = 0.05/100000000
     var dateToString: String {
         return formatDate()
     }
@@ -92,7 +95,29 @@ final class CreateWagerViewModel: ObservableObject {
     }
     
     func formatDate() -> String {
-//        let dateString = dateFormatter.string(from: self.selectedDate)
         return dateFormatter.string(from: self.selectedDate)
+    }
+    
+    func checkWalletBalance(address: String, username: String, token: String){
+        walletService.getWalletBalance(address: address, username: username, token: token, completion: {walletResponse in
+            switch walletResponse {
+                case .success(let walletData):
+                    DispatchQueue.main.async {
+                        let litoshiBalance = Decimal(string: self.wagerAmount)!/100000000 // think of a clever way to tack on the tx fees
+                        if walletData.balance <= (litoshiBalance + Decimal(self.ltcFeeWiggleRoom)) {
+                            self.notEnoughCrypto = true
+                            self.showAlert = true
+                        } else {
+                            self.placeBet(token: token, bettor: address)
+                        }
+                    }
+                case .failure(let err):
+                    DispatchQueue.main.async {
+                        self.notEnoughCrypto = true
+                        self.showAlert = true
+                        print(err)
+                    }
+            }
+        })
     }
 }
