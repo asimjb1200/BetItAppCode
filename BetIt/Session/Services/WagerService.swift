@@ -48,6 +48,49 @@ class WagerService {
         }.resume()
     }
     
+    func getAllUsersWagers(token: String, bettor: String, completion: @escaping (Result<[WagerStatus], WagerErrors>) -> ()) {
+        let req = networker.constructRequest(uri: "http://localhost:3000/wager-handler/get-users-wagers?walletAddr=\(bettor)", token: token, post: false)
+
+        URLSession.shared.dataTask(with: req) {[weak self] (data, res, err) in
+            guard let self = self else {return}
+
+            if err != nil {
+                print("there was a big error: \(String(describing: err))")
+
+            }
+            guard let res = res as? HTTPURLResponse else {
+                completion(.failure(.generalError))
+                return
+            }
+            
+            let isOK = self.networker.checkOkStatus(res: res)
+            
+            if !isOK {
+                completion(.failure(.generalError))
+            }
+            
+            guard let data = data else {
+                completion(.failure(.generalError))
+                return
+            }
+            print(data)
+
+            do {
+                // handle the UTC date format coming in from the db
+                self.dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+                self.dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+                
+                self.decoder.dateDecodingStrategy = .formatted(self.dateFormatter)
+                let myWagers = try self.decoder.decode([WagerStatus].self, from: data)
+                completion(.success(myWagers))
+            } catch let decodeErr {
+                print(decodeErr)
+            }
+            
+            
+        }.resume()
+    }
+    
     func updateWager(token: String, wagerId: Int, fader: String, completion: @escaping (Result<WagerModel, WagerErrors>) -> ()) {
         let reqWithoutBody = networker.constructRequest(uri: "http://localhost:3000/wager-handler/add-fader-to-wager", token: token, post: true)
         

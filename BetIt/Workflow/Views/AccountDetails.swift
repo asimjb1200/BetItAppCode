@@ -14,7 +14,7 @@ var signalAlert = PassthroughSubject<Void,Never>()
 struct AccountDetails: View {
     @EnvironmentObject private var user: UserModel
 //    @State private var showingCustomSheet = false
-    var accountOptions = ["Email", "Password", "Support", "Deactivate", "Log Out"]
+    var accountOptions = ["Email", "Password", "View My Wagers", "Support", "Deactivate", "Log Out"]
     @State private var email: String = ""
     @State private var username: String = ""
     @State private var password: String = ""
@@ -31,6 +31,8 @@ struct AccountDetails: View {
                         NavigationLink("\(item)", destination: Text("Contact Support"))
                     case AccountDeets.deactivate.rawValue:
                         NavigationLink("\(item)", destination: Text("Deactivate Account"))
+                    case AccountDeets.viewMyWagers.rawValue:
+                        NavigationLink("\(item)", destination: StatusOfUsersWagers())
                     default:
                         Button(action: {
                             UserNetworking().logout(accessToken: user.accessToken, completion: { loggedOutStatus in

@@ -71,54 +71,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "836B0628-B7D1-4830-BF13-FA47AE8AF0F6"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BetIt/Session/Services/WalletService.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "25"
-            endingLineNumber = "25"
-            landmarkName = "getWalletBalance(address:username:token:completion:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "836B0628-B7D1-4830-BF13-FA47AE8AF0F6 - e608510a07003875"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "BetIt.WalletService.getWalletBalance(address: Swift.String, username: Swift.String, token: Swift.String, completion: (Swift.Result&lt;BetIt.WalletModel, BetIt.WalletErrors&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "BetIt"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Volumes/ExternalDrive/MobileApps/BetIt/BetIt/Session/Services/WalletService.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "25"
-                  endingLineNumber = "25"
-                  offsetFromSymbolStart = "1297">
-               </Location>
-               <Location
-                  uuid = "836B0628-B7D1-4830-BF13-FA47AE8AF0F6 - ee21dab4877290a8"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in BetIt.WalletService.getWalletBalance(address: Swift.String, username: Swift.String, token: Swift.String, completion: (Swift.Result&lt;BetIt.WalletModel, BetIt.WalletErrors&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "BetIt"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Volumes/ExternalDrive/MobileApps/BetIt/BetIt/Session/Services/WalletService.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "26"
-                  endingLineNumber = "26"
-                  offsetFromSymbolStart = "332">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "8CF98086-0DAD-4C5F-9D5C-130E3E08D4C6"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -135,16 +87,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "3EC97853-1A15-4244-872A-327D3FFD2805"
-            shouldBeEnabled = "Yes"
+            uuid = "49B05EA1-D6C2-4C5C-B5FF-495A7D36B5AA"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BetIt/Session/Services/WalletService.swift"
+            filePath = "BetIt/Session/Services/WagerService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
-            landmarkName = "getWalletBalance(address:username:token:completion:)"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
+            landmarkName = "getAllUsersWagers(token:bettor:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -14,4 +14,5 @@ enum AccountDeets: String{
     case logOut = "Log Out"
     case support = "Support"
     case deactivate = "Deactivate"
+    case viewMyWagers = "View My Wagers"
 }
