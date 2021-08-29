@@ -8,14 +8,15 @@
 import SwiftUI
 
 struct MySingleWager: View {
-    @State var ltcAmount: Int = 0
-    @State var chosenTeam: Int = 0
+    var ltcAmount: Int
+    var chosenTeam: Int
+    var gameDate: String
     @State var showAlert: Bool = false
     private let teams = TeamsMapper().Teams
     let davysGray = Color(white: 0.342)
     var body: some View {
         VStack {
-            Text("Game Starts: Sun, Aug 3rd 4pm")
+            Text("Game Starts: \(gameDate)")
             Text("Wager Amount: \(ltcAmount) LTC")
             Text("Your Chosen Team: \(teams[UInt8(chosenTeam)]!)")
             Text("Bet Is Active: No")
@@ -29,7 +30,7 @@ struct MySingleWager: View {
                     .fill(Color("Accent2"))
             )
             .alert(isPresented: $showAlert) {
-                return Alert(title: Text("Are You Sure?"), primaryButton: .destructive(Text("Cancel the wager"), action: cancelMyWager), secondaryButton: .default(Text("Nevermind")))
+                return Alert(title: Text("Are You Sure?"), primaryButton: .destructive(Text("Cancel the Wager"), action: cancelMyWager), secondaryButton: .default(Text("Nevermind")))
             }
         }
         .padding()
@@ -55,6 +56,6 @@ extension MySingleWager {
 
 struct MySingleWager_Previews: PreviewProvider {
     static var previews: some View {
-        MySingleWager(ltcAmount: 3, chosenTeam: 4)
+        MySingleWager(ltcAmount: 3, chosenTeam: 4, gameDate: "sept 4th 97")
     }
 }
