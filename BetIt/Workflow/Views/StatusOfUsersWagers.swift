@@ -13,10 +13,14 @@ struct StatusOfUsersWagers: View {
     var body: some View {
         VStack {
             Text("Your Current Wagers").font(.custom("MontserratAlternates-Regular", size: 25)).padding(.bottom)
-            
-            ForEach(viewModel.myWagers, id: \.self) { wager in
-                MySingleWager(ltcAmount: wager.amount, chosenTeam: wager.chosenTeam, gameDate: dateToString(date: wager.gameStartTime))
+            ScrollView {
+                VStack{
+                    ForEach(viewModel.myWagers, id: \.self) { wager in
+                        MySingleWager(ltcAmount: wager.amount, chosenTeam: wager.chosenTeam, gameDate: dateToString(date: wager.gameStartTime), wagerId: wager.wagerId)
+                    }
+                }
             }
+
         }.onAppear() {
             if viewModel.myWagers.isEmpty {
                 viewModel.getUsersWagers(token: user.accessToken, bettor: user.walletAddress)

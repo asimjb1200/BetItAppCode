@@ -199,6 +199,31 @@ class WagerService {
             completion(.success(isOK))
         }.resume()
     }
+    
+    func cancelWager(token: String, wagerId: Int, completion: @escaping (Result<Bool, WagerErrors>) -> ()) {
+        let reqWithoutBody = networker.constructRequest(uri: "http://localhost:3000/wager-handler/delete-wager", token: token, post: true)
+        let body: [String: Any] = ["wagerId": wagerId]
+        let request = networker.buildReqBody(req: reqWithoutBody, body: body)
+        
+        URLSession.shared.dataTask(with: request) {[weak self](_, response, err) in
+            guard let self = self else { return }
+            if err != nil {
+                print("there was a big error: \(String(describing: err))")
+            }
+            
+            guard let response = response as? HTTPURLResponse else {
+                completion(.failure(.generalError))
+                return
+            }
+            
+            let isOK = self.networker.checkOkStatus(res: response)
+            if !isOK {
+                completion(.failure(.generalError))
+                return
+            }
+            completion(.success(isOK))
+        }.resume()
+    }
 }
 
 struct WagerCountResponse: Decodable {
