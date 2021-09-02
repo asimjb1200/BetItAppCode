@@ -25,8 +25,8 @@ struct GamePreview: View {
                     .foregroundColor(davysGray)
                     .multilineTextAlignment(.center)
                 
-                Text("vs.")
-                    .foregroundColor(davysGray)
+                Text("\(self.formatDate(date: currentGame.game_begins))")
+                    .font(.custom("MontserratAlternates-Regular", size: 15))                   .foregroundColor(davysGray)
                 
                 Text(teams[currentGame.visitor_team] ?? "Retry Request")
                     .font(.custom("MontserratAlternates-Regular", size: 25))
@@ -48,6 +48,14 @@ struct GamePreview: View {
         }).sheet(isPresented: $showDetails, content: {
             GameAndWagersView(selectedGame: currentGame)
         })
+    }
+}
+
+extension GamePreview {
+    func formatDate(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM d, h:mm a"
+        return dateFormatter.string(from: date)
     }
 }
 
