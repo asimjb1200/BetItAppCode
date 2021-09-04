@@ -139,6 +139,33 @@ class UserNetworking {
             }
         }.resume()
     }
+    
+    func registerUser(username: String, password: String, email: String, completion: @escaping (Result<Bool, UserErrors>) -> () ) {
+        let reqWithoutBody: URLRequest = networker.constructRequest(uri: "http://localhost:3000/users/register", post: true)
+        
+        let body = ["username": username, "password": password, "email": email]
+        
+        let request = networker.buildReqBody(req: reqWithoutBody, body: body)
+        
+        URLSession.shared.dataTask(with: request) { (_, res, err) in
+            if err != nil {
+                print("there was a big error: \(String(describing: err))")
+                completion(.failure(.failure))
+            }
+            
+            guard let res = res as? HTTPURLResponse else {
+                completion(.failure(.failure))
+                return
+            }
+            let isOK = self.networker.checkOkStatus(res: res)
+            
+            if !isOK {
+                completion(.failure(.failure))
+            }
+            
+            completion(.success(true))
+        }.resume()
+    }
 }
 
 enum UpdatePasswordErrors: String, Error {

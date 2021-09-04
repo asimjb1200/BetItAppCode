@@ -18,46 +18,52 @@ struct LoginView: View {
         if isLoading {
             LoadingView()
         } else {
-            ZStack {
-                Image("AppLogo")
-                .resizable()
-                .scaledToFit()
-                VStack {
-                    TextField("Username", text: $username)
-                        .padding([.top, .leading, .bottom])
-                        .background(Capsule().fill(Color(white: 0.3, opacity: 0.734)))
-                        .frame(width: 300.0)
-                    SecureField("Password", text: $password)
-                        .padding([.top, .leading, .bottom])
-                        .background(Capsule().fill(Color(white: 0.3, opacity: 0.734)))
-                        .frame(width: 300.0)
-                    Button(action: {
-                        guard
-                            !username.isEmpty, !password.isEmpty
-                        else {
-                            invalidLogin.toggle()
-                            return
+            NavigationView {
+                ZStack {
+                    Image("AppLogo")
+                    .resizable()
+                    .scaledToFit()
+                    VStack {
+                        TextField("Username", text: $username)
+                            .padding([.top, .leading, .bottom])
+                            .background(Capsule().fill(Color(white: 0.3, opacity: 0.734)))
+                            .frame(width: 300.0)
+                        SecureField("Password", text: $password)
+                            .padding([.top, .leading, .bottom])
+                            .background(Capsule().fill(Color(white: 0.3, opacity: 0.734)))
+                            .frame(width: 300.0)
+                        Button(action: {
+                            guard
+                                !username.isEmpty, !password.isEmpty
+                            else {
+                                invalidLogin.toggle()
+                                return
+                            }
+                            self.isLoading.toggle()
+                            self.login(username: username, password: password)
+                        }, label: {
+                            Text("Log In")
+                                .padding()
+                                .background(
+                                    RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/).fill(Color("Accent2"))
+                                )
+                                .foregroundColor(.black)
+                        })
+                        .alert(isPresented: $invalidLogin) {
+                            switch badPw {
+                                case true:
+                                    return Alert(title: Text("Invalid Credentials"), message: Text("Bad username/password combination attempted."), dismissButton: .default(Text("OK")))
+                                case false:
+                                    return Alert(title: Text("No Login Info"), message: Text("Please fill out the login fields"), dismissButton: .default(Text("OK")))
+                            }
                         }
-                        self.isLoading.toggle()
-                        self.login(username: username, password: password)
-                    }, label: {
-                        Text("Log In")
-                            .padding()
-                            .background(
-                                RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/).fill(Color("Accent2"))
-                            )
-                            .foregroundColor(.black)
-                    })
-                    .alert(isPresented: $invalidLogin) {
-                        switch badPw {
-                            case true:
-                                return Alert(title: Text("Invalid Credentials"), message: Text("Bad username/password combination attempted."), dismissButton: .default(Text("OK")))
-                            case false:
-                                return Alert(title: Text("No Login Info"), message: Text("Please fill out the login fields"), dismissButton: .default(Text("OK")))
+                        
+                        NavigationLink(destination: RegisterUserView()) {
+                            Text("Register")
                         }
-                    }
-                    
-                }.offset(y: 175)
+                        
+                    }.offset(y: 175)
+                }
             }
         }
     }
