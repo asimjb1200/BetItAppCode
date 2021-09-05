@@ -59,7 +59,7 @@ struct LoginView: View {
                         }
                         
                         NavigationLink(destination: RegisterUserView()) {
-                            Text("Register")
+                            Text("Create Account").foregroundColor(Color("Accent2"))
                         }
                         
                     }.offset(y: 175)

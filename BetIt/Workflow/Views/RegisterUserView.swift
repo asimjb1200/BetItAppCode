@@ -16,11 +16,6 @@ struct RegisterUserView: View {
     @State var userSuccessfullyCreated = false;
     var body: some View {
         VStack {
-            SecureField("Password:", text: $password)
-                .padding(.vertical)
-                .placeholder(when: password.isEmpty) {
-                    Text("Enter Password").foregroundColor(.white)
-                }
             TextField("Username:", text: $username)
                 .padding(.vertical)
                 .placeholder(when: username.isEmpty) {
@@ -31,9 +26,14 @@ struct RegisterUserView: View {
                 .placeholder(when: email.isEmpty) {
                     Text("Email:").foregroundColor(.white)
                 }
+            SecureField("Password:", text: $password)
+                .padding(.vertical)
+                .placeholder(when: password.isEmpty) {
+                    Text("Enter Password").foregroundColor(.white)
+                }
             
             Button("Register") {
-                // strip the white space from all 3 fields before sending them over
+                // check each field for whitespaces
                 guard
                     !email.isEmpty, !email.trimmingCharacters(in: .whitespaces).isEmpty,
                     !username.isEmpty, !username.trimmingCharacters(in: .whitespaces).isEmpty,
@@ -42,7 +42,8 @@ struct RegisterUserView: View {
                     return
                 }
                 
-                UserNetworking().registerUser(username: username, password: password, email: email, completion: { userWasCreatedResponse in
+                
+                UserNetworking().registerUser(username: username.trimmingCharacters(in: .whitespacesAndNewlines), password: password.trimmingCharacters(in: .whitespacesAndNewlines), email: email.trimmingCharacters(in: .whitespacesAndNewlines), completion: { userWasCreatedResponse in
                     switch userWasCreatedResponse {
                         case .success(_):
                             DispatchQueue.main.async {
@@ -55,8 +56,14 @@ struct RegisterUserView: View {
                             }
                     }
                 })
-            }
-        }.alert(isPresented: $showAlert) {
+            }.foregroundColor(.white)
+        }
+        .padding()
+        .background(
+            RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
+                        .fill(Color("Accent2"))
+        )
+        .alert(isPresented: $showAlert) {
             if userSuccessfullyCreated {
                 return Alert(title: Text("Success"), message: Text("You are registered. Go back and login now."), dismissButton: .destructive(Text("OK"), action: goBack))
             } else {
