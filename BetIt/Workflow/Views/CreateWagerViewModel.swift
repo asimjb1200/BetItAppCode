@@ -38,7 +38,7 @@ final class CreateWagerViewModel: ObservableObject {
     let range = Date() ... Date().addingTimeInterval(604800)
     
     init() {
-        self.dateFormatter.dateFormat = "EEE, MMM d, yyyy"
+        self.dateFormatter.dateFormat = "MMM d, h:mm a"
     }
     
     func checkWagerCount(bettor: String, token: String) {
@@ -95,7 +95,7 @@ final class CreateWagerViewModel: ObservableObject {
     }
     
     func formatDate() -> String {
-        return dateFormatter.string(from: self.selectedDate)
+        return dateFormatter.string(from: self.selectedGame.game_begins)
     }
     
     func checkWalletBalance(address: String, username: String, token: String){
