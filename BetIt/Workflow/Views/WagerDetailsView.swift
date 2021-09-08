@@ -11,8 +11,6 @@ struct WagerDetailsView: View {
     @ObservedObject var wager: WagerModel
     @StateObject var viewModel: GameWagersViewModel = .shared
     @EnvironmentObject var user: UserModel
-    @State private var buttonPressed: Bool = false
-    @State private var showingAlert = false
     @State private var dataSubmitted = false
     var usdPrice: Float = 0.0
     var service: WalletService = .shared
@@ -22,32 +20,26 @@ struct WagerDetailsView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("You will be betting against: " +  (teams[wager.bettor_chosen_team] ?? "Reload")).foregroundColor(accentColor)
-            Text("Wager Amount: \(wager.wager_amount) LTC").foregroundColor(accentColor)
-            Text("Amount in USD: $\(Float(wager.wager_amount) * viewModel.usdPrice, specifier: "%.2f")").foregroundColor(accentColor)
-            Button(action: {
-                // quick check to see if bet is still open
-                
-                // Add logic to save the bet if the fader confirms
-                viewModel.updateWager(token: user.accessToken, wagerId: wager.id, fader: user.walletAddress)
-                
-                // disable the button to prevent double submittal
-                buttonPressed.toggle()
-                
-                // inform the user that the bet has been successfully submitted
-                dataSubmitted.toggle()
-                showingAlert.toggle()
-                
-            }, label: {
-                Text("Take this bet")
-                    .padding()
-                    .foregroundColor(accentColor)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
-                            .stroke(accentColor, lineWidth: 2)
-                    )
-            })
-            .alert(isPresented: $showingAlert) {
+            Text("You will be betting against: " +  (teams[wager.bettor_chosen_team] ?? "Reload"))
+                .foregroundColor(.white)
+            Text("Wager Amount: \(wager.wager_amount) LTC")
+                .foregroundColor(.white)
+            Text("Amount in USD: $\(Float(wager.wager_amount) * viewModel.usdPrice, specifier: "%.2f")")
+                .foregroundColor(.white)
+            Button("Take this bet") {
+                    // Add logic to save the bet if the fader confirms
+                    viewModel.updateWager(token: user.accessToken, wagerId: wager.id, fader: user.walletAddress)
+                    
+                    // disable the button to prevent double submittal
+                    viewModel.buttonPressed.toggle()
+                    
+                    // inform the user that the bet has been successfully submitted
+                    dataSubmitted.toggle()
+                    viewModel.showingAlert.toggle()
+            }
+            .padding()
+            .foregroundColor(.white)
+            .alert(isPresented: $viewModel.showingAlert) {
                 if self.dataSubmitted {
                     return  Alert(
                         title: Text("Important message"),
@@ -55,29 +47,39 @@ struct WagerDetailsView: View {
                         dismissButton: .default(Text("Got it!"))
                     )
                 } else {
-                    return  Alert(
-                        title: Text("Important message"),
-                        message: Text("You can't take your own bet. Go back and choose another one."),
-                        dismissButton: .default(Text("Got it!"))
-                    )
+                    if !viewModel.hasEnoughCrypto {
+                        return  Alert(
+                            title: Text("Important message"),
+                            message: Text("You don't have enough crypto to take this bet. Add send some more to your wallet first."),
+                            dismissButton: .default(Text("Got it!"))
+                        )
+                    } else {
+                        return  Alert(
+                            title: Text("Important message"),
+                            message: Text("You can't take your own bet. Go back and choose another one."),
+                            dismissButton: .default(Text("Got it!"))
+                        )
+                    }
                 }
                 
             }
+            
         }.padding()
-        .overlay(
+        .background(
             RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
-                .stroke(Color("Accent2"), lineWidth: 4)
+                .fill(Color("Accent2"))
         )
         .font(.custom("Roboto-Light", size: 20))
-        .disabled(buttonPressed)
+        .disabled(viewModel.buttonPressed)
         .onAppear() {
             if (viewModel.bettorAndFaderAddressMatch(fader: user.walletAddress, bettor: wager.bettor)) {
-                self.buttonPressed.toggle()
-                self.showingAlert.toggle()
+                viewModel.buttonPressed.toggle()
+                viewModel.showingAlert.toggle()
             }
             if viewModel.usdPrice == 0.0 {
                 viewModel.getCurrentLtcPrice()
             }
+            viewModel.checkWalletBalance(address: user.walletAddress, username: user.username, token: user.accessToken, amount: wager.wager_amount)
         }
     }
 }

@@ -12,6 +12,9 @@ final class GameWagersViewModel: ObservableObject {
     @Published var wagersNotFound: Bool = false
     @Published var usdPrice: Float = 0.0
     @Published var isLoading = true
+    @Published var hasEnoughCrypto = true
+    @Published var buttonPressed: Bool = false
+    @Published var showingAlert = false
     static let shared = GameWagersViewModel()
     let service: WalletService = .shared
     let wagerService: WagerService = .shared
@@ -86,6 +89,24 @@ final class GameWagersViewModel: ObservableObject {
             case .success(let data):
                 DispatchQueue.main.async {
                     self?.usdPrice = Float(data.data.amount) ?? 0.0
+                }
+            case .failure(let err):
+                print(err)
+            }
+        })
+    }
+    
+    func checkWalletBalance(address: String, username: String, token: String, amount: Int) {
+        service.getWalletBalance(address: address, username: username, token: token, completion: {[weak self]  walletBalanceResponse in
+            switch walletBalanceResponse {
+            case .success(let wallet):
+                DispatchQueue.main.sync {
+                    let litoshiBalance = Decimal(amount)/100000000 // buffer room to work with tx fees
+                    if wallet.balance <= litoshiBalance {
+                        self?.hasEnoughCrypto = false
+                        self?.buttonPressed = true
+                        self?.showingAlert = true
+                    }
                 }
             case .failure(let err):
                 print(err)
