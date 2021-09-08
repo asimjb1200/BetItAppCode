@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject private var user: UserModel
     var body: some View {
         TabView {
             UpcomingGames()
@@ -34,7 +35,11 @@ struct ContentView: View {
                 .tabItem {
                     Image(systemName: "percent")
                 }
-        }.accentColor(Color("Accent2"))
+        }
+        .accentColor(Color("Accent2"))
+        .onAppear(){
+            SocketIOManager.sharedInstance.establishConnection(walletAddress: user.walletAddress)
+        }
         
     }
 }

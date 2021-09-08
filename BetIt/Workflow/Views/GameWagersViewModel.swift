@@ -11,6 +11,7 @@ final class GameWagersViewModel: ObservableObject {
     @Published var wagers: [WagerModel] = []
     @Published var wagersNotFound: Bool = false
     @Published var usdPrice: Float = 0.0
+    @Published var isLoading = true
     static let shared = GameWagersViewModel()
     let service: WalletService = .shared
     let wagerService: WagerService = .shared
@@ -24,9 +25,17 @@ final class GameWagersViewModel: ObservableObject {
                     if let index = self.wagers.firstIndex(where: {$0.id == wager.id}) {
                         self.wagers = self.wagers.filter{$0.id != wager.id}
                     }
+                    if self.wagers.isEmpty {
+                        self.wagersNotFound = true
+                    }
                 }
             case .failure(let err):
                 print(err)
+                DispatchQueue.main.async {
+                    self.isLoading = false
+                    self.wagersNotFound = true
+                }
+                
             }
         })
     }
@@ -38,12 +47,14 @@ final class GameWagersViewModel: ObservableObject {
             case .success(let gameWagers):
                 if gameWagers.isEmpty {
                     DispatchQueue.main.async {
+                        self?.isLoading = false
                         self?.wagersNotFound = true
                     }
                 } else {
                     DispatchQueue.main.async {
                         self?.wagers = gameWagers
                         self?.wagersNotFound = false
+                        self?.isLoading = false
                     }
                 }
             case .failure(let err):

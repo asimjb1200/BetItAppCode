@@ -21,15 +21,28 @@ final class SocketIOManager: ObservableObject {
     }
     
     //Function to establish the socket connection with your server. Generally you want to call this method from your `Appdelegate` in the `applicationDidBecomeActive` method.
-    func establishConnection() {
-        socket.connect()
-        print("Connected to Socket !")
+    func establishConnection(walletAddress: String) {
+
+        // send the wallet address to the server to be used as the socket's key
+        socket.connect(withPayload: ["walletAddress": walletAddress])
     }
 
     //Function to close established socket connection. Call this method from `applicationDidEnterBackground` in your `Appdelegate` method.
     func closeConnection() {
         socket.disconnect()
         print("Disconnected from Socket !")
+    }
+    
+    func notificationsOnlyForMe() {
+        socket.on("wallet txs") { data, ack in
+            do {
+                let noti = try JSONSerialization.data(withJSONObject: data[0])
+                let decoded = try JSONDecoder().decode(Msg.self, from: noti)
+                
+            } catch let err {
+                print(err.localizedDescription)
+            }
+        }
     }
     
     func getUpdatedWagers(completionHandler: @escaping (Result<WagerModel, Error>) -> ()) {
@@ -45,5 +58,26 @@ final class SocketIOManager: ObservableObject {
         }
     }
     
-    
+    func notifyWagerWinner(completionHandler: @escaping (Result<WagerWinner, Error>) -> ()) {
+        socket.on("payout started") { data, ack in
+            do {
+                guard let  dict = data[0] as? [String: Any] else { return }
+                let winningAddress = try JSONSerialization.data(withJSONObject: dict["winner"] as Any, options: [])
+                let decoded = try JSONDecoder().decode(WagerWinner.self, from: winningAddress)
+                completionHandler(.success(decoded))
+            } catch let err {
+                print(err)
+            }
+        }
+    }
+}
+
+struct WagerWinner: Decodable {
+    var winner: String
+}
+
+class Msg: Decodable {
+    var msg: String
+    var detials: String
+    var escrowWallet: String
 }

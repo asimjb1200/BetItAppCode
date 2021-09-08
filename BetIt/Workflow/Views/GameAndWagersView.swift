@@ -16,7 +16,7 @@ struct GameAndWagersView: View {
     var body: some View {
         let gameHeader = "\(Teams[selectedGame.home_team]!) vs. \(Teams[selectedGame.visitor_team]!)"
         NavigationView {
-            if viewModel.wagers.isEmpty && viewModel.wagersNotFound == false {
+            if viewModel.isLoading {
                 LoadingView()
             } else {
                 if viewModel.wagersNotFound {

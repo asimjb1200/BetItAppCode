@@ -100,5 +100,53 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F841AE55-19B4-4F4B-8B33-57A01D6478D9"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BetIt/Workflow/Views/GameWagersViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
+            landmarkName = "init()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "F841AE55-19B4-4F4B-8B33-57A01D6478D9 - 6a757e8bb86d4a70"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in closure #1 (Swift.Result&lt;BetIt.WagerModel, Swift.Error&gt;) -&gt; () in BetIt.GameWagersViewModel.init() -&gt; BetIt.GameWagersViewModel"
+                  moduleName = "BetIt"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/ExternalDrive/MobileApps/BetIt/BetIt/Workflow/Views/GameWagersViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "26"
+                  endingLineNumber = "26"
+                  offsetFromSymbolStart = "363">
+               </Location>
+               <Location
+                  uuid = "F841AE55-19B4-4F4B-8B33-57A01D6478D9 - 188b694b7be22e44"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (BetIt.WagerModel) -&gt; Swift.Bool in closure #1 () -&gt; () in closure #1 (Swift.Result&lt;BetIt.WagerModel, Swift.Error&gt;) -&gt; () in BetIt.GameWagersViewModel.init() -&gt; BetIt.GameWagersViewModel"
+                  moduleName = "BetIt"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/ExternalDrive/MobileApps/BetIt/BetIt/Workflow/Views/GameWagersViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "26"
+                  endingLineNumber = "26"
+                  offsetFromSymbolStart = "28">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

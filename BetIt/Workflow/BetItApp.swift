@@ -19,9 +19,6 @@ struct BetItApp: App {
             } else {
                 LoginView()
                     .environmentObject(user)
-                    .onAppear(){
-                        SocketIOManager.sharedInstance.establishConnection()
-                    }
             }
         }
     }
