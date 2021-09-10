@@ -8,8 +8,9 @@
 import Foundation
 
 final class WalletDetailsViewModel: ObservableObject {
-    @Published var ltcBalance: Decimal = 0.0
-    @Published var dollarBalance: Decimal = 0.0
+    
+    @Published var ltcBalance: Double = 0.0
+    @Published var dollarBalance: Double = 0.0
     var walletService: WalletService = .shared
     
     private var escrowAddress: String = "testStringHere"
@@ -18,10 +19,9 @@ final class WalletDetailsViewModel: ObservableObject {
         walletService.getWalletBalance(address: address, username: username, token: token, completion: { (walletData) in
             switch walletData {
                 case .success(let balPresent):
-                    print(balPresent)
                     DispatchQueue.main.async {
-                        self.ltcBalance = balPresent.balance
-                        self.dollarBalance = balPresent.dollarEquivalent
+                        self.ltcBalance = NSDecimalNumber(decimal: balPresent.balance).doubleValue
+                        self.dollarBalance = NSDecimalNumber(decimal: balPresent.dollarEquivalent).doubleValue
                     }
                 case .failure(let err):
                     print(err)

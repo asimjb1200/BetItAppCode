@@ -40,14 +40,14 @@ struct WalletDetailsView: View {
                 .scaledToFit()
                 .frame(width: 200, height: 200)
             
-            Text("Balance: \(viewModel.ltcBalance)" as String)
+            Text("Balance: \(String(format: "%.7f", viewModel.ltcBalance)) LTC")
                 .font(.custom("MontserratAlternates-Regular", size: 20))
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 50, alignment: .leading)
                 .onAppear() {
                     viewModel.getLtcBalance(username: user.username, address: user.walletAddress, token: user.accessToken)
                 }
 
-            Text("\(viewModel.ltcBalance) LTC ≈ $\(viewModel.dollarBalance)" as String)
+            Text("$\(String(format: "%.2f", viewModel.dollarBalance)) USD")
                 .padding()
                 .font(.custom("MontserratAlternates-Regular", size: 35))
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 50, alignment: .center)
