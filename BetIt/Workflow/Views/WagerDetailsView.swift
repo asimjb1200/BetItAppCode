@@ -50,7 +50,7 @@ struct WagerDetailsView: View {
                     if !viewModel.hasEnoughCrypto {
                         return  Alert(
                             title: Text("Important message"),
-                            message: Text("You don't have enough crypto to take this bet. Add send some more to your wallet first."),
+                            message: Text("You don't have enough crypto to take this bet. Add more to your wallet."),
                             dismissButton: .default(Text("Got it!"))
                         )
                     } else {
