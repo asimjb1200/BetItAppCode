@@ -170,7 +170,7 @@ class WagerService {
         }.resume()
     }
     
-    func createNewWager(token: String, bettor: String, wagerAmount: UInt, gameId: UInt, bettorChosenTeam: UInt, completion: @escaping (Result<Bool, WagerErrors>) -> ()) {
+    func createNewWager(token: String, bettor: String, wagerAmount: Decimal, gameId: UInt, bettorChosenTeam: UInt, completion: @escaping (Result<Bool, WagerErrors>) -> ()) {
         let reqWithoutBody = networker.constructRequest(uri: "http://localhost:3000/wager-handler/create-wager", token: token, post: true)
         
         let body: [String : Any] = ["bettor": bettor, "wagerAmount": wagerAmount, "gameId": gameId, "bettorChosenTeam": bettorChosenTeam]

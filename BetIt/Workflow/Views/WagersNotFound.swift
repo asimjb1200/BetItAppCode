@@ -13,7 +13,7 @@ struct WagersNotFound: View {
             Image("wagerbot")
                 .resizable()
                 .scaledToFit()
-            Text("Be the first to create one! Click the plus sign below and then spread the word!")
+            Text("Be the first to create one! Go back and hit the plus sign at the bottom")
                 .bold()
                 .font(.custom("MontserratAlternates-Regular", size: 20))
                 .foregroundColor(.gray)

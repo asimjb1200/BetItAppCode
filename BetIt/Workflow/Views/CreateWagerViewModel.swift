@@ -77,7 +77,7 @@ final class CreateWagerViewModel: ObservableObject {
     }
     
     func placeBet(token: String, bettor: String) {
-        wagerService.createNewWager(token: token, bettor: bettor, wagerAmount: UInt(self.wagerAmount) ?? 0, gameId: self.selectedGame.game_id, bettorChosenTeam: UInt(self.selectedTeam), completion: { wagerResult in
+        wagerService.createNewWager(token: token, bettor: bettor, wagerAmount: Decimal(string: self.wagerAmount)!, gameId: self.selectedGame.game_id, bettorChosenTeam: UInt(self.selectedTeam), completion: { wagerResult in
             switch wagerResult {
             case .success(let newWagerCreated):
                 DispatchQueue.main.async {
