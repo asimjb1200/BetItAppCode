@@ -18,10 +18,19 @@ struct ChangePassword: View {
         VStack {
             TextField("Current Password: ", text: $currentPassword)
                 .padding(.vertical)
+                .placeholder(when: currentPassword.isEmpty) {
+                    Text("Enter Password").foregroundColor(.white)
+                }
             SecureField("New Password: ", text: $newPassword)
                 .padding(.vertical)
+                .placeholder(when: newPassword.isEmpty) {
+                    Text("Enter New Password").foregroundColor(.white)
+                }
             SecureField("New Password Again: ", text: $newPasswordAgain)
                 .padding(.vertical)
+                .placeholder(when: newPasswordAgain.isEmpty) {
+                    Text("Enter New Password Again").foregroundColor(.white)
+                }
             
             Button("Save Password") {
                 guard
@@ -44,17 +53,14 @@ struct ChangePassword: View {
             }
             .padding(.all)
             .foregroundColor(.white)
-            .background(
-                RoundedRectangle(cornerRadius: 25, style: .continuous)
-                    .fill(Color.black)
-            )
+            
             
         }
         .padding(.horizontal)
         .background(
             RoundedRectangle(cornerRadius: 25, style: .continuous)
                 .fill(
-                    LinearGradient(gradient: Gradient(colors: [.black, .gray]), startPoint: .leading, endPoint: .trailing)
+                    LinearGradient(gradient: Gradient(colors: [Color("Accent2"), Color("Accent")]), startPoint: .leading, endPoint: .trailing)
                 )
         )
         .alert(isPresented: $showAlert) {

@@ -19,19 +19,22 @@ struct LoginView: View {
             LoadingView()
         } else {
             NavigationView {
-                ZStack {
+                VStack {
                     Image("AppLogo")
-                    .resizable()
-                    .scaledToFit()
-                    VStack {
+                        .resizable()
+                        .padding(.top, -100.0)
+                        .scaledToFit()
+                    //VStack {
                         TextField("Username", text: $username)
                             .padding([.top, .leading, .bottom])
                             .background(Capsule().fill(Color(white: 0.3, opacity: 0.734)))
                             .frame(width: 300.0)
+                            .padding(.top, -180.0)
                         SecureField("Password", text: $password)
                             .padding([.top, .leading, .bottom])
                             .background(Capsule().fill(Color(white: 0.3, opacity: 0.734)))
                             .frame(width: 300.0)
+                            .padding(.top, -130.0)
                         Button(action: {
                             guard
                                 !username.isEmpty, !password.isEmpty
@@ -62,7 +65,7 @@ struct LoginView: View {
                             Text("Create Account").foregroundColor(Color("Accent2"))
                         }
                         
-                    }.offset(y: 175)
+                    //}
                 }
             }
         }
@@ -89,7 +92,6 @@ extension LoginView {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        Text("hi")
-//        LoginView().environmentObject(User())
+        LoginView()
     }
 }
