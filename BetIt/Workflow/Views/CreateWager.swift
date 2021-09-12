@@ -70,7 +70,7 @@ struct CreateWager: View {
                             .keyboardType(.numberPad)
                         
                         Button("Place Wager") {
-                            viewModel.checkWalletBalance(address: user.accessToken, username: user.username, token: user.accessToken)
+                            viewModel.checkWalletBalance(address: user.walletAddress, username: user.username, token: user.accessToken)
                         }
                         .padding()
                         .background(

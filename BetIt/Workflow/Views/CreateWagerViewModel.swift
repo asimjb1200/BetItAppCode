@@ -82,6 +82,7 @@ final class CreateWagerViewModel: ObservableObject {
             case .success(let newWagerCreated):
                 DispatchQueue.main.async {
                     self.wagerCreated = newWagerCreated
+                    self.notEnoughCrypto = false
                     self.showAlert = true
                 }
             case .failure(let err):
@@ -103,8 +104,7 @@ final class CreateWagerViewModel: ObservableObject {
             switch walletResponse {
                 case .success(let walletData):
                     DispatchQueue.main.async {
-                        let litoshiBalance = Decimal(string: self.wagerAmount)!/100000000 // think of a clever way to tack on the tx fees
-                        if walletData.balance <= (litoshiBalance + Decimal(self.ltcFeeWiggleRoom)) {
+                        if walletData.balance <= Decimal(string: self.wagerAmount)! {
                             self.notEnoughCrypto = true
                             self.showAlert = true
                         } else {
