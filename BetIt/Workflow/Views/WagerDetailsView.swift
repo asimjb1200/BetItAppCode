@@ -10,7 +10,7 @@ import SwiftUI
 struct WagerDetailsView: View {
     @ObservedObject var wager: WagerModel
     @StateObject var viewModel: GameWagersViewModel = .shared
-    @EnvironmentObject var user: UserModel
+   // @EnvironmentObject var user: UserModel
     @State private var dataSubmitted = false
     var usdPrice: Float = 0.0
     var service: WalletService = .shared
@@ -19,16 +19,53 @@ struct WagerDetailsView: View {
     let davysGray = Color(white: 0.342)
     
     var body: some View {
-        VStack(alignment: .leading) {
-            Text("You will be betting against: " +  (teams[wager.bettor_chosen_team] ?? "Reload"))
-                .foregroundColor(.white)
-            Text("Wager Amount: \(wager.wager_amount) LTC")
-                .foregroundColor(.white)
-            Text("Amount in USD: $\(Float(wager.wager_amount) * viewModel.usdPrice, specifier: "%.2f")")
-                .foregroundColor(.white)
+        VStack(alignment: .center) {
+            Text("Betting Against:")
+                .frame(maxWidth: .infinity)
+                .font(.custom("MontserratAlternates-ExtraBold", size: 35))
+                .foregroundColor(davysGray)
+            
+            Text(teams[wager.bettor_chosen_team] ?? "Reload")
+                .padding(.bottom)
+                .frame(maxWidth: .infinity)
+                .font(.custom("MontserratAlternates-ExtraBold", size: 45))
+                .foregroundColor(Color("Accent2"))
+                .multilineTextAlignment(.trailing)
+            
+            Text("Wager Amount")
+                .padding(.top)
+                .frame(maxWidth: .infinity)
+                .font(.custom("MontserratAlternates-ExtraBold", size: 40))
+                .foregroundColor(davysGray)
+            
+            Text("\(wager.wager_amount) LTC")
+                .frame(maxWidth: .infinity)
+                .font(.custom("MontserratAlternates-ExtraBold", size: 40))
+                .foregroundColor(Color("Accent2"))
+            
+            Text("$\(Float(wager.wager_amount) * viewModel.usdPrice, specifier: "%.2f")")
+                .padding(.bottom)
+                .frame(maxWidth: .infinity)
+                .font(.custom("MontserratAlternates-ExtraBold", size: 40))
+                .foregroundColor(Color("Accent2"))
+            
+            Text("Game Time")
+                .padding(.top)
+                .frame(maxWidth: .infinity)
+                .font(.custom("MontserratAlternates-ExtraBold", size: 40))
+                .foregroundColor(davysGray)
+            
+            Text("Sep. 12th 8:30 pm")
+                .padding(.bottom)
+                .frame(maxWidth: .infinity)
+                .font(.custom("MontserratAlternates-ExtraBold", size: 35))
+                .foregroundColor(Color("Accent2"))
+            
+            Spacer()
+            
             Button("Take this bet") {
                     // Add logic to save the bet if the fader confirms
-                    viewModel.updateWager(token: user.accessToken, wagerId: wager.id, fader: user.walletAddress)
+                    //viewModel.updateWager(token: user.accessToken, wagerId: wager.id, fader: user.walletAddress)
                     
                     // disable the button to prevent double submittal
                     viewModel.buttonPressed.toggle()
@@ -38,7 +75,10 @@ struct WagerDetailsView: View {
                     viewModel.showingAlert.toggle()
             }
             .padding()
-            .foregroundColor(.white)
+            .foregroundColor(davysGray)
+            .background(
+                RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/).fill(LinearGradient(gradient: Gradient(colors: [Color("Accent2"), Color("Accent")]), startPoint: /*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/, endPoint: /*@START_MENU_TOKEN@*/.trailing/*@END_MENU_TOKEN@*/))
+            )
             .alert(isPresented: $viewModel.showingAlert) {
                 if self.dataSubmitted {
                     return  Alert(
@@ -64,22 +104,18 @@ struct WagerDetailsView: View {
                 
             }
             
-        }.padding()
-        .background(
-            RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
-                .fill(Color("Accent2"))
-        )
-        .font(.custom("Roboto-Light", size: 20))
+        }
+        .padding()
         .disabled(viewModel.buttonPressed)
         .onAppear() {
-            if (viewModel.bettorAndFaderAddressMatch(fader: user.walletAddress, bettor: wager.bettor)) {
-                viewModel.buttonPressed.toggle()
-                viewModel.showingAlert.toggle()
-            }
-            if viewModel.usdPrice == 0.0 {
-                viewModel.getCurrentLtcPrice()
-            }
-            viewModel.checkWalletBalance(address: user.walletAddress, username: user.username, token: user.accessToken, amount: wager.wager_amount)
+//            if (viewModel.bettorAndFaderAddressMatch(fader: user.walletAddress, bettor: wager.bettor)) {
+//                viewModel.buttonPressed.toggle()
+//                viewModel.showingAlert.toggle()
+//            }
+//            if viewModel.usdPrice == 0.0 {
+//                viewModel.getCurrentLtcPrice()
+//            }
+//            viewModel.checkWalletBalance(address: user.walletAddress, username: user.username, token: user.accessToken, amount: wager.wager_amount)
         }
     }
 }

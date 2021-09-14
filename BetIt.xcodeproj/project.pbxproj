@@ -10,6 +10,10 @@
 		6810217C26699CB3006BF130 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6810217B26699CB3006BF130 /* Roboto-Medium.ttf */; };
 		681097AC2695F91F000E323F /* WalletDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681097AB2695F91F000E323F /* WalletDetailsView.swift */; };
 		681097B126960D0C000E323F /* QRGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681097B026960D0C000E323F /* QRGenerator.swift */; };
+		68176A1A26F04262007D73DD /* MontserratAlternates-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68176A1926F04262007D73DD /* MontserratAlternates-SemiBold.ttf */; };
+		68176A1B26F04262007D73DD /* MontserratAlternates-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68176A1926F04262007D73DD /* MontserratAlternates-SemiBold.ttf */; };
+		68176A1C26F04262007D73DD /* MontserratAlternates-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68176A1926F04262007D73DD /* MontserratAlternates-SemiBold.ttf */; };
+		68176A1E26F0437B007D73DD /* MontserratAlternates-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68176A1D26F0437B007D73DD /* MontserratAlternates-ExtraBold.ttf */; };
 		68189DBB266B3E6100D767C4 /* Wagers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68189DBA266B3E6100D767C4 /* Wagers.swift */; };
 		681AD4A6268B6C8700EE4348 /* ServiceUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681AD4A5268B6C8700EE4348 /* ServiceUser.swift */; };
 		681AD4A8268B6CAA00EE4348 /* UserProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681AD4A7268B6CAA00EE4348 /* UserProtocol.swift */; };
@@ -89,6 +93,8 @@
 		6810217B26699CB3006BF130 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		681097AB2695F91F000E323F /* WalletDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletDetailsView.swift; sourceTree = "<group>"; };
 		681097B026960D0C000E323F /* QRGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRGenerator.swift; sourceTree = "<group>"; };
+		68176A1926F04262007D73DD /* MontserratAlternates-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MontserratAlternates-SemiBold.ttf"; sourceTree = "<group>"; };
+		68176A1D26F0437B007D73DD /* MontserratAlternates-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MontserratAlternates-ExtraBold.ttf"; sourceTree = "<group>"; };
 		68189DBA266B3E6100D767C4 /* Wagers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wagers.swift; sourceTree = "<group>"; };
 		681AD4A5268B6C8700EE4348 /* ServiceUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceUser.swift; sourceTree = "<group>"; };
 		681AD4A7268B6CAA00EE4348 /* UserProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProtocol.swift; sourceTree = "<group>"; };
@@ -330,6 +336,8 @@
 		68A9713F268180F90005FE58 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				68176A1D26F0437B007D73DD /* MontserratAlternates-ExtraBold.ttf */,
+				68176A1926F04262007D73DD /* MontserratAlternates-SemiBold.ttf */,
 				68A97144268182470005FE58 /* MontserratAlternates-ExtraLight.ttf */,
 				68A97147268182470005FE58 /* MontserratAlternates-ExtraLightItalic.ttf */,
 				68A97146268182470005FE58 /* MontserratAlternates-Italic.ttf */,
@@ -467,7 +475,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68176A1E26F0437B007D73DD /* MontserratAlternates-ExtraBold.ttf in Resources */,
 				6810217C26699CB3006BF130 /* Roboto-Medium.ttf in Resources */,
+				68176A1A26F04262007D73DD /* MontserratAlternates-SemiBold.ttf in Resources */,
 				683564922662BF7B00344E6C /* Preview Assets.xcassets in Resources */,
 				68A9714E268182470005FE58 /* MontserratAlternates-Italic.ttf in Resources */,
 				6835648F2662BF7B00344E6C /* Assets.xcassets in Resources */,
@@ -486,6 +496,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68176A1B26F04262007D73DD /* MontserratAlternates-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -493,6 +504,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68176A1C26F04262007D73DD /* MontserratAlternates-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

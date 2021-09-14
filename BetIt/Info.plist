@@ -54,6 +54,8 @@
 		<string>MontserratAlternates-Thin.ttf</string>
 		<string>Roboto-Medium.ttf</string>
 		<string>Roboto-Light.ttf</string>
+		<string>MontserratAlternates-SemiBold.ttf</string>
+		<string>MontserratAlternates-ExtraBold.ttf</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
