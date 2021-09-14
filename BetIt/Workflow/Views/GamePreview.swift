@@ -21,15 +21,15 @@ struct GamePreview: View {
         }, label: {
             VStack(alignment: .center, spacing: 0.0) {
                 Text(teams[currentGame.home_team] ?? "Retry Request")
-                    .font(.custom("MontserratAlternates-Regular", size: 25))
+                    .font(.custom("MontserratAlternates-Regular", size: 28))
                     .foregroundColor(davysGray)
                     .multilineTextAlignment(.center)
                 
                 Text("\(self.formatDate(date: currentGame.game_begins))")
-                    .font(.custom("MontserratAlternates-Regular", size: 15))                   .foregroundColor(davysGray)
+                    .font(.custom("MontserratAlternates-Regular", size: 14))                   .foregroundColor(davysGray)
                 
                 Text(teams[currentGame.visitor_team] ?? "Retry Request")
-                    .font(.custom("MontserratAlternates-Regular", size: 25))
+                    .font(.custom("MontserratAlternates-Regular", size: 28))
                     .foregroundColor(davysGray)
                     .multilineTextAlignment(.center)
             }
