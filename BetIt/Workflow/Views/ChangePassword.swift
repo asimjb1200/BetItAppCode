@@ -19,7 +19,7 @@ struct ChangePassword: View {
             SecureField("", text: $currentPassword)
                 .padding()
                 .placeholder(when: currentPassword.isEmpty) {
-                    Text("Old Password").pwdTextStyle()
+                    Text("Old Password").customTextStyleOne()
                 }
                 .background(
                     RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/, style: /*@START_MENU_TOKEN@*/.continuous/*@END_MENU_TOKEN@*/)
@@ -30,7 +30,7 @@ struct ChangePassword: View {
             SecureField("", text: $newPassword)
                 .padding()
                 .placeholder(when: newPassword.isEmpty) {
-                    Text("New Password").pwdTextStyle()
+                    Text("New Password").customTextStyleOne()
                 }
                 .background(
                     RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/, style: /*@START_MENU_TOKEN@*/.continuous/*@END_MENU_TOKEN@*/)
@@ -41,7 +41,7 @@ struct ChangePassword: View {
             SecureField("", text: $newPasswordAgain)
                 .padding()
                 .placeholder(when: newPasswordAgain.isEmpty) {
-                    Text("Enter New Password Again").pwdTextStyle()
+                    Text("Enter New Password Again").customTextStyleOne()
                 }
                 .background(
                     RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/, style: /*@START_MENU_TOKEN@*/.continuous/*@END_MENU_TOKEN@*/)
@@ -152,7 +152,7 @@ struct ChangePassword_Previews: PreviewProvider {
 }
 
 extension Text {
-    func pwdTextStyle() -> some View {
+    func customTextStyleOne() -> some View {
         self.font(.custom("MontserratAlternates-Regular", size: 15)).foregroundColor(Color.white).padding(.leading)
     }
 }

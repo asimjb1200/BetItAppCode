@@ -15,16 +15,26 @@ struct ChangeEmail: View {
     @State private var emailState: EmailStates = .noActionYet
     var body: some View {
         VStack {
-            SecureField("Password: ", text: $password)
+            SecureField("", text: $password)
                 .padding(.vertical)
                 .placeholder(when: password.isEmpty) {
-                    Text("Enter Password").foregroundColor(.white)
-                }
-            TextField("New Email: ", text: $emailAddress)
+                    Text("Enter Password").customTextStyleOne()
+                }.background(
+                    RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/, style: /*@START_MENU_TOKEN@*/.continuous/*@END_MENU_TOKEN@*/)
+                        .fill(Color(hue: 1.0, saturation: 0.0, brightness: 0.694, opacity: 0.763)).opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/)
+                )
+                .padding()
+            
+            TextField("", text: $emailAddress)
                 .padding(.vertical)
                 .placeholder(when: emailAddress.isEmpty) {
-                    Text("New Email").foregroundColor(.white)
-                }
+                    Text("New Email").customTextStyleOne()
+                }.background(
+                    RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/, style: /*@START_MENU_TOKEN@*/.continuous/*@END_MENU_TOKEN@*/)
+                        .fill(Color(hue: 1.0, saturation: 0.0, brightness: 0.694, opacity: 0.763)).opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/)
+                )
+                .padding()
+            
             
             Button("Save Email") {
                 guard
