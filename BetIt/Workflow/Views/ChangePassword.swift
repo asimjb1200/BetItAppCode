@@ -16,22 +16,36 @@ struct ChangePassword: View {
     @EnvironmentObject var user: UserModel
     var body: some View {
         VStack {
-            TextField("Current Password: ", text: $currentPassword)
+            TextField("", text: $currentPassword)
                 .padding(.vertical)
                 .placeholder(when: currentPassword.isEmpty) {
-                    Text("Enter Password").foregroundColor(.white)
+                    Text("Old Password").foregroundColor(Color.white).padding(.leading)
                 }
-            SecureField("New Password: ", text: $newPassword)
+                .background(
+                    RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/, style: /*@START_MENU_TOKEN@*/.continuous/*@END_MENU_TOKEN@*/)
+                        .fill(Color(hue: 1.0, saturation: 0.0, brightness: 0.694, opacity: 0.763)).opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/)
+                )
+                .padding()
+            SecureField("", text: $newPassword)
                 .padding(.vertical)
                 .placeholder(when: newPassword.isEmpty) {
-                    Text("Enter New Password").foregroundColor(.white)
+                    Text("New Password").foregroundColor(.white).padding(.leading)
                 }
-            SecureField("New Password Again: ", text: $newPasswordAgain)
+                .background(
+                    RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/, style: /*@START_MENU_TOKEN@*/.continuous/*@END_MENU_TOKEN@*/)
+                        .fill(Color(hue: 1.0, saturation: 0.0, brightness: 0.694, opacity: 0.763)).opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/)
+                )
+                .padding()
+            SecureField("", text: $newPasswordAgain)
                 .padding(.vertical)
                 .placeholder(when: newPasswordAgain.isEmpty) {
-                    Text("Enter New Password Again").foregroundColor(.white)
+                    Text("Enter New Password Again").foregroundColor(.white).padding(.leading)
                 }
-            
+                .background(
+                    RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/, style: /*@START_MENU_TOKEN@*/.continuous/*@END_MENU_TOKEN@*/)
+                        .fill(Color(hue: 1.0, saturation: 0.0, brightness: 0.694, opacity: 0.763)).opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/)
+                )
+                .padding()
             Button("Save Password") {
                 guard
                     newPassword == newPasswordAgain
