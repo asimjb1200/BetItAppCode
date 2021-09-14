@@ -16,30 +16,32 @@ struct ChangePassword: View {
     @EnvironmentObject var user: UserModel
     var body: some View {
         VStack {
-            TextField("", text: $currentPassword)
-                .padding(.vertical)
+            SecureField("", text: $currentPassword)
+                .padding()
                 .placeholder(when: currentPassword.isEmpty) {
-                    Text("Old Password").foregroundColor(Color.white).padding(.leading)
+                    Text("Old Password").pwdTextStyle()
                 }
                 .background(
                     RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/, style: /*@START_MENU_TOKEN@*/.continuous/*@END_MENU_TOKEN@*/)
                         .fill(Color(hue: 1.0, saturation: 0.0, brightness: 0.694, opacity: 0.763)).opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/)
                 )
                 .padding()
+            
             SecureField("", text: $newPassword)
-                .padding(.vertical)
+                .padding()
                 .placeholder(when: newPassword.isEmpty) {
-                    Text("New Password").foregroundColor(.white).padding(.leading)
+                    Text("New Password").pwdTextStyle()
                 }
                 .background(
                     RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/, style: /*@START_MENU_TOKEN@*/.continuous/*@END_MENU_TOKEN@*/)
                         .fill(Color(hue: 1.0, saturation: 0.0, brightness: 0.694, opacity: 0.763)).opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/)
                 )
                 .padding()
+            
             SecureField("", text: $newPasswordAgain)
-                .padding(.vertical)
+                .padding()
                 .placeholder(when: newPasswordAgain.isEmpty) {
-                    Text("Enter New Password Again").foregroundColor(.white).padding(.leading)
+                    Text("Enter New Password Again").pwdTextStyle()
                 }
                 .background(
                     RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/, style: /*@START_MENU_TOKEN@*/.continuous/*@END_MENU_TOKEN@*/)
@@ -148,6 +150,13 @@ struct ChangePassword_Previews: PreviewProvider {
         ChangePassword()
     }
 }
+
+extension Text {
+    func pwdTextStyle() -> some View {
+        self.font(.custom("MontserratAlternates-Regular", size: 15)).foregroundColor(Color.white).padding(.leading)
+    }
+}
+
 
 enum PasswordStates: Int {
     case updated = 0
