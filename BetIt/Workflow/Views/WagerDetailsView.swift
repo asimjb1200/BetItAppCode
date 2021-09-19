@@ -10,8 +10,9 @@ import SwiftUI
 struct WagerDetailsView: View {
     @ObservedObject var wager: WagerModel
     @StateObject var viewModel: GameWagersViewModel = .shared
-   // @EnvironmentObject var user: UserModel
+    @EnvironmentObject var user: UserModel
     @State private var dataSubmitted = false
+    //var gameTime: Date
     var usdPrice: Float = 0.0
     var service: WalletService = .shared
     let teams = TeamsMapper().Teams
@@ -20,7 +21,7 @@ struct WagerDetailsView: View {
     
     var body: some View {
         VStack(alignment: .center) {
-            Text("Betting Against:")
+            Text("Betting Against")
                 .frame(maxWidth: .infinity)
                 .font(.custom("MontserratAlternates-ExtraBold", size: 35))
                 .foregroundColor(davysGray)
@@ -38,12 +39,12 @@ struct WagerDetailsView: View {
                 .font(.custom("MontserratAlternates-ExtraBold", size: 40))
                 .foregroundColor(davysGray)
             
-            Text("\(wager.wager_amount) LTC")
+            Text("\(NSDecimalNumber(decimal: wager.wager_amount).stringValue) LTC")
                 .frame(maxWidth: .infinity)
                 .font(.custom("MontserratAlternates-ExtraBold", size: 40))
                 .foregroundColor(Color("Accent2"))
-            
-            Text("$\(Float(wager.wager_amount) * viewModel.usdPrice, specifier: "%.2f")")
+
+            Text("$\(NSDecimalNumber(decimal: wager.wager_amount).floatValue * viewModel.usdPrice, specifier: "%.2f")")
                 .padding(.bottom)
                 .frame(maxWidth: .infinity)
                 .font(.custom("MontserratAlternates-ExtraBold", size: 40))
@@ -55,7 +56,7 @@ struct WagerDetailsView: View {
                 .font(.custom("MontserratAlternates-ExtraBold", size: 40))
                 .foregroundColor(davysGray)
             
-            Text("Sep. 12th 8:30 pm")
+            Text("\(viewModel.formatDate(date: viewModel.gameStarts))")
                 .padding(.bottom)
                 .frame(maxWidth: .infinity)
                 .font(.custom("MontserratAlternates-ExtraBold", size: 35))
@@ -63,9 +64,9 @@ struct WagerDetailsView: View {
             
             Spacer()
             
-            Button("Take this bet") {
+            Button("Place bet") {
                     // Add logic to save the bet if the fader confirms
-                    //viewModel.updateWager(token: user.accessToken, wagerId: wager.id, fader: user.walletAddress)
+                    viewModel.updateWager(token: user.accessToken, wagerId: wager.id, fader: user.walletAddress)
                     
                     // disable the button to prevent double submittal
                     viewModel.buttonPressed.toggle()
@@ -108,14 +109,15 @@ struct WagerDetailsView: View {
         .padding()
         .disabled(viewModel.buttonPressed)
         .onAppear() {
-//            if (viewModel.bettorAndFaderAddressMatch(fader: user.walletAddress, bettor: wager.bettor)) {
-//                viewModel.buttonPressed.toggle()
-//                viewModel.showingAlert.toggle()
-//            }
-//            if viewModel.usdPrice == 0.0 {
-//                viewModel.getCurrentLtcPrice()
-//            }
-//            viewModel.checkWalletBalance(address: user.walletAddress, username: user.username, token: user.accessToken, amount: wager.wager_amount)
+            viewModel.getGameTime(token: user.accessToken, gameId: UInt(wager.game_id))
+            if (viewModel.bettorAndFaderAddressMatch(fader: user.walletAddress, bettor: wager.bettor)) {
+                viewModel.buttonPressed.toggle()
+                viewModel.showingAlert.toggle()
+            }
+            if viewModel.usdPrice == 0.0 {
+                viewModel.getCurrentLtcPrice()
+            }
+            viewModel.checkWalletBalance(address: user.walletAddress, username: user.username, token: user.accessToken, amount: wager.wager_amount)
         }
     }
 }

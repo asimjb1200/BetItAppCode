@@ -21,7 +21,7 @@ struct GameWagersPreview: View {
                 Button(action: {
                     self.showWagerDetails = true
                 }, label: {
-                    Text("\(wager.wager_amount) Ltc \n Bettor's Pick: \(teams[wager.bettor_chosen_team] ?? "can't find team")")
+                    Text("\(NSDecimalNumber(decimal: wager.wager_amount).stringValue) Ltc \n Bettor's Pick: \(teams[wager.bettor_chosen_team] ?? "can't find team")")
                         .multilineTextAlignment(.center)
                         .padding(.all)
                         .fixedSize(horizontal: false, vertical: true)

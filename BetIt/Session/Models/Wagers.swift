@@ -24,7 +24,7 @@ class WagerModel: ObservableObject, Identifiable, Codable{
     let id: Int
     let bettor: String
     @Published var fader: String?
-    @Published var wager_amount: Int
+    @Published var wager_amount: Decimal
     let game_id: Int
     @Published var is_active: Bool
     let bettor_chosen_team: UInt8
@@ -39,13 +39,13 @@ class WagerModel: ObservableObject, Identifiable, Codable{
         game_id = try container.decode(Int.self, forKey: .game_id)
         bettor_chosen_team = try container.decode(UInt8.self, forKey: .bettor_chosen_team)
         fader = try container.decodeIfPresent(String.self, forKey: .fader)
-        wager_amount = try container.decode(Int.self, forKey: .wager_amount)
+        wager_amount = try container.decode(Decimal.self, forKey: .wager_amount)
         is_active = try container.decode(Bool.self, forKey: .is_active)
         winning_team = try container.decodeIfPresent(Int.self, forKey: .winning_team)
         escrow_address = try container.decodeIfPresent(String.self, forKey: .escrow_address)
     }
     
-    init(id: Int, bettor: String, wager_amount: Int, game_id: Int, is_active: Bool, bettor_chosen_team: UInt8) {
+    init(id: Int, bettor: String, wager_amount: Decimal, game_id: Int, is_active: Bool, bettor_chosen_team: UInt8) {
         self.id = id
         self.bettor = bettor
         self.wager_amount = wager_amount

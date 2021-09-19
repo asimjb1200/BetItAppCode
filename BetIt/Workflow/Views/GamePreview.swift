@@ -26,7 +26,8 @@ struct GamePreview: View {
                     .multilineTextAlignment(.center)
                 
                 Text("\(self.formatDate(date: currentGame.game_begins))")
-                    .font(.custom("MontserratAlternates-Regular", size: 14))                   .foregroundColor(davysGray)
+                    .font(.custom("MontserratAlternates-Regular", size: 14))
+                    .foregroundColor(davysGray)
                 
                 Text(teams[currentGame.visitor_team] ?? "Retry Request")
                     .font(.custom("MontserratAlternates-Regular", size: 28))

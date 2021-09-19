@@ -106,6 +106,36 @@ class GameService {
         }.resume()
     }
     
+    func getGameTime(gameId: UInt, token: String, completion: @escaping (Result<Date, CustomError>) -> ()) {
+        
+        let request = networker.constructRequest(uri: "http://localhost:3000/sports-handler/bball/get-game-time?gameId=\(gameId)", token: token)
+        
+        URLSession.shared.dataTask(with: request) {(data, response, err) in
+            // check for the OK status code
+            guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
+                print("Server error!")
+                return
+            }
+            guard let data = data else {return}
+            
+            do {
+                print(data)
+                
+                // handle the UTC date format coming in from the db
+                self.dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+                self.dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+                
+                self.decoder.dateDecodingStrategy = .formatted(self.dateFormatter)
+                
+                let decodedData = try self.decoder.decode(GameTime.self, from: data)
+                completion(.success(decodedData.gameTime))
+            } catch let err{
+                print(err)
+                completion(.failure(.invalidData))
+            }
+        }.resume()
+    }
+    
     func searchCacheForGamesByDate(dateKey: String) -> [DBGame]? {
         print("You are now searching the cache")
         let decoder = JSONDecoder()
@@ -169,4 +199,8 @@ class GameService {
         
         return newDate;
     }
+}
+
+struct GameTime: Decodable {
+    var gameTime: Date
 }

@@ -38,7 +38,7 @@ class WagerService {
             do {
                 // try to decode the wagers out of the api response
                 let gameWagers = try self.decoder.decode([WagerModel].self, from: data)
-                
+            
                 // send the wagers to the completion handler
                 completion(.success(gameWagers))
                 
