@@ -78,8 +78,8 @@
             filePath = "BetIt/Workflow/Views/CreateWager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -177,6 +177,22 @@
             startingLineNumber = "122"
             endingLineNumber = "122"
             landmarkName = "getGameTime(gameId:token:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2BDDDC47-09DA-4C5C-BDEA-2ABD083F4E2C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BetIt/Workflow/Views/CreateWagerViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "132"
+            endingLineNumber = "132"
+            landmarkName = "checkWalletBalance(address:username:token:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

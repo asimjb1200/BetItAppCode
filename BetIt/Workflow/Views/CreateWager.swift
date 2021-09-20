@@ -63,15 +63,35 @@ struct CreateWager: View {
                         .foregroundColor(Color("Accent2"))
                         .pickerStyle(SegmentedPickerStyle())
                         
-                        Text("Wager Amount:")
-                            .padding(.top, 20.0)
-                        TextField("LTC", text: $viewModel.wagerAmount)
-                            .padding(.bottom)
+//                        Text("Wager Amount:")
+//                            .padding(.top, 20.0)
+//                        TextField("LTC", text: $viewModel.wagerAmount)
+//                            .padding(.bottom)
+//                            .keyboardType(.numberPad)
+                        
+                        Text("\(NSDecimalNumber(decimal: viewModel.calcLtcAmount(wagerAmountInDollars: viewModel.wagerAmount)).stringValue) LTC")
+                            .alert(isPresented: $viewModel.showAlert) {
+                                if viewModel.notEnoughCrypto {
+                                    return Alert(title: Text("Insufficient Crypto"), message: Text("You don't have enough crytpo in your wallet to place this bet."), dismissButton: .default(Text("OK")))
+                                } else {
+                                    switch viewModel.wagerCreated {
+                                        case true:
+                                            return Alert(title: Text("Success"), message: Text("Your wager was created and entered into the pool."), dismissButton: .default(Text("OK")))
+
+                                        case false:
+                                            return Alert(title: Text("Something went wrong"), message: Text("Your wager couldn't be created. Try again."), dismissButton: .default(Text("OK")))
+                                    }
+                                }
+                            }
+                        
+                        Text("$ ")
+                        TextField("USD", text: $viewModel.wagerAmount)
                             .keyboardType(.numberPad)
                         
                         Button("Place Wager") {
                             viewModel.checkWalletBalance(address: user.walletAddress, username: user.username, token: user.accessToken)
                         }
+                        .disabled(viewModel.notEnoughCrypto)
                         .padding()
                         .background(
                             RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/).fill(Color("Accent2"))
@@ -83,23 +103,10 @@ struct CreateWager: View {
                 }
         }.onAppear() {
             viewModel.checkWagerCount(bettor: user.walletAddress, token: user.accessToken)
-            
+            viewModel.getCurrLtcPrice()
             if viewModel.canWager {
                 if viewModel.games.isEmpty {
                     viewModel.loadGames(date: viewModel.selectedDate, token: user.accessToken)
-                }
-            }
-        }
-        .alert(isPresented: $viewModel.showAlert) {
-            if viewModel.notEnoughCrypto {
-                return Alert(title: Text("Insufficient Crypto"), message: Text("You don't have enough crytpo in your wallet to place this bet."), dismissButton: .default(Text("OK")))
-            } else {
-                switch viewModel.wagerCreated {
-                    case true:
-                        return Alert(title: Text("Success"), message: Text("Your wager was created and entered into the pool."), dismissButton: .default(Text("OK")))
-
-                    case false:
-                        return Alert(title: Text("Something went wrong"), message: Text("Your wager couldn't be created. Try again."), dismissButton: .default(Text("OK")))
                 }
             }
         }
