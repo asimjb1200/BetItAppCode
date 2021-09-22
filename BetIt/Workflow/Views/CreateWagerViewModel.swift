@@ -114,7 +114,11 @@ final class CreateWagerViewModel: ObservableObject {
     }
     
     func calcLtcAmount(wagerAmountInDollars: String) -> Decimal {
-        let usdDecimal = (Decimal(string: wagerAmountInDollars) ?? 1.0)
+        guard
+            let usdDecimal = Decimal(string: wagerAmountInDollars)
+        else {
+            return 0
+        }
         var rounded = Decimal()
         // find out how much ltc is needed to cover the bet
         var ltcAmountToWager: Decimal = usdDecimal/(Decimal(string: self.currLtcPrice) ?? 1.0)

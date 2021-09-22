@@ -10,6 +10,9 @@ import SwiftUI
 struct GameWagersPreview: View {
     @ObservedObject var wager: WagerModel
     @State var showWagerDetails: Bool = false
+    @State var currLtcPrice: String = ""
+    @State var dollarAmount: Decimal = 0
+    var walletService: WalletService = .shared
     let teams = TeamsMapper().Teams
     var body: some View {
         let davysGray = Color(white: 0.342)
@@ -21,7 +24,7 @@ struct GameWagersPreview: View {
                 Button(action: {
                     self.showWagerDetails = true
                 }, label: {
-                    Text("\(NSDecimalNumber(decimal: wager.wager_amount).stringValue) Ltc \n Bettor's Pick: \(teams[wager.bettor_chosen_team] ?? "can't find team")")
+                    Text("\(NSDecimalNumber(decimal: wager.wager_amount).stringValue) Ltc ≈ $\(NSDecimalNumber(decimal: convertLtcToUSD(wagerAmount: wager.wager_amount)).stringValue) \n Bettor's Pick: \(teams[wager.bettor_chosen_team] ?? "can't find team")")
                         .multilineTextAlignment(.center)
                         .padding(.all)
                         .fixedSize(horizontal: false, vertical: true)
@@ -39,8 +42,45 @@ struct GameWagersPreview: View {
                         )
                     }
                 )
-            }.padding([.top, .bottom])
+            }
+            .padding([.top, .bottom])
+            .onAppear() {
+                guard
+                    !currLtcPrice.isEmpty
+                else {
+                    self.getCurrentLtcPrice()
+                    return
+                }
+            }
         }
+    }
+}
+
+extension GameWagersPreview {
+    func getCurrentLtcPrice() {
+        walletService.getCurrentLtcPrice(completion: { ltcPriceDataRes in
+            switch ltcPriceDataRes {
+            case .success(let ltcPriceData):
+                DispatchQueue.main.async {
+                    self.currLtcPrice = ltcPriceData.data.amount
+                }
+            case .failure(let err):
+                print(err)
+            }
+        })
+    }
+    
+    func convertLtcToUSD(wagerAmount: Decimal) -> Decimal {
+        guard
+            let ltcPrice = Decimal(string: self.currLtcPrice)
+        else {
+            return 0
+        }
+        var rounded = Decimal()
+        // find out how much usd the ltc is worth
+        var ltcAmountToWager: Decimal = wager.wager_amount * ltcPrice
+        NSDecimalRound(&rounded, &ltcAmountToWager, 2, .plain)
+        return rounded
     }
 }
 

@@ -29,7 +29,7 @@ struct CreateWager: View {
                             viewModel.loadGames(date: chosenDate, token: user.accessToken)
                         })
                     if viewModel.games.isEmpty {
-                        Text("No games are being played on that date. Pick another.").font(.custom("MontserratAlternates-Regular", size: 15))
+                        Text("No games are being played on that date. Pick another.").font(.custom("MontserratAlternates-Regular", size: 20))
                     } else {
                         Picker("Press Here To Select A Game", selection: $viewModel.selectedGame) {
                             ForEach(viewModel.games, id: \.self) {
@@ -63,13 +63,9 @@ struct CreateWager: View {
                         .foregroundColor(Color("Accent2"))
                         .pickerStyle(SegmentedPickerStyle())
                         
-//                        Text("Wager Amount:")
-//                            .padding(.top, 20.0)
-//                        TextField("LTC", text: $viewModel.wagerAmount)
-//                            .padding(.bottom)
-//                            .keyboardType(.numberPad)
-                        
                         Text("\(NSDecimalNumber(decimal: viewModel.calcLtcAmount(wagerAmountInDollars: viewModel.wagerAmount)).stringValue) LTC")
+                            .font(.custom("MontserratAlternates-Regular", size: 20.0))
+                            .padding([.top, .leading, .bottom])
                             .alert(isPresented: $viewModel.showAlert) {
                                 if viewModel.notEnoughCrypto {
                                     return Alert(title: Text("Insufficient Crypto"), message: Text("You don't have enough crytpo in your wallet to place this bet."), dismissButton: .default(Text("OK")))
@@ -84,15 +80,30 @@ struct CreateWager: View {
                                 }
                             }
                         
-                        Text("$ ")
-                        TextField("USD", text: $viewModel.wagerAmount)
-                            .keyboardType(.numberPad)
+                        HStack {
+                            Text("$")
+                                .font(.custom("MontserratAlternates-Regular", size: 30.0))
+                                .padding(.leading)
+                                
+                            TextField("USD", text: $viewModel.wagerAmount)
+                                .font(.custom("MontserratAlternates-Regular", size: 20.0))
+                                .padding([.top, .leading, .bottom])
+                                .background(
+                                    RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
+                                        .fill(
+                                            Color(hue: 1.0, saturation: 0.0, brightness: 0.694, opacity: 0.763).opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/)
+                                        )
+                                )
+                                .keyboardType(.numberPad)
+                        }
                         
+                        Spacer().frame(height: 30)
                         Button("Place Wager") {
                             viewModel.checkWalletBalance(address: user.walletAddress, username: user.username, token: user.accessToken)
                         }
+                        .font(.custom("MontserratAlternates-Regular", size: 15.0))
+                        .padding(.all)
                         .disabled(viewModel.notEnoughCrypto)
-                        .padding()
                         .background(
                             RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/).fill(Color("Accent2"))
                         )
