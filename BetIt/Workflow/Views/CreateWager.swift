@@ -99,6 +99,12 @@ struct CreateWager: View {
                         
                         Spacer().frame(height: 30)
                         Button("Place Wager") {
+                            guard
+                                !viewModel.wagerAmount.isEmpty,
+                                viewModel.wagerAmount != "0" && viewModel.wagerAmount != "0.0"
+                            else {
+                                return
+                            }
                             viewModel.checkWalletBalance(address: user.walletAddress, username: user.username, token: user.accessToken)
                         }
                         .font(.custom("MontserratAlternates-Regular", size: 15.0))

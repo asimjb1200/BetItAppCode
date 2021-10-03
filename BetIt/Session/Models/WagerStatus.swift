@@ -10,7 +10,7 @@ import Foundation
 struct WagerStatus: Decodable, Hashable {
     var wagerId: Int
     var isActive: Bool
-    var amount: Int
+    var amount: Decimal
     var gameStartTime: Date
     var chosenTeam: Int
 }

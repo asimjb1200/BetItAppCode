@@ -45,6 +45,9 @@ struct WalletDetailsView: View {
                     viewModel.getLtcBalance(username: user.username, address: user.walletAddress, token: user.accessToken)
                     viewModel.getCurrLtcPrice()
                 }
+                .alert(isPresented: $viewModel.cryptoTiedUpInWagers) {
+                    Alert(title: Text("Crypto Tied To Wagers"), message: Text("You have too much crypto tied up in wagers. Cancel a wager before trying to withdraw."), dismissButton: .default((Text("OK"))))
+                }
 
             Text("$\(String(format: "%.2f", viewModel.dollarBalance)) USD")
                 .padding()
@@ -107,7 +110,7 @@ struct WalletDetailsView: View {
                     return
                 }
                 
-                viewModel.transferFromWallet(fromAddress: user.walletAddress, token: user.accessToken)
+                viewModel.checkForLtcTiedUpInWagers(token: user.accessToken, walletAddr: user.walletAddress)
             }
             .foregroundColor(Color("Accent2"))
             .alert(isPresented: $viewModel.showAlert) {

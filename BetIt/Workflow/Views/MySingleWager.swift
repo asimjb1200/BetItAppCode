@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MySingleWager: View {
-    var ltcAmount: Int
+    var ltcAmount: Decimal
     var chosenTeam: Int
     var gameDate: String
     var wagerId: Int
@@ -21,7 +21,7 @@ struct MySingleWager: View {
         if !wagerIsCanceled {
             VStack {
                 Text("Game Starts: \(gameDate)")
-                Text("Wager Amount: \(ltcAmount) LTC")
+                Text("Wager Amount: \(NSDecimalNumber(decimal: ltcAmount).stringValue) LTC")
                 Text("Your Chosen Team: \(teams[UInt8(chosenTeam)]!)")
                 Text("Bet Is Active: No")
                 Button("Cancel Wager") {
