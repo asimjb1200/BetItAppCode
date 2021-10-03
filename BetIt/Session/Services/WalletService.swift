@@ -87,6 +87,35 @@ final class WalletService {
             }
         }.resume()
     }
+    
+    func transferFromWallet(fromAddress: String, toAddress: String, ltcAmount: Decimal, token: String, completion: @escaping (Result<Bool, WalletErrors>) -> ()) {
+        let reqWithoutBody: URLRequest = networker.constructRequest(uri: "http://localhost:3000/wallet-handler/pay-user", token: token, post: true)
+        
+        let body:[String: Any] = ["fromAddress":fromAddress, "toAddress":toAddress, "ltcAmount":ltcAmount]
+        let session = URLSession.shared
+        
+        let request = networker.buildReqBody(req: reqWithoutBody, body: body)
+        
+        session.dataTask(with: request) { (_, response, error) in
+            if error != nil {
+                print("there was a big error: \(String(describing: error))")
+                completion(.failure(.serverError))
+            }
+            
+            let httpResponse = response as! HTTPURLResponse
+            
+            guard
+                httpResponse.statusCode == 200
+            else {
+                completion(.failure(.serverError))
+                return
+            }
+            
+            completion(.success(true))
+        }
+        .resume()
+        
+    }
 }
 
 enum WalletErrors: String, Error {

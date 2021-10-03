@@ -127,7 +127,7 @@ final class CreateWagerViewModel: ObservableObject {
     }
     
     func checkWalletBalance(address: String, username: String, token: String){
-        walletService.getWalletBalance(address: address, username: username, token: token, completion: {walletResponse in
+        walletService.getWalletBalance(address: address, username: username, token: token, completion: { walletResponse in
             switch walletResponse {
                 case .success(let walletData):
                     DispatchQueue.main.async {
