@@ -116,6 +116,48 @@ final class WalletService {
         .resume()
         
     }
+    
+    func getWalletHistory(walletAddress: String, token: String, completion: @escaping (Result<[WalletTransactionPreview], WalletErrors>) -> ()) {
+        let requestWithoutBody: URLRequest = networker.constructRequest(uri: "http://localhost:3000/wallet-handler/wallet-history/\(walletAddress)", token: token, post: false)
+        
+        let session = URLSession.shared
+        
+        let dateFormatter = DateFormatter()
+        // handle the UTC date format coming in from the db
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        
+        self.decoder.dateDecodingStrategy = .formatted(dateFormatter)
+        
+        session.dataTask(with: requestWithoutBody) { (data, response, error) in
+            if error != nil {
+                print("Something occurred on the server")
+                completion(.failure(.serverError))
+            }
+            
+            guard let response = response else {
+                print("There was an error on the server")
+                completion(.failure(.serverError))
+                return
+            }
+            
+            let httpResponse = response as? HTTPURLResponse
+            
+            if httpResponse?.statusCode == 200 {
+                guard let data = data else {
+                    completion(.failure(.serverError))
+                    return
+                }
+                
+                do {
+                    let walletLedger = try self.decoder.decode([WalletTransactionPreview].self, from: data)
+                    completion(.success(walletLedger))
+                } catch let err {
+                    print("\(err)")
+                }
+            }
+        }.resume()
+    }
 }
 
 enum WalletErrors: String, Error {

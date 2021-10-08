@@ -121,7 +121,12 @@ struct WalletDetailsView: View {
                 }
             }
             
-            Spacer()
+            Group {
+                Text("Wallet History")
+                    .font(.custom("Montserrat-Alternates-Regular", size: 25))
+                WalletHistory()
+            }
+            .padding([.top])
         }
         .onTapGesture {
             self.hideKeyboard()

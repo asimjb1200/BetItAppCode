@@ -46,6 +46,9 @@
 		6882F0412670577800046367 /* WagerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6882F0402670577800046367 /* WagerService.swift */; };
 		6882F04326705EB800046367 /* GameAndWagersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6882F04226705EB800046367 /* GameAndWagersView.swift */; };
 		688EDF0E26C220D000A4EAB7 /* CreateWager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688EDF0D26C220D000A4EAB7 /* CreateWager.swift */; };
+		6894A3BC270BDE62004F6985 /* WalletHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6894A3BB270BDE62004F6985 /* WalletHistory.swift */; };
+		6894A3BE270BDE82004F6985 /* WalletHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6894A3BD270BDE82004F6985 /* WalletHistoryViewModel.swift */; };
+		6894A3C0270BDF91004F6985 /* WalletTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6894A3BF270BDF91004F6985 /* WalletTransaction.swift */; };
 		689E31602671BF210052452D /* WagerDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689E315F2671BF210052452D /* WagerDetailsView.swift */; };
 		689F9D0B269725C3001DB52E /* GameWagersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689F9D0A269725C3001DB52E /* GameWagersViewModel.swift */; };
 		689F9D0D26972EE4001DB52E /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689F9D0C26972EE4001DB52E /* LoginViewModel.swift */; };
@@ -132,6 +135,9 @@
 		6882F0402670577800046367 /* WagerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WagerService.swift; sourceTree = "<group>"; };
 		6882F04226705EB800046367 /* GameAndWagersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameAndWagersView.swift; sourceTree = "<group>"; };
 		688EDF0D26C220D000A4EAB7 /* CreateWager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWager.swift; sourceTree = "<group>"; };
+		6894A3BB270BDE62004F6985 /* WalletHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletHistory.swift; sourceTree = "<group>"; };
+		6894A3BD270BDE82004F6985 /* WalletHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletHistoryViewModel.swift; sourceTree = "<group>"; };
+		6894A3BF270BDF91004F6985 /* WalletTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletTransaction.swift; sourceTree = "<group>"; };
 		689E315F2671BF210052452D /* WagerDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WagerDetailsView.swift; sourceTree = "<group>"; };
 		689F9D0A269725C3001DB52E /* GameWagersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameWagersViewModel.swift; sourceTree = "<group>"; };
 		689F9D0C26972EE4001DB52E /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -192,6 +198,7 @@
 				689F9D1026975ADB001DB52E /* WalletDetailsViewModel.swift */,
 				68ADCFD526C358B2000D4644 /* CreateWagerViewModel.swift */,
 				68456A1226D05C0B002B8E83 /* StatusOfUsersWagersViewModel.swift */,
+				6894A3BD270BDE82004F6985 /* WalletHistoryViewModel.swift */,
 			);
 			name = ViewModels;
 			sourceTree = "<group>";
@@ -329,6 +336,7 @@
 				68814AB926D6A33F0012A464 /* MySingleWager.swift */,
 				686AB98B26E33C300021BA86 /* RegisterUserView.swift */,
 				68C6081726E8535B009578FA /* WalletTransactionsView.swift */,
+				6894A3BB270BDE62004F6985 /* WalletHistory.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -362,6 +370,7 @@
 				687B338126AB917F00ED7C68 /* CoinbaseResponse.swift */,
 				68CA44AD26AFB12900B4784F /* AccountDetailsEnum.swift */,
 				68456A1426D05CD7002B8E83 /* WagerStatus.swift */,
+				6894A3BF270BDF91004F6985 /* WalletTransaction.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -516,6 +525,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				68456A1126D0561B002B8E83 /* StatusOfUsersWagers.swift in Sources */,
+				6894A3C0270BDF91004F6985 /* WalletTransaction.swift in Sources */,
 				68CC10312684F5A400207C81 /* NetworkingHelper.swift in Sources */,
 				681AD4B9268BA45700EE4348 /* UserService.swift in Sources */,
 				681AD4BB268BB1FA00EE4348 /* AccountDetails.swift in Sources */,
@@ -544,6 +554,7 @@
 				6835648B2662BF7900344E6C /* BetItApp.swift in Sources */,
 				68814ABA26D6A33F0012A464 /* MySingleWager.swift in Sources */,
 				68AE2B9226864D4A001BD37D /* WagersNotFound.swift in Sources */,
+				6894A3BE270BDE82004F6985 /* WalletHistoryViewModel.swift in Sources */,
 				68CA44AE26AFB12900B4784F /* AccountDetailsEnum.swift in Sources */,
 				688EDF0E26C220D000A4EAB7 /* CreateWager.swift in Sources */,
 				681097AC2695F91F000E323F /* WalletDetailsView.swift in Sources */,
@@ -552,6 +563,7 @@
 				6878B1AC26B650CB003C3FF9 /* ChangePassword.swift in Sources */,
 				6882F04326705EB800046367 /* GameAndWagersView.swift in Sources */,
 				68456A1326D05C0B002B8E83 /* StatusOfUsersWagersViewModel.swift in Sources */,
+				6894A3BC270BDE62004F6985 /* WalletHistory.swift in Sources */,
 				68EC37C52663241A00E99FE5 /* UpcomingGames.swift in Sources */,
 				686D492226641DE100605AD5 /* GameService.swift in Sources */,
 				68189DBB266B3E6100D767C4 /* Wagers.swift in Sources */,
