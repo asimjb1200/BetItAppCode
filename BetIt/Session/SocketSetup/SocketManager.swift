@@ -16,6 +16,7 @@ final class SocketIOManager: ObservableObject {
     init() {
         socket = manager.defaultSocket
         socket.on(clientEvent: .connect) {data, ack in
+            
             print("socket connected")
         }
     }
@@ -24,17 +25,18 @@ final class SocketIOManager: ObservableObject {
     func establishConnection(walletAddress: String) {
 
         // send the wallet address to the server to be used as the socket's key
-        socket.connect(withPayload: ["walletAddress": walletAddress])
+        manager.defaultSocket.connect(withPayload: ["walletAddress": walletAddress])
     }
 
     //Function to close established socket connection. Call this method from `applicationDidEnterBackground` in your `Appdelegate` method.
-    func closeConnection() {
-        socket.disconnect()
+    func closeConnection(walletAddress: String) {
+        manager.defaultSocket.emit("disconnect me", walletAddress) // use this way to send msgs until I find out why the socket var doesn't work (below)
+        manager.defaultSocket.disconnect()
         print("Disconnected from Socket !")
     }
     
     func notificationsOnlyForMe() {
-        socket.on("wallet txs") { data, ack in
+        manager.defaultSocket.on("wallet txs") { data, ack in
             do {
                 let noti = try JSONSerialization.data(withJSONObject: data[0])
                 let decoded = try JSONDecoder().decode(Msg.self, from: noti)
@@ -46,7 +48,7 @@ final class SocketIOManager: ObservableObject {
     }
     
     func getUpdatedWagers(completionHandler: @escaping (Result<WagerModel, Error>) -> ()) {
-        socket.on("wager updated") { data, ack in
+        manager.defaultSocket.on("wager updated") { data, ack in
             do {
                 guard let dict = data[0] as? [String: Any] else { return }
                 let wagerData = try JSONSerialization.data(withJSONObject: dict["wager"] as Any, options: [])
@@ -59,7 +61,7 @@ final class SocketIOManager: ObservableObject {
     }
     
     func notifyWagerWinner(completionHandler: @escaping (Result<WagerWinner, Error>) -> ()) {
-        socket.on("payout started") { data, ack in
+        manager.defaultSocket.on("payout started") { data, ack in
             do {
                 guard let  dict = data[0] as? [String: Any] else { return }
                 let winningAddress = try JSONSerialization.data(withJSONObject: dict["winner"] as Any, options: [])

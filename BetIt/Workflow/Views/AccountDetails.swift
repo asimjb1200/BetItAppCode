@@ -15,6 +15,7 @@ struct AccountDetails: View {
     @EnvironmentObject private var user: UserModel
 //    @State private var showingCustomSheet = false
     var accountOptions = ["Email", "Password", "View My Wagers", "Support", "Deactivate", "Log Out"]
+    var socket: SocketIOManager = .sharedInstance
     @State private var email: String = ""
     @State private var username: String = ""
     @State private var password: String = ""
@@ -35,6 +36,7 @@ struct AccountDetails: View {
                         NavigationLink("\(item)", destination: StatusOfUsersWagers())
                     default:
                         Button(action: {
+                            socket.closeConnection(walletAddress: user.walletAddress)
                             UserNetworking().logout(accessToken: user.accessToken, completion: { loggedOutStatus in
                                 switch loggedOutStatus {
                                 case .success( _):
