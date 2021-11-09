@@ -12,12 +12,49 @@ final class SocketIOManager: ObservableObject {
     static let sharedInstance = SocketIOManager()
     var manager = SocketManager(socketURL: URL(string:"ws://localhost:3000")!, config: [.log(true), .compress])
     var socket: SocketIOClient!
+    @Published var showToast: Bool = false
+    @Published var toastMessage: String = ""
     
     init() {
         socket = manager.defaultSocket
         socket.on(clientEvent: .connect) {data, ack in
             
             print("socket connected")
+        }
+        
+        socket.on("test run") { data, ack in
+            guard let msg = data[0] as? String else { return }
+            self.toastMessage = msg
+            self.showToast.toggle()
+        }
+        
+        socket.on("game starting") { data, ack in
+            do {
+                guard let dict = data[0] as? [String: Any] else { return }
+                let gameNotiRaw = try JSONSerialization.data(withJSONObject: dict["gameUpdate"] as Any, options: [])
+                let gameNotiDecoded = try JSONDecoder().decode(GameStartingInfo.self, from: gameNotiRaw)
+                self.toastMessage = gameNotiDecoded.message
+                self.showToast.toggle()
+            } catch let err {
+                print(err)
+            }
+        }
+        
+        socket.on("payout started") { data, ack in
+            guard let msg = data[0] as? String else { return }
+            self.toastMessage = msg
+            self.showToast.toggle()
+        }
+        
+        socket.on("wallet txs") { data, ack in
+            do {
+                let noti = try JSONSerialization.data(withJSONObject: data[0])
+                let decoded = try JSONDecoder().decode(Msg.self, from: noti)
+                self.toastMessage = decoded.details
+                self.showToast.toggle()
+            } catch let err {
+                print(err.localizedDescription)
+            }
         }
     }
     
@@ -35,12 +72,27 @@ final class SocketIOManager: ObservableObject {
         print("Disconnected from Socket !")
     }
     
+    func gameStartingNoti(walletAddr: String) {
+        
+        manager.defaultSocket.on("game starting") { data, ack in
+            do {
+                guard let dict = data[0] as? [String: Any] else { return }
+                let gameNotiRaw = try JSONSerialization.data(withJSONObject: dict["gameUpdate"] as Any, options: [])
+                let gameNotiDecoded = try JSONDecoder().decode(GameStartingInfo.self, from: gameNotiRaw)
+                print("Your game noti is here: \(gameNotiDecoded) \n for wallet addy: \(walletAddr)")
+            } catch let err {
+                print(err)
+            }
+        }
+    }
+    
     func notificationsOnlyForMe() {
         manager.defaultSocket.on("wallet txs") { data, ack in
             do {
                 let noti = try JSONSerialization.data(withJSONObject: data[0])
                 let decoded = try JSONDecoder().decode(Msg.self, from: noti)
-                
+                self.toastMessage = decoded.details
+                self.showToast.toggle()
             } catch let err {
                 print(err.localizedDescription)
             }
@@ -80,6 +132,15 @@ struct WagerWinner: Decodable {
 
 class Msg: Decodable {
     var msg: String
-    var detials: String
+    var details: String
     var escrowWallet: String
+}
+
+struct GameStartingNoti: Decodable {
+    var gameUpdate: GameStartingInfo
+}
+
+struct GameStartingInfo: Decodable {
+    var message: String
+    var gameId: Int
 }

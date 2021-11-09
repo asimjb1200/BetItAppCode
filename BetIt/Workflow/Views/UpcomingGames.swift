@@ -38,6 +38,7 @@ struct UpcomingGames: View {
                     // when the user picks a new date send it to the api to get games on that date
                     viewModel.getGamesByDate(token: user.accessToken, selectedDate: chosenDate)
                 })
+            
             if viewModel.gamesAvailable {
                 ScrollView {
                     LazyVGrid(columns: layout, spacing: 10) {
