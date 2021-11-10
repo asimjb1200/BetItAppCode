@@ -14,27 +14,46 @@ struct MySingleWager: View {
     var wagerId: Int
     @EnvironmentObject private var user: UserModel
     @State var showAlert: Bool = false
+    var gameIsOver: Bool?
+    var userIsWinner: Bool?
     private let teams = TeamsMapper().Teams
     @State private var wagerIsCanceled = false
     let davysGray = Color(white: 0.342)
     var body: some View {
         if !wagerIsCanceled {
             VStack {
-                Text("Game Starts: \(gameDate)")
+                Text("Game Time: \(gameDate)")
                 Text("Wager Amount: \(NSDecimalNumber(decimal: ltcAmount).stringValue) LTC")
                 Text("Your Chosen Team: \(teams[UInt8(chosenTeam)]!)")
-                Text("Bet Is Active: No")
-                Button("Cancel Wager") {
-                    showAlert.toggle()
+                
+                if (gameIsOver ?? false) {
+                    Text(
+                        (userIsWinner ?? false) ?
+                            "Congrats your team won! Your payout will arrive shortly."
+                            :
+                            "Sorry, you didn't win this one."
+                    )
+                        .font(.custom("MontserratAlternates-Regular", size: 25))
+                        .multilineTextAlignment(.center)
+                        .padding(.top)
+                } else {
+                    Text("Bet Is Active: No")
+                    Text("Winning Team: N/A")
                 }
-                .foregroundColor(davysGray)
-                .padding()
-                .background(
-                    RoundedRectangle(cornerRadius: 25.0)
-                        .fill(Color("Accent2"))
-                )
-                .alert(isPresented: $showAlert) {
-                    return Alert(title: Text("Are You Sure?"), primaryButton: .destructive(Text("Cancel the Wager"), action: cancelMyWager), secondaryButton: .default(Text("Nevermind")))
+
+                if !(gameIsOver ?? false) {
+                    Button("Cancel Wager") {
+                        showAlert.toggle()
+                    }
+                    .foregroundColor(davysGray)
+                    .padding()
+                    .background(
+                        RoundedRectangle(cornerRadius: 25.0)
+                            .fill(Color("Accent2"))
+                    )
+                    .alert(isPresented: $showAlert) {
+                        return Alert(title: Text("Are You Sure?"), primaryButton: .destructive(Text("Cancel the Wager"), action: cancelMyWager), secondaryButton: .default(Text("Nevermind")))
+                    }
                 }
             }
             .padding()
@@ -74,6 +93,6 @@ extension MySingleWager {
 
 struct MySingleWager_Previews: PreviewProvider {
     static var previews: some View {
-        MySingleWager(ltcAmount: 3, chosenTeam: 4, gameDate: "sept 4th 97", wagerId: 5)
+        MySingleWager(ltcAmount: 3, chosenTeam: 4, gameDate: "Sept 4th 2021 4:30pm", wagerId: 5, userIsWinner: false)
     }
 }

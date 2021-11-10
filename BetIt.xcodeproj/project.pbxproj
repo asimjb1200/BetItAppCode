@@ -70,6 +70,8 @@
 		68CA44AE26AFB12900B4784F /* AccountDetailsEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CA44AD26AFB12900B4784F /* AccountDetailsEnum.swift */; };
 		68CC10312684F5A400207C81 /* NetworkingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CC10302684F5A400207C81 /* NetworkingHelper.swift */; };
 		68CE1CD12663DF8C00632279 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CE1CD02663DF8C00632279 /* Game.swift */; };
+		68EB61FC273A01300012C451 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 68EB61FB273A01300012C451 /* Toast */; };
+		68EB6201273A0D080012C451 /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = 68EB6200273A0D080012C451 /* AlertToast */; };
 		68EC37C52663241A00E99FE5 /* UpcomingGames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68EC37C42663241A00E99FE5 /* UpcomingGames.swift */; };
 		68EC37CA266324A900E99FE5 /* GamePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68EC37C9266324A900E99FE5 /* GamePreview.swift */; };
 		68EC37CF26632AC900E99FE5 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68EC37CE26632AC900E99FE5 /* Roboto-Light.ttf */; };
@@ -168,6 +170,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68EB6201273A0D080012C451 /* AlertToast in Frameworks */,
+				68EB61FC273A01300012C451 /* Toast in Frameworks */,
 				68A9ECE8267C1120000F4FC1 /* SocketIO in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -227,6 +231,7 @@
 		681AD4B2268B6EAA00EE4348 /* Session */ = {
 			isa = PBXGroup;
 			children = (
+				68EB61FE273A08340012C451 /* ToastSetup */,
 				681AD4AD268B6D9800EE4348 /* Utilities */,
 				687A85182680D5EE003732B1 /* SocketSetup */,
 				686D492026641DC600605AD5 /* Services */,
@@ -251,6 +256,7 @@
 				683564892662BF7900344E6C /* BetIt */,
 				6835649B2662BF7B00344E6C /* BetItTests */,
 				683564882662BF7900344E6C /* Products */,
+				68EB61FD273A07CB0012C451 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -375,6 +381,20 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		68EB61FD273A07CB0012C451 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		68EB61FE273A08340012C451 /* ToastSetup */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ToastSetup;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -393,6 +413,8 @@
 			name = BetIt;
 			packageProductDependencies = (
 				68A9ECE7267C1120000F4FC1 /* SocketIO */,
+				68EB61FB273A01300012C451 /* Toast */,
+				68EB6200273A0D080012C451 /* AlertToast */,
 			);
 			productName = BetIt;
 			productReference = 683564872662BF7900344E6C /* BetIt.app */;
@@ -467,6 +489,8 @@
 			mainGroup = 6835647E2662BF7900344E6C;
 			packageReferences = (
 				68A9ECE6267C1120000F4FC1 /* XCRemoteSwiftPackageReference "socket" */,
+				68EB61FA273A01300012C451 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
+				68EB61FF273A0D080012C451 /* XCRemoteSwiftPackageReference "AlertToast" */,
 			);
 			productRefGroup = 683564882662BF7900344E6C /* Products */;
 			projectDirPath = "";
@@ -902,6 +926,22 @@
 				minimumVersion = 16.0.1;
 			};
 		};
+		68EB61FA273A01300012C451 /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scalessec/Toast-Swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.1;
+			};
+		};
+		68EB61FF273A0D080012C451 /* XCRemoteSwiftPackageReference "AlertToast" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/elai950/AlertToast";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.3.7;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -909,6 +949,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 68A9ECE6267C1120000F4FC1 /* XCRemoteSwiftPackageReference "socket" */;
 			productName = SocketIO;
+		};
+		68EB61FB273A01300012C451 /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68EB61FA273A01300012C451 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
+			productName = Toast;
+		};
+		68EB6200273A0D080012C451 /* AlertToast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68EB61FF273A0D080012C451 /* XCRemoteSwiftPackageReference "AlertToast" */;
+			productName = AlertToast;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import AlertToast
 
 struct ContentView: View {
     @EnvironmentObject private var user: UserModel
+    @EnvironmentObject private var socket: SocketIOManager
     var body: some View {
         TabView {
             UpcomingGames()
@@ -36,9 +38,12 @@ struct ContentView: View {
                     Image(systemName: "percent")
                 }
         }
+        .toast(isPresenting: $socket.showToast, duration: 2, tapToDismiss: true) {
+            AlertToast(displayMode: .hud, type: .complete(Color("Accent2")), title: socket.toastMessage)
+        }
         .accentColor(Color("Accent2"))
         .onAppear(){
-            SocketIOManager.sharedInstance.establishConnection(walletAddress: user.walletAddress)
+            socket.establishConnection(walletAddress: user.walletAddress)
         }
         
     }
