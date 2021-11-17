@@ -10,19 +10,11 @@ import SwiftUI
 struct UpcomingGames: View {
     @StateObject private var viewModel: UpcomingGamesViewModel = UpcomingGamesViewModel()
     @EnvironmentObject var user: UserModel
-//    private var testGames = [
-//        DBGame(game_id: 2, sport: "BBall", home_team: 5, visitor_team: 4, game_begins: Date(), home_score: 20, season: 2020),
-//        DBGame(game_id: 3, sport: "BBall", home_team: 6, visitor_team: 5, game_begins: Date(), home_score: 20, season: 2020),
-//        DBGame(game_id: 4, sport: "BBall", home_team: 7, visitor_team: 6, game_begins: Date(), home_score: 20, season: 2020),
-//        DBGame(game_id: 5, sport: "BBall", home_team: 8, visitor_team: 7, game_begins: Date(), home_score: 20, season: 2020),
-//        DBGame(game_id: 6, sport: "BBall", home_team: 9, visitor_team: 8, game_begins: Date(), home_score: 20, season: 2020)
-//    ]
     
     let pastDays = Date().addingTimeInterval(-604800)
     
     // add 7 days to the current date
     let range = Date() ... Date().addingTimeInterval(604800)
-    //    let range = Date().addingTimeInterval(-1004800) ... Date().addingTimeInterval(604800)
     
     let layout = [
         GridItem(.adaptive(minimum: 150))
