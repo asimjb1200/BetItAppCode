@@ -40,9 +40,10 @@ struct WalletTransactionView: View {
 
 extension WalletTransactionView {
     func formatDate(date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMM d, h:mm a"
-        return dateFormatter.string(from: date)
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US")
+        formatter.dateStyle = .short
+        return formatter.string(from: date)
     }
     
     func roundDecimal(amount: Decimal) -> Decimal {

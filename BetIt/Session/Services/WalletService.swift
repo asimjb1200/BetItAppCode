@@ -122,12 +122,12 @@ final class WalletService {
         
         let session = URLSession.shared
         
-        let dateFormatter = DateFormatter()
-        // handle the UTC date format coming in from the db
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        // let dateFormatter = DateFormatter()
+        // handle the UTC date format coming in from the db. These timestamps are coming back in ISO8601 format
+        self.decoder.dateDecodingStrategy = .iso8601
         
-        self.decoder.dateDecodingStrategy = .formatted(dateFormatter)
+        // sometimes the dates will have yyyy-MM-dd'T'HH:mm:sssZ instead of yyyy-MM-dd'T'HH:mm:ssZ
+        // is there a way that I can parse both without punk ass swift breaking?
         
         session.dataTask(with: requestWithoutBody) { (data, response, error) in
             if error != nil {
@@ -153,7 +153,10 @@ final class WalletService {
                     let walletLedger = try self.decoder.decode([WalletTransactionPreview].self, from: data)
                     completion(.success(walletLedger))
                 } catch let err {
-                    print("\(err)")
+                    DispatchQueue.main.async {
+                        print(err.localizedDescription)
+                    }
+                    completion(.failure(.serverError))
                 }
             }
         }.resume()
@@ -164,4 +167,15 @@ enum WalletErrors: String, Error {
     case walletNotFound = "There was no record of that wallet in the database"
     case notTheOwner = "That wallet doesn't belong to you"
     case serverError = "There was an error on the server"
+}
+
+extension DateFormatter {
+  static let iso8601Full: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
+    formatter.calendar = Calendar(identifier: .iso8601)
+    formatter.timeZone = TimeZone(secondsFromGMT: 0)
+    formatter.locale = Locale(identifier: "en_US_POSIX")
+    return formatter
+  }()
 }

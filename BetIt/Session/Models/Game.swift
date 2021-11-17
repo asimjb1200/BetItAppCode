@@ -61,6 +61,7 @@ enum CustomError: String, Error {
 }
 
 enum GameFetchError: String, Error {
+    case tokenExpired = "The access token has expired. Time to issue a new one"
     case noGamesFound = "No games on this date"
     case serverError = "There was an error on the server"
     case decodingError = "Had a problem when decoding the games from the server"

@@ -51,12 +51,10 @@ class UserNetworking {
     }
     
     func logout(accessToken: String, completion: @escaping (Result<Bool, LogoutErrors>) -> ()) {
-        let reqWithoutBody: URLRequest = networker.constructRequest(uri: "http://localhost:3000/users/logout", post: true)
+        let reqWithoutBody: URLRequest = networker.constructRequest(uri: "http://localhost:3000/users/logout", token: accessToken, post: true)
         let session = URLSession.shared
-        let body = ["token": accessToken]
-        let request = networker.buildReqBody(req: reqWithoutBody, body: body)
         
-        session.dataTask(with: request) { (_, response, err) in
+        session.dataTask(with: reqWithoutBody) { (_, response, err) in
             if err != nil {
                 print("there was a big error: \(String(describing: err))")
                 completion(.failure(.serverError))
@@ -72,6 +70,41 @@ class UserNetworking {
             
             completion(.success(true))
             
+        }.resume()
+    }
+    
+    func refreshAccessToken(refreshToken: String, completion: @escaping (Result<String, RefreshTokenErrors>) -> ()) {
+        let reqWithoutBody: URLRequest = networker.constructRequest(uri: "http://localhost:3000/users/refresh-token", post: true)
+        let session = URLSession.shared
+        let body = ["token": refreshToken]
+        
+        let request = networker.buildReqBody(req: reqWithoutBody, body: body)
+        
+        session.dataTask(with: request) {(data, response, err) in
+            if err != nil || data == nil {
+                print("There was an error on the server: \(String(describing: err))")
+                completion(.failure(.internalServerError))
+            }
+            
+            guard
+                let response = response as? HTTPURLResponse, 200...299 ~= response.statusCode
+            else {
+                print("refresh token probably expired")
+                completion(.failure(.tokenExpired))
+                return
+            }
+            
+            guard let data = data else {
+                completion(.failure(.dataConversionError))
+                return
+            }
+            
+            do {
+                let newAccessToken = try JSONDecoder().decode(String.self, from: data)
+                completion(.success(newAccessToken))
+            } catch let error {
+                print(error)
+            }
         }.resume()
     }
     
@@ -166,6 +199,12 @@ class UserNetworking {
             completion(.success(true))
         }.resume()
     }
+}
+
+enum RefreshTokenErrors: String, Error {
+    case tokenExpired = "User's refresh token has expired. They must login again."
+    case internalServerError = "There was an error on the server. User must login again."
+    case dataConversionError = "There was a problem decoding the refresh token from the server"
 }
 
 enum UpdatePasswordErrors: String, Error {

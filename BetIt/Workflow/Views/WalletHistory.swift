@@ -16,9 +16,7 @@ struct WalletHistory: View {
                 WalletTransactionView(txInfo: event)
             }
         }.onAppear() {
-            if viewModel.walletTransactions.isEmpty {
-                viewModel.getWalletTxs(walletAddress: user.walletAddress, token: user.accessToken)
-            }
+            viewModel.getWalletTxs(walletAddress: user.walletAddress, token: user.accessToken)
         }
     }
 }
