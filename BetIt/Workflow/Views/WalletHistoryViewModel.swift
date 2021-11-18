@@ -10,6 +10,7 @@ import Foundation
 final class WalletHistoryViewModel: ObservableObject {
     private var walletService: WalletService = .shared
     @Published var walletTransactions: [WalletTransactionPreview] = [WalletTransactionPreview]()
+    @Published var txsLoading: Bool = true
     
     func getWalletTxs(walletAddress: String, token: String) {
         walletService.getWalletHistory(walletAddress: walletAddress, token: token, completion: { [weak self] walletHistoyRes in
@@ -17,6 +18,7 @@ final class WalletHistoryViewModel: ObservableObject {
             case .success(let walletHistory):
                 DispatchQueue.main.async {
                     self?.walletTransactions = walletHistory
+                    self?.txsLoading.toggle()
                 }
             case .failure(let err):
                 print(err)

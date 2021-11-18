@@ -38,7 +38,9 @@ struct WalletDetailsView: View {
                 .scaledToFit()
                 .frame(width: 150, height: 150)
             
-            Text("Balance: \(String(format: "%.7f", viewModel.ltcBalance)) LTC")
+            Text(
+                viewModel.balanceIsLoading ? "Fetching...." : "Balance: \(String(format: "%.7f", viewModel.ltcBalance)) LTC"
+            )
                 .font(.custom("MontserratAlternates-Regular", size: 20))
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 50, alignment: .leading)
                 .onAppear() {
@@ -49,7 +51,9 @@ struct WalletDetailsView: View {
                     Alert(title: Text("Crypto Tied To Wagers"), message: Text("You have too much crypto tied up in wagers. Cancel a wager before trying to withdraw."), dismissButton: .default((Text("OK"))))
                 }
 
-            Text("$\(String(format: "%.2f", viewModel.dollarBalance)) USD")
+            Text(
+                viewModel.balanceIsLoading ? "Fetching...." : "$\(String(format: "%.2f", viewModel.dollarBalance)) USD"
+            )
                 .padding()
                 .font(.custom("MontserratAlternates-Regular", size: 35))
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 50, alignment: .center)

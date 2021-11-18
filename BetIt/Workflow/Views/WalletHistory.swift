@@ -12,8 +12,12 @@ struct WalletHistory: View {
     @EnvironmentObject private var user: UserModel
     var body: some View {
         ScrollView {
-            ForEach(viewModel.walletTransactions, id: \.self) { event in
-                WalletTransactionView(txInfo: event)
+            if viewModel.txsLoading {
+                LoadingView()
+            } else {
+                ForEach(viewModel.walletTransactions, id: \.self) { event in
+                    WalletTransactionView(txInfo: event)
+                }
             }
         }.onAppear() {
             viewModel.getWalletTxs(walletAddress: user.walletAddress, token: user.accessToken)

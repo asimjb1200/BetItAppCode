@@ -42,8 +42,6 @@ struct CreateWager: View {
                         
                         if viewModel.selectedGame.game_id == 0 {
                             Text("Pick A Game to Bet On Above!").font(.custom("MontserratAlternates-Regular", size: 15))
-                        } else {
-                            Text("\(teams[viewModel.selectedGame.home_team]!) vs. \(teams[viewModel.selectedGame.visitor_team]!)").font(.custom("MontserratAlternates-Regular", size: 15))
                         }
                             
                         Text("Game Time: \(viewModel.dateToString)")

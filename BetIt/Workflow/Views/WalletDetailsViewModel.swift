@@ -19,7 +19,7 @@ final class WalletDetailsViewModel: ObservableObject {
     @Published var showEmptyAddressAlert: Bool = false
     @Published var showEmptyAmountAlert: Bool = false
     @Published var cryptoTiedUpInWagers: Bool = false
-    
+    @Published var balanceIsLoading: Bool = true
     private var walletService: WalletService = .shared
     private var wagerService: WagerService = .shared
     
@@ -32,6 +32,7 @@ final class WalletDetailsViewModel: ObservableObject {
                     DispatchQueue.main.async {
                         self?.ltcBalance = NSDecimalNumber(decimal: balPresent.balance).doubleValue
                         self?.dollarBalance = NSDecimalNumber(decimal: balPresent.dollarEquivalent).doubleValue
+                        self?.balanceIsLoading = false
                     }
                 case .failure(let err):
                     print(err)
