@@ -11,7 +11,7 @@ class UserNetworking {
     let networker: Networker = .shared
     func login(username:String, pw: String, completion: @escaping (Result<ServiceUser, UserErrors>) -> ()) {
 
-        let reqWithoutBody: URLRequest = networker.constructRequest(uri: "http://localhost:3000/users/login", post: true)
+        let reqWithoutBody: URLRequest = networker.constructRequest(uri: "https://bet-it-casino.com/users/login", post: true)
         
         let session = URLSession.shared
         let body = ["username": username, "password": pw]
@@ -51,7 +51,7 @@ class UserNetworking {
     }
     
     func logout(accessToken: String, completion: @escaping (Result<Bool, LogoutErrors>) -> ()) {
-        let reqWithoutBody: URLRequest = networker.constructRequest(uri: "http://localhost:3000/users/logout", token: accessToken, post: true)
+        let reqWithoutBody: URLRequest = networker.constructRequest(uri: "https://www.bet-it-casino.com/users/logout", token: accessToken, post: true)
         let session = URLSession.shared
         
         session.dataTask(with: reqWithoutBody) { (_, response, err) in
@@ -74,7 +74,7 @@ class UserNetworking {
     }
     
     func refreshAccessToken(refreshToken: String, completion: @escaping (Result<String, RefreshTokenErrors>) -> ()) {
-        let reqWithoutBody: URLRequest = networker.constructRequest(uri: "http://localhost:3000/users/refresh-token", post: true)
+        let reqWithoutBody: URLRequest = networker.constructRequest(uri: "https://www.bet-it-casino.com/users/refresh-token", post: true)
         let session = URLSession.shared
         let body = ["token": refreshToken]
         
@@ -109,7 +109,7 @@ class UserNetworking {
     }
     
     func changePassword(newPassword: String, username: String, oldPassword: String, token: String, completion: @escaping (Result<PasswordStates, UpdatePasswordErrors>) -> ()) {
-        let reqWithoutBody: URLRequest = networker.constructRequest(uri: "http://localhost:3000/users/change-password", token: token, post: true)
+        let reqWithoutBody: URLRequest = networker.constructRequest(uri: "https://www.bet-it-casino.com/users/change-password", token: token, post: true)
         
         let body = ["username": username, "newPassword": newPassword, "oldPassword": oldPassword]
         
@@ -142,7 +142,7 @@ class UserNetworking {
     }
     
     func changeEmail(username: String, password: String, email: String, token: String, completion: @escaping (Result<EmailStates, EmailStatesErrors>) -> ()) {
-        let reqWithoutBody: URLRequest = networker.constructRequest(uri: "http://localhost:3000/users/change-email", token: token, post: true)
+        let reqWithoutBody: URLRequest = networker.constructRequest(uri: "https://www.bet-it-casino.com/users/change-email", token: token, post: true)
         
         let body = ["username": username, "password": password, "newEmail": email]
         
@@ -174,7 +174,7 @@ class UserNetworking {
     }
     
     func registerUser(username: String, password: String, email: String, completion: @escaping (Result<Bool, UserErrors>) -> () ) {
-        let reqWithoutBody: URLRequest = networker.constructRequest(uri: "http://localhost:3000/users/register", post: true)
+        let reqWithoutBody: URLRequest = networker.constructRequest(uri: "https://www.bet-it-casino.com/users/register", post: true)
         
         let body = ["username": username, "password": password, "email": email]
         

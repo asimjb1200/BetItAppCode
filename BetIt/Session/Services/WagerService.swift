@@ -16,7 +16,7 @@ class WagerService {
     
     func getWagersForGameId(token: String, gameId: UInt, completion: @escaping (Result<[WagerModel], WagerErrors>) -> ()) {
 
-        let reqWithoutBody = networker.constructRequest(uri: "http://localhost:3000/wager-handler/get-wagers-by-game", token: token, post: true)
+        let reqWithoutBody = networker.constructRequest(uri: "https://www.bet-it-casino.com/wager-handler/get-wagers-by-game", token: token, post: true)
       
         // set up the body of the request
         let body = ["gameId": gameId]
@@ -49,7 +49,7 @@ class WagerService {
     }
     
     func getAllUsersWagers(token: String, bettor: String, completion: @escaping (Result<[WagerStatus], WagerErrors>) -> ()) {
-        let req = networker.constructRequest(uri: "http://localhost:3000/wager-handler/get-users-wagers?walletAddr=\(bettor)", token: token, post: false)
+        let req = networker.constructRequest(uri: "https://www.bet-it-casino.com/wager-handler/get-users-wagers?walletAddr=\(bettor)", token: token, post: false)
 
         URLSession.shared.dataTask(with: req) {[weak self] (data, res, err) in
             guard let self = self else {return}
@@ -92,7 +92,7 @@ class WagerService {
     }
     
     func updateWager(token: String, wagerId: Int, fader: String, completion: @escaping (Result<WagerModel, WagerErrors>) -> ()) {
-        let reqWithoutBody = networker.constructRequest(uri: "http://localhost:3000/wager-handler/add-fader-to-wager", token: token, post: true)
+        let reqWithoutBody = networker.constructRequest(uri: "https://www.bet-it-casino.com/wager-handler/add-fader-to-wager", token: token, post: true)
         
         let body: [String : Any] = ["wager_id": wagerId, "fader_address": fader]
         let request = networker.buildReqBody(req: reqWithoutBody, body: body)
@@ -137,7 +137,7 @@ class WagerService {
     }
     
     func checkUserWagerCount(token: String, bettor: String, completion: @escaping (Result<Int, WagerErrors>) -> ()) {
-        let request = networker.constructRequest(uri: "http://localhost:3000/wager-handler/check-number-of-bets?walletAddress=\(bettor)", token: token)
+        let request = networker.constructRequest(uri: "https://www.bet-it-casino.com/wager-handler/check-number-of-bets?walletAddress=\(bettor)", token: token)
         URLSession.shared.dataTask(with: request) {[weak self] (data, response, err) in
             guard let self = self else { return }
             if err != nil {
@@ -171,7 +171,7 @@ class WagerService {
     }
     
     func createNewWager(token: String, bettor: String, wagerAmount: Decimal, gameId: UInt, bettorChosenTeam: UInt, completion: @escaping (Result<Bool, WagerErrors>) -> ()) {
-        let reqWithoutBody = networker.constructRequest(uri: "http://localhost:3000/wager-handler/create-wager", token: token, post: true)
+        let reqWithoutBody = networker.constructRequest(uri: "https://www.bet-it-casino.com/wager-handler/create-wager", token: token, post: true)
         
         let body: [String : Any] = ["bettor": bettor, "wagerAmount": wagerAmount, "gameId": gameId, "bettorChosenTeam": bettorChosenTeam]
         let request = networker.buildReqBody(req: reqWithoutBody, body: body)
@@ -201,7 +201,7 @@ class WagerService {
     }
     
     func cancelWager(token: String, wagerId: Int, completion: @escaping (Result<Bool, WagerErrors>) -> ()) {
-        let reqWithoutBody = networker.constructRequest(uri: "http://localhost:3000/wager-handler/delete-wager", token: token, post: true)
+        let reqWithoutBody = networker.constructRequest(uri: "https://www.bet-it-casino.com/wager-handler/delete-wager", token: token, post: true)
         let body: [String: Any] = ["wagerId": wagerId]
         let request = networker.buildReqBody(req: reqWithoutBody, body: body)
         

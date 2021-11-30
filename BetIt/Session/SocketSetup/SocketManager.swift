@@ -10,7 +10,7 @@ import SocketIO
 
 final class SocketIOManager: ObservableObject {
     static let sharedInstance = SocketIOManager()
-    var manager = SocketManager(socketURL: URL(string:"ws://localhost:3000")!, config: [.log(true), .compress])
+    var manager = SocketManager(socketURL: URL(string:"https://bet-it-casino.com/socket.io")!, config: [.log(true), .compress])
     var socket: SocketIOClient!
     @Published var showToast: Bool = false
     @Published var toastMessage: String = ""

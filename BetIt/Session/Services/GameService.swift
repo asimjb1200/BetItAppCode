@@ -18,7 +18,7 @@ class GameService {
     static let shared: GameService = GameService()
     
     func getUpcomingGames(completion: @escaping (Result<[DBGame], CustomError>) -> Void) {
-        let url = URL(string: "http://localhost:3000/sports-handler/bball/games-this-week")!
+        let url = URL(string: "https://www.bet-it-casino.com/sports-handler/bball/games-this-week")!
 //        let dateKey: String = self.convertDateToString(date: todaysDate)
         let cachedData: [DBGame]? = try? self.searchCacheForGamesByDate(dateKey: "210603")
         if (cachedData != nil) {
@@ -73,7 +73,7 @@ class GameService {
         let body = ["date": stringifiedDate]
         
         // start preparing the url request
-        let reqWithoutBody = networker.constructRequest(uri: "http://localhost:3000/sports-handler/bball/games-by-date", token: token, post: true)
+        let reqWithoutBody = networker.constructRequest(uri: "https://www.bet-it-casino.com/sports-handler/bball/games-by-date", token: token, post: true)
         
         let request = networker.buildReqBody(req: reqWithoutBody, body: body)
         
@@ -108,7 +108,7 @@ class GameService {
     
     func getGameTime(gameId: UInt, token: String, completion: @escaping (Result<Date, CustomError>) -> ()) {
         
-        let request = networker.constructRequest(uri: "http://localhost:3000/sports-handler/bball/get-game-time?gameId=\(gameId)", token: token)
+        let request = networker.constructRequest(uri: "https://www.bet-it-casino.com/sports-handler/bball/get-game-time?gameId=\(gameId)", token: token)
         
         URLSession.shared.dataTask(with: request) {(data, response, err) in
             // check for the OK status code

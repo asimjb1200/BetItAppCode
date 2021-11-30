@@ -46,6 +46,17 @@ struct ContentView: View {
             socket.establishConnection(walletAddress: user.walletAddress)
         }
         
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)) { _ in
+                print("Moving to the background!")
+            // disconnect their socket
+            socket.closeConnection(walletAddress: user.walletAddress)
+        }
+        
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+            print("Moving back to the foreground!")
+            // reconnect the user's socket
+            socket.establishConnection(walletAddress: user.walletAddress)
+        }
     }
 }
 

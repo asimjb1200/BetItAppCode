@@ -15,7 +15,7 @@ final class WalletService {
     private init() {}
     
     func getWalletBalance(address: String, username: String, token: String, completion: @escaping (Result<WalletModel, WalletErrors>) -> ()) {
-        let reqWithoutBody: URLRequest = networker.constructRequest(uri: "http://localhost:3000/wallet-handler/get-wallet-balance", token: token, post: true)
+        let reqWithoutBody: URLRequest = networker.constructRequest(uri: "https://www.bet-it-casino.com/wallet-handler/get-wallet-balance", token: token, post: true)
         
         let session = URLSession.shared
         let body = ["username": username, "address": address]
@@ -89,7 +89,7 @@ final class WalletService {
     }
     
     func transferFromWallet(fromAddress: String, toAddress: String, ltcAmount: Decimal, token: String, completion: @escaping (Result<Bool, WalletErrors>) -> ()) {
-        let reqWithoutBody: URLRequest = networker.constructRequest(uri: "http://localhost:3000/wallet-handler/pay-user", token: token, post: true)
+        let reqWithoutBody: URLRequest = networker.constructRequest(uri: "https://www.bet-it-casino.com/wallet-handler/pay-user", token: token, post: true)
         
         let body:[String: Any] = ["fromAddress":fromAddress, "toAddress":toAddress, "ltcAmount":ltcAmount]
         let session = URLSession.shared
@@ -118,7 +118,7 @@ final class WalletService {
     }
     
     func getWalletHistory(walletAddress: String, token: String, completion: @escaping (Result<[WalletTransactionPreview], WalletErrors>) -> ()) {
-        let requestWithoutBody: URLRequest = networker.constructRequest(uri: "http://localhost:3000/wallet-handler/wallet-history/\(walletAddress)", token: token, post: false)
+        let requestWithoutBody: URLRequest = networker.constructRequest(uri: "https://www.bet-it-casino.com/wallet-handler/wallet-history/\(walletAddress)", token: token, post: false)
         
         let session = URLSession.shared
         
