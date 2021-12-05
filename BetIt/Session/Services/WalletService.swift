@@ -54,7 +54,7 @@ final class WalletService {
     }
     
     func getCurrentLtcPrice(completion: @escaping (Result<CoinbasePriceDataResponse, CoinbaseErrors>) -> ()) {
-        let req: URLRequest = networker.constructRequest(uri: "https://api.coinbase.com/v2/prices/LTC-USD/buy");
+        let req: URLRequest = networker.constructRequest(uri: "https://api.coinbase.com/v2/prices/LTC-USD/buy")
         let session = URLSession.shared
         session.dataTask(with: req) { (data, response, error) in
             if error != nil || data == nil {
@@ -86,6 +86,20 @@ final class WalletService {
                 completion(.failure(.failure))
             }
         }.resume()
+    }
+    
+    @available(iOS 15.0.0, *)
+    func fetchLtcPriceAsync() async throws -> String {
+        guard let url = URL(string: "https://api.coinbase.com/v2/prices/LTC-USD/buy") else {
+            throw CoinbaseErrors.invalidURL
+        }
+        
+        // use async version of URLSession
+        let (data, _) = try await URLSession.shared.data(from: url)
+        
+        // parse the JSON data
+        let coinbasePriceResponse = try JSONDecoder().decode(CoinbasePriceDataResponse.self, from: data)
+        return coinbasePriceResponse.data.amount
     }
     
     func transferFromWallet(fromAddress: String, toAddress: String, ltcAmount: Decimal, token: String, completion: @escaping (Result<Bool, WalletErrors>) -> ()) {

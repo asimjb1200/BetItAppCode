@@ -20,4 +20,5 @@ struct CoinbasePriceData: Codable {
 enum CoinbaseErrors: String, Error {
     case success = "data found"
     case failure = "an error occurred"
+    case invalidURL = "That URL is inactive"
 }

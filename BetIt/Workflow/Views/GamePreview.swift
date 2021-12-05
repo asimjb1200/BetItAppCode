@@ -56,6 +56,7 @@ extension GamePreview {
     func formatDate(date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMM d, h:mm a"
+        dateFormatter.timeZone = TimeZone.current
         return dateFormatter.string(from: date)
     }
 }

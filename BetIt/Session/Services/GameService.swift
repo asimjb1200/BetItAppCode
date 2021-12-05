@@ -67,10 +67,14 @@ class GameService {
         self.dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         self.dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
         
+        // grab the user's current timezone so that I can process it in the db
+        var localTimeZoneIdentifier: String { return TimeZone.current.identifier }
+        
         let stringifiedDate = self.dateFormatter.string(from: date)
         
+        
         // set up the body of the request
-        let body = ["date": stringifiedDate]
+        let body = ["date": stringifiedDate, "timeZone": localTimeZoneIdentifier]
         
         // start preparing the url request
         let reqWithoutBody = networker.constructRequest(uri: "https://www.bet-it-casino.com/sports-handler/bball/games-by-date", token: token, post: true)

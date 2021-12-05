@@ -9,16 +9,24 @@ import SwiftUI
 
 struct WagersNotFound: View {
     var body: some View {
-        ZStack {
-            Image("wagerbot")
-                .resizable()
-                .scaledToFit()
-            Text("Be the first to create one! Go back and hit the plus sign at the bottom")
-                .bold()
-                .font(.custom("MontserratAlternates-Regular", size: 20))
-                .foregroundColor(.gray)
-                .offset(y: 175)
-        }.frame(maxHeight: .infinity).edgesIgnoringSafeArea(.all)
+        NavigationView {
+            VStack {
+                Text("No Active Wagers On This Game")
+                    .bold()
+                    .font(.custom("MontserratAlternates-Regular", size: 20))
+                    .foregroundColor(.gray)
+                
+                Text("Be the first to create one!")
+                    .bold()
+                    .font(.custom("MontserratAlternates-Regular", size: 20))
+                    .foregroundColor(.gray)
+                
+                NavigationLink(destination: CreateWager()) {
+                    Text("Create a New Wager")
+                    .foregroundColor(Color("Accent2"))
+                }
+            }
+        }
     }
 }
 

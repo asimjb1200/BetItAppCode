@@ -11,7 +11,7 @@ class UserNetworking {
     let networker: Networker = .shared
     func login(username:String, pw: String, completion: @escaping (Result<ServiceUser, UserErrors>) -> ()) {
 
-        let reqWithoutBody: URLRequest = networker.constructRequest(uri: "https://bet-it-casino.com/users/login", post: true)
+        let reqWithoutBody: URLRequest = networker.constructRequest(uri: "https://www.bet-it-casino.com/users/login", post: true)
         
         let session = URLSession.shared
         let body = ["username": username, "password": pw]

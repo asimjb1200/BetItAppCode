@@ -33,9 +33,11 @@ struct ContentView: View {
                     Image(systemName: "dollarsign.circle")
                 }
 
-            Text("The content of the fifth view")
+            PriceDataView()
                 .tabItem {
-                    Image(systemName: "percent")
+                    Image("stock-exchange-app")
+                        .renderingMode(.template)
+                        .foregroundColor(Color("Accent2"))
                 }
         }
         .toast(isPresenting: $socket.showToast, duration: 2, tapToDismiss: true) {
@@ -47,7 +49,7 @@ struct ContentView: View {
         }
         
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)) { _ in
-                print("Moving to the background!")
+             print("Moving to the background!")
             // disconnect their socket
             socket.closeConnection(walletAddress: user.walletAddress)
         }
