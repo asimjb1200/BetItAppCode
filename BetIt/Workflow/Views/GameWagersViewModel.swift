@@ -16,6 +16,7 @@ final class GameWagersViewModel: ObservableObject {
     @Published var buttonPressed: Bool = false
     @Published var showingAlert = false
     @Published var gameStarts = Date()
+    @Published var dataSubmitted = false
     static let shared = GameWagersViewModel()
     let service: WalletService = .shared
     let wagerService: WagerService = .shared
@@ -47,11 +48,11 @@ final class GameWagersViewModel: ObservableObject {
     
     
     func getGameTime(token: String, gameId: UInt) {
-        GameService().getGameTime(gameId: gameId, token: token, completion: {gameTimeResult in
+        GameService().getGameTime(gameId: gameId, token: token, completion: { [weak self] gameTimeResult in
             switch gameTimeResult {
             case .success(let gameTime):
                 DispatchQueue.main.async {
-                    self.gameStarts = gameTime
+                    self?.gameStarts = gameTime
                 }
             case .failure(let err):
                 print(err)
@@ -90,11 +91,17 @@ final class GameWagersViewModel: ObservableObject {
     
     
     func updateWager(token: String, wagerId: Int, fader: String) {
-        wagerService.updateWager(token: token, wagerId: wagerId, fader: fader, completion: { [self] (updatedWager) in
+        wagerService.updateWager(token: token, wagerId: wagerId, fader: fader, completion: {(updatedWager) in
             switch updatedWager {
             case .success(let newWager):
                 DispatchQueue.main.async {
                     self.wagers = self.wagers.filter{$0.id != newWager.id}
+                    self.dataSubmitted = true
+                    // disable the button to prevent double submittal
+                    self.buttonPressed = true
+                    
+                    // inform the user that the bet has been successfully submitted
+                    self.showingAlert = true
                 }
             case .failure(let err):
                 print(err)

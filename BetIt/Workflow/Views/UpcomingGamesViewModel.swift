@@ -14,11 +14,11 @@ final class UpcomingGamesViewModel: ObservableObject {
     let gameService: GameService = .shared
     
     func getGamesSchedule() {
-        gameService.getUpcomingGames(completion: { (games) in
+        gameService.getUpcomingGames(completion: {[weak self]  (games) in
             switch games {
             case .success(let gameData):
                 DispatchQueue.main.async {
-                    self.upcomingGames = gameData
+                    self?.upcomingGames = gameData
                 }
             case .failure(let err):
                 print(err)
@@ -38,17 +38,17 @@ final class UpcomingGamesViewModel: ObservableObject {
     }
     
     func getGamesByDate(date: Date = Date(), token: String, selectedDate: Date) {
-        gameService.getGamesByDate(token: token, date: selectedDate, completion: { (todaysGames) in
+        gameService.getGamesByDate(token: token, date: selectedDate, completion: {[weak self] (todaysGames) in
             switch todaysGames {
             case .success(let scheduleToday):
                 if scheduleToday.isEmpty {
                     DispatchQueue.main.async {
-                        self.gamesAvailable = false
+                        self?.gamesAvailable = false
                     }
                 } else {
                     DispatchQueue.main.async {
-                        self.gamesAvailable = true
-                        self.upcomingGames = scheduleToday
+                        self?.gamesAvailable = true
+                        self?.upcomingGames = scheduleToday
                     }
                 }
             case .failure(let err):

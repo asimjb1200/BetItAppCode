@@ -43,14 +43,14 @@ final class CreateWagerViewModel: ObservableObject {
     }
     
     func checkWagerCount(bettor: String, token: String) {
-        wagerService.checkUserWagerCount(token: token, bettor: bettor, completion: {apiResponse in
+        wagerService.checkUserWagerCount(token: token, bettor: bettor, completion: {[weak self] apiResponse in
             switch apiResponse {
             case .success(let numOfWagers):
                 DispatchQueue.main.async {
                     if numOfWagers >= 2 {
-                        self.canWager = false
+                        self?.canWager = false
                     } else {
-                        self.canWager = true
+                        self?.canWager = true
                     }
                 }
             case .failure(let err):
@@ -60,16 +60,16 @@ final class CreateWagerViewModel: ObservableObject {
     }
     
     func loadGames(date: Date, token: String) {
-        gameService.getGamesByDate(token: token, date: date, completion: {gameResults in
+        gameService.getGamesByDate(token: token, date: date, completion: {[weak self] gameResults in
             switch gameResults {
             case .success(let gamesOnDate):
                     DispatchQueue.main.async {
-                        self.games = gamesOnDate
+                        self?.games = gamesOnDate
                         if !gamesOnDate.isEmpty {
-                            self.selectedGame = gamesOnDate[0]
+                            self?.selectedGame = gamesOnDate[0]
                         }
                         // reset the selected team everytime a game is loaded
-                        self.selectedTeam = 0
+                        self?.selectedTeam = 0
                     }
             case .failure(let err):
                 print(err)
@@ -91,18 +91,18 @@ final class CreateWagerViewModel: ObservableObject {
     }
     
     func placeBet(token: String, bettor: String) {
-        wagerService.createNewWager(token: token, bettor: bettor, wagerAmount: Decimal(string: self.wagerAmount)!, gameId: self.selectedGame.game_id, bettorChosenTeam: UInt(self.selectedTeam), completion: { wagerResult in
+        wagerService.createNewWager(token: token, bettor: bettor, wagerAmount: Decimal(string: self.wagerAmount)!, gameId: self.selectedGame.game_id, bettorChosenTeam: UInt(self.selectedTeam), completion: {[weak self]  wagerResult in
                 switch wagerResult {
                     case .success(let newWagerCreated):
                         DispatchQueue.main.async {
-                            self.wagerCreated = newWagerCreated
-                            self.notEnoughCrypto = false
-                            self.showAlert = true
+                            self?.wagerCreated = newWagerCreated
+                            self?.notEnoughCrypto = false
+                            self?.showAlert = true
                         }
                     case .failure(let err):
                         DispatchQueue.main.async {
-                            self.wagerCreated = false
-                            self.showAlert = true
+                            self?.wagerCreated = false
+                            self?.showAlert = true
                             print(err)
                         }
                 }
@@ -127,23 +127,24 @@ final class CreateWagerViewModel: ObservableObject {
     }
     
     func checkWalletBalance(address: String, username: String, token: String){
-        walletService.getWalletBalance(address: address, username: username, token: token, completion: { walletResponse in
+        walletService.getWalletBalance(address: address, username: username, token: token, completion: {[weak self]  walletResponse in
             switch walletResponse {
                 case .success(let walletData):
                     DispatchQueue.main.async {
-                        print(self.wagerAmount)
-                        let cryptoAmount = self.calcLtcAmount(wagerAmountInDollars: self.wagerAmount)
+                        guard let cryptoAmount = self?.calcLtcAmount(wagerAmountInDollars: self?.wagerAmount ?? "0") else {
+                            return
+                        }
                         if walletData.balance <= cryptoAmount {
-                            self.notEnoughCrypto = true
-                            self.showAlert = true
+                            self?.notEnoughCrypto = true
+                            self?.showAlert = true
                         } else {
-                            self.placeBet(token: token, bettor: address)
+                            self?.placeBet(token: token, bettor: address)
                         }
                     }
                 case .failure(let err):
                     DispatchQueue.main.async {
-                        self.notEnoughCrypto = true
-                        self.showAlert = true
+                        self?.notEnoughCrypto = true
+                        self?.showAlert = true
                         print(err)
                     }
             }

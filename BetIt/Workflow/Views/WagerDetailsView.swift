@@ -65,15 +65,8 @@ struct WagerDetailsView: View {
             Spacer()
             
             Button("Place bet") {
-                    // Add logic to save the bet if the fader confirms
-                    viewModel.updateWager(token: user.accessToken, wagerId: wager.id, fader: user.walletAddress)
-                    
-                    // disable the button to prevent double submittal
-                    viewModel.buttonPressed.toggle()
-                    
-                    // inform the user that the bet has been successfully submitted
-                    dataSubmitted.toggle()
-                    viewModel.showingAlert.toggle()
+                // Add logic to save the bet if the fader confirms
+                viewModel.updateWager(token: user.accessToken, wagerId: wager.id, fader: user.walletAddress)
             }
             .padding()
             .foregroundColor(davysGray)
@@ -81,7 +74,7 @@ struct WagerDetailsView: View {
                 RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/).fill(LinearGradient(gradient: Gradient(colors: [Color("Accent2"), Color("Accent")]), startPoint: /*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/, endPoint: /*@START_MENU_TOKEN@*/.trailing/*@END_MENU_TOKEN@*/))
             )
             .alert(isPresented: $viewModel.showingAlert) {
-                if self.dataSubmitted {
+                if viewModel.dataSubmitted {
                     return  Alert(
                         title: Text("Important message"),
                         message: Text("The wager is now active. The wager amount will be sent to escrow from your wallet. Once the game is over, the person who chose the correct team will have their wallet funded with the winnings."),

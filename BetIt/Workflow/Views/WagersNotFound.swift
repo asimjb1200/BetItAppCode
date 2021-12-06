@@ -24,7 +24,7 @@ struct WagersNotFound: View {
                 NavigationLink(destination: CreateWager()) {
                     Text("Create a New Wager")
                     .foregroundColor(Color("Accent2"))
-                }
+                }.accentColor(Color("Accent2"))
             }
         }
     }

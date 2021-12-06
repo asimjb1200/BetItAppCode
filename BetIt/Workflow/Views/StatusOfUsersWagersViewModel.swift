@@ -17,11 +17,11 @@ final class StatusOfUsersWagersVM: ObservableObject {
     }
     
     func getUsersWagers(token: String, bettor: String) {
-        wagerService.getAllUsersWagers(token: token, bettor: bettor, completion: {usersWagersResponse in
+        wagerService.getAllUsersWagers(token: token, bettor: bettor, completion: {[weak self] usersWagersResponse in
             switch usersWagersResponse {
             case .success(let usersWagers):
                 DispatchQueue.main.async {
-                    self.myWagers = usersWagers
+                    self?.myWagers = usersWagers
                 }
             case .failure(let err):
                 print(err)

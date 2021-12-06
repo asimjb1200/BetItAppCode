@@ -28,6 +28,7 @@ struct CreateWager: View {
                         .onChange(of: viewModel.selectedDate, perform: { chosenDate in
                             viewModel.loadGames(date: chosenDate, token: user.accessToken)
                         })
+                        
                     if viewModel.games.isEmpty {
                         Text("No games are being played on that date. Pick another.").font(.custom("MontserratAlternates-Regular", size: 20))
                     } else {
@@ -101,6 +102,11 @@ struct CreateWager: View {
                                 !viewModel.wagerAmount.isEmpty,
                                 viewModel.wagerAmount != "0" && viewModel.wagerAmount != "0.0"
                             else {
+                                return
+                            }
+                            // check that they didn't enter a number below 0
+                            let tempNum = Decimal(string: viewModel.wagerAmount) ?? 0
+                            guard tempNum > 0 else {
                                 return
                             }
                             viewModel.checkWalletBalance(address: user.walletAddress, username: user.username, token: user.accessToken)
