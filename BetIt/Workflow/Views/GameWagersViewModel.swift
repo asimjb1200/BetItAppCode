@@ -60,7 +60,7 @@ final class GameWagersViewModel: ObservableObject {
         })
     }
     
-    func getWagersByGameId(token: String, gameId: UInt) {
+    func getWagersByGameId(token: String, gameId: UInt, user: UserModel) {
         self.wagers = []
         wagerService.getWagersForGameId(token: token, gameId: gameId, completion: {[weak self] (wagers) in
             switch wagers {
@@ -78,6 +78,11 @@ final class GameWagersViewModel: ObservableObject {
                     }
                 }
             case .failure(let err):
+                DispatchQueue.main.async {
+                    if err == .tokenExpired {
+                        user.logUserOut()
+                    }
+                }
                 print("error occurred: \(err)")
             }
         })
@@ -90,7 +95,7 @@ final class GameWagersViewModel: ObservableObject {
     }
     
     
-    func updateWager(token: String, wagerId: Int, fader: String) {
+    func updateWager(token: String, wagerId: Int, fader: String, user: UserModel) {
         wagerService.updateWager(token: token, wagerId: wagerId, fader: fader, completion: {(updatedWager) in
             switch updatedWager {
                 case .success(let newWager):
@@ -104,7 +109,12 @@ final class GameWagersViewModel: ObservableObject {
                         self.showingAlert = true
                     }
                 case .failure(let err):
-                    print(err)
+                    DispatchQueue.main.async {
+                        if err == .tokenExpired {
+                            user.logUserOut()
+                        }
+                        print(err)
+                    }
             }
         })
     }
@@ -126,7 +136,7 @@ final class GameWagersViewModel: ObservableObject {
         })
     }
     
-    func checkWalletBalance(address: String, username: String, token: String, amount: Decimal) {
+    func checkWalletBalance(address: String, username: String, token: String, amount: Decimal, user: UserModel) {
         service.getWalletBalance(address: address, username: username, token: token, completion: {[weak self]  walletBalanceResponse in
             switch walletBalanceResponse {
                 case .success(let wallet):
@@ -139,7 +149,12 @@ final class GameWagersViewModel: ObservableObject {
                         }
                     }
                 case .failure(let err):
-                    print(err)
+                    DispatchQueue.main.async {
+                        if err == .tokenExpired {
+                            user.logUserOut()
+                        }
+                        print(err)
+                    }
             }
         })
     }

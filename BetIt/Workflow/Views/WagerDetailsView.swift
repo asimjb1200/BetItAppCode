@@ -66,7 +66,7 @@ struct WagerDetailsView: View {
             
             Button("Place bet") {
                 // Add logic to save the bet if the fader confirms
-                viewModel.updateWager(token: user.accessToken, wagerId: wager.id, fader: user.walletAddress)
+                viewModel.updateWager(token: user.accessToken, wagerId: wager.id, fader: user.walletAddress, user: user)
             }
             .padding()
             .foregroundColor(davysGray)
@@ -110,7 +110,7 @@ struct WagerDetailsView: View {
             if viewModel.usdPrice == 0.0 {
                 viewModel.getCurrentLtcPrice()
             }
-            viewModel.checkWalletBalance(address: user.walletAddress, username: user.username, token: user.accessToken, amount: wager.wager_amount)
+            viewModel.checkWalletBalance(address: user.walletAddress, username: user.username, token: user.accessToken, amount: wager.wager_amount, user: user)
         }
     }
 }

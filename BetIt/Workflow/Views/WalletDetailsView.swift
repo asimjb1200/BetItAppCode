@@ -44,7 +44,7 @@ struct WalletDetailsView: View {
                 .font(.custom("MontserratAlternates-Regular", size: 20))
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 50, alignment: .leading)
                 .onAppear() {
-                    viewModel.getLtcBalance(username: user.username, address: user.walletAddress, token: user.accessToken)
+                    viewModel.getLtcBalance(username: user.username, address: user.walletAddress, token: user.accessToken, user: user)
                     viewModel.getCurrLtcPrice()
                 }
                 .alert(isPresented: $viewModel.cryptoTiedUpInWagers) {
@@ -114,7 +114,7 @@ struct WalletDetailsView: View {
                     return
                 }
                 
-                viewModel.checkForLtcTiedUpInWagers(token: user.accessToken, walletAddr: user.walletAddress)
+                viewModel.checkForLtcTiedUpInWagers(token: user.accessToken, walletAddr: user.walletAddress, user: user)
             }
             .foregroundColor(Color("Accent2"))
             .alert(isPresented: $viewModel.showAlert) {

@@ -25,7 +25,7 @@ final class WalletDetailsViewModel: ObservableObject {
     
     private var escrowAddress: String = ""
     
-    func getLtcBalance(username: String, address: String, token: String) -> () {
+    func getLtcBalance(username: String, address: String, token: String, user: UserModel) -> () {
         walletService.getWalletBalance(address: address, username: username, token: token, completion: {[weak self] (walletData) in
             switch walletData {
                 case .success(let balPresent):
@@ -35,7 +35,11 @@ final class WalletDetailsViewModel: ObservableObject {
                         self?.balanceIsLoading = false
                     }
                 case .failure(let err):
-                    print(err)
+                    if err == .tokenExpired {
+                        DispatchQueue.main.async {
+                            user.logUserOut()
+                        }
+                    }
             }
         })
     }
@@ -44,8 +48,7 @@ final class WalletDetailsViewModel: ObservableObject {
         return 0
     }
     
-    func transferFromWallet(fromAddress: String, token: String) {
-        
+    func transferFromWallet(fromAddress: String, token: String, user: UserModel) {
         walletService.transferFromWallet(fromAddress: fromAddress, toAddress: self.transferAddr, ltcAmount: self.calcLtcAmount(wagerAmountInDollars: self.transferAmount), token: token, completion: {[weak self] walletRes in
             switch walletRes {
                 case .success( _):
@@ -56,13 +59,16 @@ final class WalletDetailsViewModel: ObservableObject {
                 case .failure(let err):
                     DispatchQueue.main.async {
                         print(err)
+                        if err == .tokenExpired {
+                            user.logUserOut()
+                        }
                         self?.showAlert.toggle()
                     }
             }
         })
     }
     
-    func checkForLtcTiedUpInWagers(token: String, walletAddr: String) -> () {
+    func checkForLtcTiedUpInWagers(token: String, walletAddr: String, user: UserModel) -> () {
         wagerService.getAllUsersWagers(token: token, bettor: walletAddr, completion: { [weak self] wagerStatusArrayResponse in
             switch wagerStatusArrayResponse {
                 case .success(let wagerStatusArray):
@@ -90,10 +96,14 @@ final class WalletDetailsViewModel: ObservableObject {
                             return
                         }
 
-                        self?.transferFromWallet(fromAddress: walletAddr, token: token)
+                        self?.transferFromWallet(fromAddress: walletAddr, token: token, user: user)
                     }
                 case .failure(let err):
-                    print(err)
+                    if err == .tokenExpired {
+                        DispatchQueue.main.async {
+                            user.logUserOut()
+                        }
+                    }
             }
         })
     }

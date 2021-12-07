@@ -52,7 +52,6 @@
 		6894A3C0270BDF91004F6985 /* WalletTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6894A3BF270BDF91004F6985 /* WalletTransaction.swift */; };
 		689E31602671BF210052452D /* WagerDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689E315F2671BF210052452D /* WagerDetailsView.swift */; };
 		689F9D0B269725C3001DB52E /* GameWagersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689F9D0A269725C3001DB52E /* GameWagersViewModel.swift */; };
-		689F9D0D26972EE4001DB52E /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689F9D0C26972EE4001DB52E /* LoginViewModel.swift */; };
 		689F9D0F26974654001DB52E /* UpcomingGamesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689F9D0E26974654001DB52E /* UpcomingGamesViewModel.swift */; };
 		689F9D1126975ADB001DB52E /* WalletDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689F9D1026975ADB001DB52E /* WalletDetailsViewModel.swift */; };
 		68A45792275BDD0B00493E12 /* PriceDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A45791275BDD0B00493E12 /* PriceDataViewModel.swift */; };
@@ -145,7 +144,6 @@
 		6894A3BF270BDF91004F6985 /* WalletTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletTransaction.swift; sourceTree = "<group>"; };
 		689E315F2671BF210052452D /* WagerDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WagerDetailsView.swift; sourceTree = "<group>"; };
 		689F9D0A269725C3001DB52E /* GameWagersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameWagersViewModel.swift; sourceTree = "<group>"; };
-		689F9D0C26972EE4001DB52E /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		689F9D0E26974654001DB52E /* UpcomingGamesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingGamesViewModel.swift; sourceTree = "<group>"; };
 		689F9D1026975ADB001DB52E /* WalletDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletDetailsViewModel.swift; sourceTree = "<group>"; };
 		68A45791275BDD0B00493E12 /* PriceDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceDataViewModel.swift; sourceTree = "<group>"; };
@@ -201,7 +199,6 @@
 			isa = PBXGroup;
 			children = (
 				689F9D0A269725C3001DB52E /* GameWagersViewModel.swift */,
-				689F9D0C26972EE4001DB52E /* LoginViewModel.swift */,
 				689F9D0E26974654001DB52E /* UpcomingGamesViewModel.swift */,
 				689F9D1026975ADB001DB52E /* WalletDetailsViewModel.swift */,
 				68ADCFD526C358B2000D4644 /* CreateWagerViewModel.swift */,
@@ -569,7 +566,6 @@
 				681AD4A6268B6C8700EE4348 /* ServiceUser.swift in Sources */,
 				687D867D26BB79D1005E5A52 /* ChangeEmail.swift in Sources */,
 				689F9D0F26974654001DB52E /* UpcomingGamesViewModel.swift in Sources */,
-				689F9D0D26972EE4001DB52E /* LoginViewModel.swift in Sources */,
 				687A851A2680D605003732B1 /* SocketManager.swift in Sources */,
 				68A45792275BDD0B00493E12 /* PriceDataViewModel.swift in Sources */,
 				681AD4A8268B6CAA00EE4348 /* UserProtocol.swift in Sources */,

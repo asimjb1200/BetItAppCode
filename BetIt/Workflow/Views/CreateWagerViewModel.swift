@@ -42,7 +42,7 @@ final class CreateWagerViewModel: ObservableObject {
         self.dateFormatter.dateFormat = "MMM d, h:mm a"
     }
     
-    func checkWagerCount(bettor: String, token: String) {
+    func checkWagerCount(bettor: String, token: String, user: UserModel) {
         wagerService.checkUserWagerCount(token: token, bettor: bettor, completion: {[weak self] apiResponse in
             switch apiResponse {
             case .success(let numOfWagers):
@@ -54,12 +54,15 @@ final class CreateWagerViewModel: ObservableObject {
                     }
                 }
             case .failure(let err):
+                if err == .tokenExpired {
+                    user.logUserOut()
+                }
                 print(err)
             }
         })
     }
     
-    func loadGames(date: Date, token: String) {
+    func loadGames(date: Date, token: String, user: UserModel) {
         gameService.getGamesByDate(token: token, date: date, completion: {[weak self] gameResults in
             switch gameResults {
             case .success(let gamesOnDate):
@@ -72,6 +75,9 @@ final class CreateWagerViewModel: ObservableObject {
                         self?.selectedTeam = 0
                     }
             case .failure(let err):
+                if err == .tokenExpired {
+                    user.logUserOut()
+                }
                 print(err)
             }
         })
@@ -90,7 +96,7 @@ final class CreateWagerViewModel: ObservableObject {
         })
     }
     
-    func placeBet(token: String, bettor: String) {
+    func placeBet(token: String, bettor: String, user: UserModel) {
         wagerService.createNewWager(token: token, bettor: bettor, wagerAmount: Decimal(string: self.wagerAmount)!, gameId: self.selectedGame.game_id, bettorChosenTeam: UInt(self.selectedTeam), completion: {[weak self]  wagerResult in
                 switch wagerResult {
                     case .success(let newWagerCreated):
@@ -100,10 +106,14 @@ final class CreateWagerViewModel: ObservableObject {
                             self?.showAlert = true
                         }
                     case .failure(let err):
-                        DispatchQueue.main.async {
-                            self?.wagerCreated = false
-                            self?.showAlert = true
-                            print(err)
+                        if err == .tokenExpired {
+                            user.logUserOut()
+                        } else {
+                            DispatchQueue.main.async {
+                                self?.wagerCreated = false
+                                self?.showAlert = true
+                                print(err)
+                            }
                         }
                 }
         })
@@ -126,7 +136,7 @@ final class CreateWagerViewModel: ObservableObject {
         return rounded
     }
     
-    func checkWalletBalance(address: String, username: String, token: String){
+    func checkWalletBalance(address: String, username: String, token: String, user: UserModel){
         walletService.getWalletBalance(address: address, username: username, token: token, completion: {[weak self]  walletResponse in
             switch walletResponse {
                 case .success(let walletData):
@@ -138,14 +148,18 @@ final class CreateWagerViewModel: ObservableObject {
                             self?.notEnoughCrypto = true
                             self?.showAlert = true
                         } else {
-                            self?.placeBet(token: token, bettor: address)
+                            self?.placeBet(token: token, bettor: address, user: user)
                         }
                     }
                 case .failure(let err):
-                    DispatchQueue.main.async {
-                        self?.notEnoughCrypto = true
-                        self?.showAlert = true
-                        print(err)
+                    if err == .tokenExpired {
+                        user.logUserOut()
+                    } else {
+                        DispatchQueue.main.async {
+                            self?.notEnoughCrypto = true
+                            self?.showAlert = true
+                            print(err)
+                        }
                     }
             }
         })

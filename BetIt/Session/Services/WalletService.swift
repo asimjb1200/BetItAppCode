@@ -28,14 +28,17 @@ final class WalletService {
                 completion(.failure(.serverError))
             }
             
-            guard let response = response else {
-              print("Cannot find the response")
+            guard let response = response as? HTTPURLResponse else {
                 completion(.failure(.serverError))
                 return
             }
-            let httpResponse = response as! HTTPURLResponse
             
-            if httpResponse.statusCode == 200 {
+            guard response.statusCode != 403 else {
+                completion(.failure(.tokenExpired))
+                return
+            }
+            
+            if response.statusCode == 200 {
                 guard let data = data else {
                     completion(.failure(.serverError))
                     return
@@ -47,7 +50,7 @@ final class WalletService {
                 } catch let err {
                     print(err)
                 }
-            } else if httpResponse.statusCode == 401 {
+            } else if response.statusCode == 401 {
                 completion(.failure(.notTheOwner))
             }
         }.resume()
@@ -62,14 +65,13 @@ final class WalletService {
                 completion(.failure(.failure))
             }
             
-            guard let response = response else {
+            guard let response = response as? HTTPURLResponse else {
               print("Cannot find the response")
                 completion(.failure(.failure))
                 return
             }
-            let httpResponse = response as! HTTPURLResponse
             
-            if httpResponse.statusCode == 200 {
+            if response.statusCode == 200 {
                 guard let data = data else {
                     completion(.failure(.failure))
                     return
@@ -116,7 +118,15 @@ final class WalletService {
                 completion(.failure(.serverError))
             }
             
-            let httpResponse = response as! HTTPURLResponse
+            guard let httpResponse = response as? HTTPURLResponse else {
+                completion(.failure(.serverError))
+                return
+            }
+            
+            guard httpResponse.statusCode != 403 else {
+                completion(.failure(.tokenExpired))
+                return
+            }
             
             guard
                 httpResponse.statusCode == 200
@@ -136,7 +146,6 @@ final class WalletService {
         
         let session = URLSession.shared
         
-        // let dateFormatter = DateFormatter()
         // handle the UTC date format coming in from the db. These timestamps are coming back in ISO8601 format
         self.decoder.dateDecodingStrategy = .iso8601
         
@@ -150,14 +159,21 @@ final class WalletService {
             }
             
             guard let response = response else {
-                print("There was an error on the server")
                 completion(.failure(.serverError))
                 return
             }
             
-            let httpResponse = response as? HTTPURLResponse
+            guard let httpResponse = response as? HTTPURLResponse else {
+                completion(.failure(.serverError))
+                return
+            }
             
-            if httpResponse?.statusCode == 200 {
+            guard httpResponse.statusCode != 403 else {
+                completion(.failure(.tokenExpired))
+                return
+            }
+            
+            if httpResponse.statusCode == 200 {
                 guard let data = data else {
                     completion(.failure(.serverError))
                     return
@@ -181,6 +197,7 @@ enum WalletErrors: String, Error {
     case walletNotFound = "There was no record of that wallet in the database"
     case notTheOwner = "That wallet doesn't belong to you"
     case serverError = "There was an error on the server"
+    case tokenExpired = "The access token has expired. Time to issue a new one"
 }
 
 extension DateFormatter {

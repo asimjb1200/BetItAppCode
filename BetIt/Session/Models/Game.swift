@@ -58,6 +58,7 @@ struct TeamsMapper {
 enum CustomError: String, Error {
     case invalidResponse = "The response from the server was invalid."
     case invalidData = "The data received from the server was invalid."
+    case tokenExpired = "The access token has expired. Time to issue a new one"
 }
 
 enum GameFetchError: String, Error {

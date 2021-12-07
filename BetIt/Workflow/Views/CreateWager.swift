@@ -26,7 +26,7 @@ struct CreateWager: View {
                         .font(.custom("MontserratAlternates-Regular", size: 15))
                         .padding(.bottom, 20.0)
                         .onChange(of: viewModel.selectedDate, perform: { chosenDate in
-                            viewModel.loadGames(date: chosenDate, token: user.accessToken)
+                            viewModel.loadGames(date: chosenDate, token: user.accessToken, user: user)
                         })
                         
                     if viewModel.games.isEmpty {
@@ -109,7 +109,7 @@ struct CreateWager: View {
                             guard tempNum > 0 else {
                                 return
                             }
-                            viewModel.checkWalletBalance(address: user.walletAddress, username: user.username, token: user.accessToken)
+                            viewModel.checkWalletBalance(address: user.walletAddress, username: user.username, token: user.accessToken, user: user)
                         }
                         .font(.custom("MontserratAlternates-Regular", size: 15.0))
                         .padding(.all)
@@ -123,11 +123,11 @@ struct CreateWager: View {
                     Text("You can not have more than 2 active wagers at a time, please wait until one of your wagers concludes. Or cancel one.")
                 }
         }.onAppear() {
-            viewModel.checkWagerCount(bettor: user.walletAddress, token: user.accessToken)
+            viewModel.checkWagerCount(bettor: user.walletAddress, token: user.accessToken, user: user)
             viewModel.getCurrLtcPrice()
             if viewModel.canWager {
                 if viewModel.games.isEmpty {
-                    viewModel.loadGames(date: viewModel.selectedDate, token: user.accessToken)
+                    viewModel.loadGames(date: viewModel.selectedDate, token: user.accessToken, user: user)
                 }
             }
         }

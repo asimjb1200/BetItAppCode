@@ -19,7 +19,6 @@ class GameService {
     
     func getUpcomingGames(completion: @escaping (Result<[DBGame], CustomError>) -> Void) {
         let url = URL(string: "https://www.bet-it-casino.com/sports-handler/bball/games-this-week")!
-//        let dateKey: String = self.convertDateToString(date: todaysDate)
         let cachedData: [DBGame]? = try? self.searchCacheForGamesByDate(dateKey: "210603")
         if (cachedData != nil) {
             completion(.success(cachedData!))
@@ -34,8 +33,12 @@ class GameService {
                 }
                 
                 // check for the OK status code
-                guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
+                guard let response = response as? HTTPURLResponse else {
                     return
+                }
+                
+                if response.statusCode == 403 {
+                    completion(.failure(.tokenExpired))
                 }
                 
                 guard let data = data else {
@@ -84,9 +87,13 @@ class GameService {
         // now create the request to be sent
         URLSession.shared.dataTask(with: request) {(data, response, err) in
             // check for the OK status code
-            guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
+            guard let response = response as? HTTPURLResponse else {
                 print("Server error!")
                 return
+            }
+            
+            if response.statusCode == 403 {
+                completion(.failure(.tokenExpired))
             }
             
             if let err = err {
@@ -116,10 +123,21 @@ class GameService {
         
         URLSession.shared.dataTask(with: request) {(data, response, err) in
             // check for the OK status code
-            guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
+            guard let response = response as? HTTPURLResponse else {
                 print("Server error!")
                 return
             }
+            
+            guard response.statusCode != 403 else {
+                completion(.failure(.tokenExpired))
+                return
+            }
+            
+            guard response.statusCode != 500 else {
+                completion(.failure(.invalidResponse))
+                return
+            }
+            
             guard let data = data else {return}
             
             do {

@@ -211,12 +211,14 @@ enum UpdatePasswordErrors: String, Error {
     case userNotFound = "That username was not found"
     case couldNotSave = "The new password couldn't be saved to the database"
     case generalError = "Something went wrong with the request"
+    case tokenExpired = "The access token has expired. Time to issue a new one"
 }
 
 enum EmailStatesErrors: String, Error {
     case userNotFound = "That username was not found"
     case couldNotSave = "The new email couldn't be saved to the database"
     case generalError = "Something went wrong with the request"
+    case tokenExpired = "The access token has expired. Time to issue a new one"
 }
 
 enum EmailStates: Int {

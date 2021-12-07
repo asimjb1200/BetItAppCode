@@ -11,6 +11,7 @@ final class UpcomingGamesViewModel: ObservableObject {
     @Published var upcomingGames = [DBGame]()
     @Published var gameScheduleDate = Date()
     @Published var gamesAvailable = true
+    @Published var userTokenExpired = false
     let gameService: GameService = .shared
     
     func getGamesSchedule() {
@@ -37,7 +38,7 @@ final class UpcomingGamesViewModel: ObservableObject {
         return dateFormatter.string(from: date)
     }
     
-    func getGamesByDate(date: Date = Date(), token: String, selectedDate: Date) {
+    func getGamesByDate(date: Date = Date(), token: String, selectedDate: Date, user: UserModel) {
         gameService.getGamesByDate(token: token, date: selectedDate, completion: {[weak self] (todaysGames) in
             switch todaysGames {
             case .success(let scheduleToday):
@@ -52,7 +53,11 @@ final class UpcomingGamesViewModel: ObservableObject {
                     }
                 }
             case .failure(let err):
-                print(err)
+                if err == .tokenExpired {
+                    DispatchQueue.main.async {
+                        user.logUserOut()
+                    }
+                }
             }
         })
     }

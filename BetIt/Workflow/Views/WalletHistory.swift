@@ -20,7 +20,7 @@ struct WalletHistory: View {
                 }
             }
         }.onAppear() {
-            viewModel.getWalletTxs(walletAddress: user.walletAddress, token: user.accessToken)
+            viewModel.getWalletTxs(walletAddress: user.walletAddress, token: user.accessToken, user: user)
         }
     }
 }

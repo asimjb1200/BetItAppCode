@@ -28,7 +28,7 @@ struct UpcomingGames: View {
                 .accentColor(accentColor)
                 .onChange(of: viewModel.gameScheduleDate, perform: { chosenDate in
                     // when the user picks a new date send it to the api to get games on that date
-                    viewModel.getGamesByDate(token: user.accessToken, selectedDate: chosenDate)
+                    viewModel.getGamesByDate(token: user.accessToken, selectedDate: chosenDate, user: user)
                 })
             
             if viewModel.gamesAvailable {
@@ -40,7 +40,7 @@ struct UpcomingGames: View {
                     }
                 }.onAppear() {
                     if viewModel.upcomingGames.isEmpty {
-                        viewModel.getGamesByDate(token: user.accessToken, selectedDate: viewModel.gameScheduleDate)
+                        viewModel.getGamesByDate(token: user.accessToken, selectedDate: viewModel.gameScheduleDate, user: user)
                     }
                 }
             } else {

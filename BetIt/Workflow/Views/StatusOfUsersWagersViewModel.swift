@@ -16,15 +16,20 @@ final class StatusOfUsersWagersVM: ObservableObject {
         self.dateFormatter.dateFormat = "MMM d, h:mm a"
     }
     
-    func getUsersWagers(token: String, bettor: String) {
+    func getUsersWagers(token: String, bettor: String, user: UserModel) {
         wagerService.getAllUsersWagers(token: token, bettor: bettor, completion: {[weak self] usersWagersResponse in
             switch usersWagersResponse {
-            case .success(let usersWagers):
-                DispatchQueue.main.async {
-                    self?.myWagers = usersWagers
-                }
-            case .failure(let err):
-                print(err)
+                case .success(let usersWagers):
+                    DispatchQueue.main.async {
+                        self?.myWagers = usersWagers
+                    }
+                case .failure(let err):
+                    if err == .tokenExpired {
+                        DispatchQueue.main.async {
+                            user.logUserOut()
+                        }
+                    }
+                    print(err)
             }
         })
     }

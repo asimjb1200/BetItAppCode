@@ -77,4 +77,5 @@ enum WagerErrors: String, Error {
     case noWagersFound = "Not able to find wagers for that game's id"
     case wagerOver = "This wager has been settled already"
     case generalError = "There was an error with the request"
+    case tokenExpired = "The access token has expired. Time to issue a new one"
 }

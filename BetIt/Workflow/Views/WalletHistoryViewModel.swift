@@ -12,7 +12,7 @@ final class WalletHistoryViewModel: ObservableObject {
     @Published var walletTransactions: [WalletTransactionPreview] = [WalletTransactionPreview]()
     @Published var txsLoading: Bool = true
     
-    func getWalletTxs(walletAddress: String, token: String) {
+    func getWalletTxs(walletAddress: String, token: String, user: UserModel) {
         walletService.getWalletHistory(walletAddress: walletAddress, token: token, completion: { [weak self] walletHistoyRes in
             switch walletHistoyRes {
             case .success(let walletHistory):
@@ -21,6 +21,9 @@ final class WalletHistoryViewModel: ObservableObject {
                     self?.txsLoading.toggle()
                 }
             case .failure(let err):
+                if err == .tokenExpired {
+                    user.logUserOut()
+                }
                 print(err)
             }
         })

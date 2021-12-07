@@ -30,6 +30,22 @@ class WagerService {
                 completion(.failure(.generalError))
             }
             
+            guard let response = response as? HTTPURLResponse else {
+                completion(.failure(.generalError))
+                return
+            }
+            
+            guard response.statusCode != 403 else {
+                completion(.failure(.tokenExpired))
+                return
+            }
+            
+            let isOK = self.networker.checkOkStatus(res: response)
+            
+            if !isOK {
+                completion(.failure(.generalError))
+            }
+            
             guard let data = data else {
                 completion(.failure(.generalError))
                 return
@@ -60,6 +76,11 @@ class WagerService {
             }
             guard let res = res as? HTTPURLResponse else {
                 completion(.failure(.generalError))
+                return
+            }
+            
+            guard res.statusCode != 403 else {
+                completion(.failure(.tokenExpired))
                 return
             }
             
@@ -103,12 +124,14 @@ class WagerService {
             if error != nil {
                 print("there was a big error: \(String(describing: error))")
             }
-//            guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
-//                print("Server error!")
-//                return
-//            }
+
             guard let response = response as? HTTPURLResponse else {
                 completion(.failure(.generalError))
+                return
+            }
+            
+            guard response.statusCode != 403 else {
+                completion(.failure(.tokenExpired))
                 return
             }
             
@@ -149,6 +172,11 @@ class WagerService {
                 return
             }
             
+            guard response.statusCode != 403 else {
+                completion(.failure(.tokenExpired))
+                return
+            }
+            
             let isOK = self.networker.checkOkStatus(res: response)
             
             // unwrapping the optional
@@ -181,12 +209,14 @@ class WagerService {
             if error != nil {
                 print("there was a big error: \(String(describing: error))")
             }
-//            guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
-//                print("Server error!")
-//                return
-//            }
+
             guard let response = response as? HTTPURLResponse else {
                 completion(.failure(.generalError))
+                return
+            }
+            
+            guard response.statusCode != 403 else {
+                completion(.failure(.tokenExpired))
                 return
             }
             
@@ -213,6 +243,11 @@ class WagerService {
             
             guard let response = response as? HTTPURLResponse else {
                 completion(.failure(.generalError))
+                return
+            }
+            
+            guard response.statusCode != 403 else {
+                completion(.failure(.tokenExpired))
                 return
             }
             

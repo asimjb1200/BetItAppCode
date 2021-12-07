@@ -33,7 +33,7 @@ struct GameAndWagersView: View {
                 }
             }
         }.onAppear() {
-            viewModel.getWagersByGameId(token: user.accessToken, gameId: selectedGame.game_id)
+            viewModel.getWagersByGameId(token: user.accessToken, gameId: selectedGame.game_id, user: user)
         }
     }
 }

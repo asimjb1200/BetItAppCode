@@ -23,7 +23,7 @@ struct StatusOfUsersWagers: View {
 
         }.onAppear() {
             if viewModel.myWagers.isEmpty {
-                viewModel.getUsersWagers(token: user.accessToken, bettor: user.walletAddress)
+                viewModel.getUsersWagers(token: user.accessToken, bettor: user.walletAddress, user: user)
             }
         }
     }
