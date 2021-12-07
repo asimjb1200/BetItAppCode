@@ -93,18 +93,18 @@ final class GameWagersViewModel: ObservableObject {
     func updateWager(token: String, wagerId: Int, fader: String) {
         wagerService.updateWager(token: token, wagerId: wagerId, fader: fader, completion: {(updatedWager) in
             switch updatedWager {
-            case .success(let newWager):
-                DispatchQueue.main.async {
-                    self.wagers = self.wagers.filter{$0.id != newWager.id}
-                    self.dataSubmitted = true
-                    // disable the button to prevent double submittal
-                    self.buttonPressed = true
-                    
-                    // inform the user that the bet has been successfully submitted
-                    self.showingAlert = true
-                }
-            case .failure(let err):
-                print(err)
+                case .success(let newWager):
+                    DispatchQueue.main.async {
+                        self.wagers = self.wagers.filter{$0.id != newWager.id}
+                        self.dataSubmitted = true
+                        // disable the button to prevent double submittal
+                        self.buttonPressed = true
+                        
+                        // inform the user that the bet has been successfully submitted
+                        self.showingAlert = true
+                    }
+                case .failure(let err):
+                    print(err)
             }
         })
     }
@@ -129,17 +129,17 @@ final class GameWagersViewModel: ObservableObject {
     func checkWalletBalance(address: String, username: String, token: String, amount: Decimal) {
         service.getWalletBalance(address: address, username: username, token: token, completion: {[weak self]  walletBalanceResponse in
             switch walletBalanceResponse {
-            case .success(let wallet):
-                DispatchQueue.main.sync {
-                    // let litoshiBalance = amount/100000000 // buffer room to work with tx fees
-                    if wallet.balance <= amount {
-                        self?.hasEnoughCrypto = false
-                        self?.buttonPressed = true
-                        self?.showingAlert = true
+                case .success(let wallet):
+                    DispatchQueue.main.sync {
+                        // let litoshiBalance = amount/100000000 // buffer room to work with tx fees
+                        if wallet.balance <= amount {
+                            self?.hasEnoughCrypto = false
+                            self?.buttonPressed = true
+                            self?.showingAlert = true
+                        }
                     }
-                }
-            case .failure(let err):
-                print(err)
+                case .failure(let err):
+                    print(err)
             }
         })
     }
