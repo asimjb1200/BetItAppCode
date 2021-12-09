@@ -30,7 +30,7 @@ struct CreateWager: View {
                         })
                         
                     if viewModel.games.isEmpty {
-                        Text("No games are being played on that date. Pick another.").font(.custom("MontserratAlternates-Regular", size: 20))
+                        Text("Either no games are being played on that date, or they are too close to starting. Pick another date.").font(.custom("MontserratAlternates-Regular", size: 20))
                     } else {
                         Picker("Press Here To Select A Game", selection: $viewModel.selectedGame) {
                             ForEach(viewModel.games, id: \.self) {

@@ -12,7 +12,7 @@ struct GamesNotFound: View {
     var body: some View {
         VStack {
             Image("question")
-            Text("For date: \(date) either all games have started or there are no games today. Pick another date.")
+            Text("For date: \(date) either all games have started or there are no games today.")
                 .bold()
                 .font(.custom("MontserratAlternates-Regular", size: 20))
                 .foregroundColor(.gray)

@@ -67,13 +67,12 @@ class GameService {
     }
     
     func getGamesByDate(token: String, date: Date, completion: @escaping (Result<[DBGame], GameFetchError>) -> ()) {
-        self.dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        self.dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-        
         // grab the user's current timezone so that I can process it in the db
         var localTimeZoneIdentifier: String { return TimeZone.current.identifier }
-        
-        let stringifiedDate = self.dateFormatter.string(from: date)
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd/yyyy"
+        formatter.timeZone = TimeZone.current
+        let stringifiedDate = formatter.string(from: date)
         
         
         // set up the body of the request
@@ -103,10 +102,10 @@ class GameService {
                 // convert the data to the type we can work with
                 do {
                     // handle the UTC date format coming in from the db
-                    self.dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-                    self.dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+                    formatter.locale = Locale(identifier: "en_US_POSIX")
+                    formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
                     
-                    self.decoder.dateDecodingStrategy = .formatted(self.dateFormatter)
+                    self.decoder.dateDecodingStrategy = .formatted(formatter)
                     let gameData = try self.decoder.decode([DBGame].self, from: data)
                     completion(.success(gameData))
                 } catch let error {

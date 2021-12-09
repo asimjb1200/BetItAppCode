@@ -25,7 +25,7 @@ struct GamePreview: View {
                     .foregroundColor(davysGray)
                     .multilineTextAlignment(.center)
                 
-                Text("\(self.formatDate(date: currentGame.game_begins))")
+                Text("\(formatDate(date: currentGame.game_begins))")
                     .font(.custom("MontserratAlternates-Regular", size: 14))
                     .foregroundColor(davysGray)
                 
@@ -56,7 +56,6 @@ extension GamePreview {
     func formatDate(date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMM d, h:mm a"
-        dateFormatter.timeZone = TimeZone.current
         return dateFormatter.string(from: date)
     }
 }
