@@ -29,7 +29,7 @@ struct AccountDetails: View {
                     case AccountDeets.password.rawValue:
                         NavigationLink("\(item)", destination: ChangePassword())
                     case AccountDeets.support.rawValue:
-                        NavigationLink("\(item)", destination: Text("Contact Support"))
+                        NavigationLink("\(item)", destination: EmailSupport())
                     case AccountDeets.deactivate.rawValue:
                         NavigationLink("\(item)", destination: Text("Deactivate Account"))
                     case AccountDeets.viewMyWagers.rawValue:

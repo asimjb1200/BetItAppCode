@@ -199,12 +199,47 @@ class UserNetworking {
             completion(.success(true))
         }.resume()
     }
+    
+    func emailSupport(subject: String, message: String, token: String, completion: @escaping (Result<Bool, SupportErrors>) -> ()) {
+        let reqWithoutBody: URLRequest = networker.constructRequest(uri: "https://www.bet-it-casino.com/users/email-support", token: token, post: true)
+        let session = URLSession.shared
+        let body = ["subject": subject, "message": message]
+        
+        let request = networker.buildReqBody(req: reqWithoutBody, body: body)
+        session.dataTask(with: request) {(_, response, error) in
+            if error != nil {
+                print("there was an error with the request")
+            }
+            
+            guard let response = response as? HTTPURLResponse else {
+                completion(.failure(.responseConversionError))
+                return
+            }
+            
+            let isOK = self.networker.checkOkStatus(res: response)
+            if isOK {
+                completion(.success(true))
+            }
+            if response.statusCode ~= 403 {
+                completion(.failure(.tokenExpired))
+            } else {
+                completion(.failure(.serverError))
+            }
+        }.resume()
+    }
 }
 
 enum RefreshTokenErrors: String, Error {
     case tokenExpired = "User's refresh token has expired. They must login again."
     case internalServerError = "There was an error on the server. User must login again."
     case dataConversionError = "There was a problem decoding the refresh token from the server"
+}
+
+enum SupportErrors: String, Error {
+    case tokenExpired = "The access token has expired. Time to issue a new one"
+    case requestError = "There was a problem making the request."
+    case serverError = "There was an error with the request on the server."
+    case responseConversionError = "Unable to decode http response."
 }
 
 enum UpdatePasswordErrors: String, Error {
