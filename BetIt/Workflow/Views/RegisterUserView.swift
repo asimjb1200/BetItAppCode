@@ -16,20 +16,20 @@ struct RegisterUserView: View {
     @State var userSuccessfullyCreated = false;
     var body: some View {
         VStack {
-            TextField("Username:", text: $username)
+            TextField("", text: $username)
                 .padding(.vertical)
                 .placeholder(when: username.isEmpty) {
                     Text("Username: ").foregroundColor(.white)
                 }
-            TextField("Email:", text: $email)
+            TextField("", text: $email)
                 .padding(.vertical)
                 .placeholder(when: email.isEmpty) {
                     Text("Email:").foregroundColor(.white)
                 }
-            SecureField("Password:", text: $password)
+            SecureField("", text: $password)
                 .padding(.vertical)
                 .placeholder(when: password.isEmpty) {
-                    Text("Enter Password").foregroundColor(.white)
+                    Text("Enter Password (12 characters minimum, 16 max):").foregroundColor(.white)
                 }
             
             Button("Register") {
