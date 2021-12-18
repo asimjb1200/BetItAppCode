@@ -9,17 +9,32 @@ import Foundation
 final class EmailSupportViewModel: ObservableObject {
     var subjectLine = ""
     var message = ""
+    @Published var invalidText: Bool = false
     @Published var emailSent: Bool = false
+    @Published var deliveryMessage: String = ""
+    @Published var deliveryHeading: String = ""
     
-    func sendEmail(token: String) {
-        UserNetworking().emailSupport(subject: self.subjectLine, message: self.message, token: token, completion: {(emailSentResponse) in
+    func sendEmail(user: UserModel) {
+        UserNetworking().emailSupport(subject: self.subjectLine, message: self.message, token: user.accessToken, completion: {[weak self] (emailSentResponse) in
             switch (emailSentResponse) {
-            case .success(_):
+                case .success(_):
                     DispatchQueue.main.async {
-                        self.emailSent = true
+                        self?.deliveryHeading = "Your Email Was Delivered"
+                        self?.deliveryMessage = "We will be in touch within 2-3 business days."
+                        self?.emailSent = true
                     }
                 case .failure(let err):
-                    print(err.localizedDescription)
+                    if err == .tokenExpired {
+                        DispatchQueue.main.async {
+                            user.logUserOut()
+                        }
+                    } else {
+                        DispatchQueue.main.async {
+                            self?.deliveryHeading = "There Was A Problem"
+                            self?.deliveryMessage = "Your message couldn't be delivered. Try again later."
+                            self?.emailSent = true
+                        }
+                    }
             }
         })
     }

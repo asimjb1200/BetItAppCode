@@ -25,6 +25,9 @@ struct EmailSupport: View {
                             .fill(Color(hue: 1.0, saturation: 0.0, brightness: 0.694, opacity: 0.763))
                     )
                     .padding()
+                    .alert(isPresented: $viewModel.invalidText) {
+                        return Alert(title: Text("Check Subject and Email"), message: Text("Make sure your subject line and message contains text"), dismissButton: .default(Text("OK")))
+                    }
 
                 TextEditor(text: $viewModel.message)
                     .background(Color(hue: 1.0, saturation: 0.0, brightness: 0.694, opacity: 0.763))
@@ -34,26 +37,51 @@ struct EmailSupport: View {
 
                 Button("Send Email") {
                     guard
-                        !viewModel.subjectLine.isEmpty, !viewModel.message.isEmpty
+                        !viewModel.subjectLine.isEmpty,
+                        !viewModel.message.isEmpty
                     else {
-                        // add in an alert to make sure they can't send in an empty email
+                        viewModel.invalidText.toggle()
                         return
                     }
-                    viewModel.sendEmail(token: user.accessToken)
+                    viewModel.sendEmail(user: user)
                 }
                 .foregroundColor(Color("Accent2"))
                 
             } else {
-                Text("Your email was delivered").font(.custom("MontserratAlternates-ExtraBold", size: 28))
-                Text("We will be in touch within 2-3 business days.").font(.custom("MontserratAlternates-Regular", size: 20))
+                Text(viewModel.deliveryHeading).font(.custom("MontserratAlternates-ExtraBold", size: 28))
+                Text(viewModel.deliveryMessage).font(.custom("MontserratAlternates-Regular", size: 20))
             }
-        }
-        .onDisappear(){
-            print("Email support view is going away")
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .edgesIgnoringSafeArea(.all)
     }
+}
+
+extension EmailSupport {
+//    func sendEmail(user: UserModel) -> () {
+//        UserNetworking().emailSupport(subject: self.subjectLine, message: self.message, token: user.accessToken, completion: {(emailSentResponse) in
+//            switch (emailSentResponse) {
+//                case .success(let emailResponse):
+//                    DispatchQueue.main.async {
+//                        self.deliveryHeading = "Your Email Was Delivered"
+//                        self.deliveryMessage = "We will be in touch within 2-3 business days."
+//                        self.emailSent = emailResponse
+//                    }
+//                case .failure(let err):
+//                    if err == .tokenExpired {
+//                        DispatchQueue.main.async {
+//                            user.logUserOut()
+//                        }
+//                    } else {
+//                        DispatchQueue.main.async {
+//                            self.deliveryHeading = "There Was A Problem"
+//                            self.deliveryMessage = "Your message couldn't be delivered. Try again later."
+//                            self.emailSent = true
+//                        }
+//                    }
+//            }
+//        })
+//    }
 }
 
 struct EmailSupport_Previews: PreviewProvider {
