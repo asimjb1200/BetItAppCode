@@ -13,6 +13,7 @@ struct ChangeEmail: View {
     @State private var password = ""
     @State private var showAlert = false
     @State private var emailState: EmailStates = .noActionYet
+    private var userService: UserNetworking = .shared
     var body: some View {
         VStack {
             SecureField("", text: $password)
@@ -91,7 +92,7 @@ struct ChangeEmail: View {
 
 extension ChangeEmail {
     func updateEmail(username: String, password: String) {
-        UserNetworking().changeEmail(username: username, password: self.password, email: self.emailAddress, token: user.accessToken, completion: {emailState in
+        userService.changeEmail(username: username, password: self.password, email: self.emailAddress, token: user.accessToken, completion: {emailState in
             switch emailState {
             case .success(let status):
                 if status == .updated {

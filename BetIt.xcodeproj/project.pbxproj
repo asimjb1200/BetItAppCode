@@ -24,6 +24,8 @@
 		681AD4B7268BA26F00EE4348 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681AD4B6268BA26F00EE4348 /* UserModel.swift */; };
 		681AD4B9268BA45700EE4348 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681AD4B8268BA45700EE4348 /* UserService.swift */; };
 		681AD4BB268BB1FA00EE4348 /* AccountDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681AD4BA268BB1FA00EE4348 /* AccountDetails.swift */; };
+		6822D5F6276DAD6800762413 /* DeactivateAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6822D5F5276DAD6800762413 /* DeactivateAccount.swift */; };
+		6822D5F8276DB72600762413 /* DeactivateAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6822D5F7276DB72600762413 /* DeactivateAccountViewModel.swift */; };
 		6835648B2662BF7900344E6C /* BetItApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835648A2662BF7900344E6C /* BetItApp.swift */; };
 		6835648D2662BF7900344E6C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835648C2662BF7900344E6C /* ContentView.swift */; };
 		6835648F2662BF7B00344E6C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6835648E2662BF7B00344E6C /* Assets.xcassets */; };
@@ -106,6 +108,8 @@
 		681AD4B6268BA26F00EE4348 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		681AD4B8268BA45700EE4348 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		681AD4BA268BB1FA00EE4348 /* AccountDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetails.swift; sourceTree = "<group>"; };
+		6822D5F5276DAD6800762413 /* DeactivateAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeactivateAccount.swift; sourceTree = "<group>"; };
+		6822D5F7276DB72600762413 /* DeactivateAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeactivateAccountViewModel.swift; sourceTree = "<group>"; };
 		683564872662BF7900344E6C /* BetIt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BetIt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6835648A2662BF7900344E6C /* BetItApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetItApp.swift; sourceTree = "<group>"; };
 		6835648C2662BF7900344E6C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -194,6 +198,7 @@
 				6894A3BD270BDE82004F6985 /* WalletHistoryViewModel.swift */,
 				68A45791275BDD0B00493E12 /* PriceDataViewModel.swift */,
 				681485AE276840C600BDEF6D /* EmailSupportViewModel.swift */,
+				6822D5F7276DB72600762413 /* DeactivateAccountViewModel.swift */,
 			);
 			name = ViewModels;
 			sourceTree = "<group>";
@@ -335,6 +340,7 @@
 				6894A3BB270BDE62004F6985 /* WalletHistory.swift */,
 				686FEC6F27571631008015C6 /* PriceDataView.swift */,
 				681485AC27683CBB00BDEF6D /* EmailSupport.swift */,
+				6822D5F5276DAD6800762413 /* DeactivateAccount.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -522,6 +528,7 @@
 				687B338226AB917F00ED7C68 /* CoinbaseResponse.swift in Sources */,
 				681AD4A6268B6C8700EE4348 /* ServiceUser.swift in Sources */,
 				687D867D26BB79D1005E5A52 /* ChangeEmail.swift in Sources */,
+				6822D5F6276DAD6800762413 /* DeactivateAccount.swift in Sources */,
 				689F9D0F26974654001DB52E /* UpcomingGamesViewModel.swift in Sources */,
 				687A851A2680D605003732B1 /* SocketManager.swift in Sources */,
 				68A45792275BDD0B00493E12 /* PriceDataViewModel.swift in Sources */,
@@ -550,6 +557,7 @@
 				6878B1AC26B650CB003C3FF9 /* ChangePassword.swift in Sources */,
 				6882F04326705EB800046367 /* GameAndWagersView.swift in Sources */,
 				68456A1326D05C0B002B8E83 /* StatusOfUsersWagersViewModel.swift in Sources */,
+				6822D5F8276DB72600762413 /* DeactivateAccountViewModel.swift in Sources */,
 				6894A3BC270BDE62004F6985 /* WalletHistory.swift in Sources */,
 				68EC37C52663241A00E99FE5 /* UpcomingGames.swift in Sources */,
 				681485AF276840C600BDEF6D /* EmailSupportViewModel.swift in Sources */,

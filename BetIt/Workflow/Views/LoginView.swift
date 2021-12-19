@@ -14,6 +14,7 @@ struct LoginView: View {
     @State private var invalidLogin: Bool = false
     @State private var isLoading: Bool = false
     @State private var badPw: Bool = false
+    private var userService: UserNetworking = .shared
     var body: some View {
         if isLoading {
             LoadingView()
@@ -74,7 +75,7 @@ struct LoginView: View {
 
 extension LoginView {
     func login(username: String, password: String) {
-        UserNetworking().login(username: username, pw: password, completion: { (authedUser) in
+        userService.login(username: username, pw: password, completion: { (authedUser) in
             switch authedUser {
                 case .success(let foundUser):
                     DispatchQueue.main.async {

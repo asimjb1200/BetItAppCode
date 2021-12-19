@@ -7,8 +7,9 @@
 
 import Foundation
 
-class UserNetworking {
+final class UserNetworking {
     let networker: Networker = .shared
+    static let shared: UserNetworking = UserNetworking()
     func login(username:String, pw: String, completion: @escaping (Result<ServiceUser, UserErrors>) -> ()) {
 
         let reqWithoutBody: URLRequest = networker.constructRequest(uri: "https://www.bet-it-casino.com/users/login", post: true)
@@ -19,7 +20,6 @@ class UserNetworking {
         let request = networker.buildReqBody(req: reqWithoutBody, body: body)
 
         session.dataTask(with: request) { (data, response, err) in
-            
             if err != nil || data == nil {
                 print("there was a big error: \(String(describing: err))")
                 completion(.failure(.failure))
@@ -69,7 +69,6 @@ class UserNetworking {
             }
             
             completion(.success(true))
-            
         }.resume()
     }
     
@@ -194,9 +193,9 @@ class UserNetworking {
             
             if !isOK {
                 completion(.failure(.failure))
+            } else {
+                completion(.success(true))
             }
-            
-            completion(.success(true))
         }.resume()
     }
     
@@ -219,14 +218,44 @@ class UserNetworking {
             let isOK = self.networker.checkOkStatus(res: response)
             if isOK {
                 completion(.success(true))
-            }
-            if response.statusCode ~= 403 {
+            } else if response.statusCode ~= 403 {
                 completion(.failure(.tokenExpired))
             } else {
                 completion(.failure(.serverError))
             }
         }.resume()
     }
+    
+    func deleteAccount(token: String, completion: @escaping (Result<Bool, AccountErrors>) -> ()) {
+        let req: URLRequest = networker.constructRequest(uri: "https://www.bet-it-casino.com/users/deactivate-account", token: token, post: false)
+        let session = URLSession.shared
+        
+        session.dataTask(with: req) {(_, response, error) in
+            if error != nil {
+                print("There was an error with the request")
+            }
+            guard let response = response as? HTTPURLResponse else {
+                completion(.failure(.responseConversionError))
+                return
+            }
+
+            let isOK = self.networker.checkOkStatus(res: response)
+
+            if response.statusCode ~= 403 {
+                completion(.failure(.tokenExpired))
+            } else if isOK {
+                completion(.success(true))
+            } else {
+                completion(.failure(.serverError))
+            }
+        }
+    }
+}
+
+enum AccountErrors: String, Error {
+    case tokenExpired = "User's refresh token has expired. They must login again."
+    case serverError = "There was an error on the server."
+    case responseConversionError = "There was a problem when trying to decode the response"
 }
 
 enum RefreshTokenErrors: String, Error {

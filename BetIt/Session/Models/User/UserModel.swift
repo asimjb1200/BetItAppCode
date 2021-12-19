@@ -85,18 +85,18 @@ extension UserModel {
         self.isLoggedIn = false
     }
     
-    func refreshAccessToken() {
-        UserNetworking().refreshAccessToken(refreshToken: self.refreshToken, completion: {newToken in
-            switch (newToken) {
-                case .success(let newAccessToken):
-                    DispatchQueue.main.async {
-                        self.refreshToken = newAccessToken
-                    }
-                case .failure(let err):
-                    DispatchQueue.main.async {
-                        self.logUserOut()
-                    }
-            }
-        })
-    }
+//    func refreshAccessToken() {
+//        UserNetworking().refreshAccessToken(refreshToken: self.refreshToken, completion: {newToken in
+//            switch (newToken) {
+//                case .success(let newAccessToken):
+//                    DispatchQueue.main.async {
+//                        self.refreshToken = newAccessToken
+//                    }
+//                case .failure(let err):
+//                    DispatchQueue.main.async {
+//                        self.logUserOut()
+//                    }
+//            }
+//        })
+//    }
 }

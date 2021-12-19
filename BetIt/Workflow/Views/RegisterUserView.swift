@@ -14,6 +14,7 @@ struct RegisterUserView: View {
     @State var username: String = ""
     @State var showAlert: Bool = false
     @State var userSuccessfullyCreated = false;
+    private var userService: UserNetworking = .shared
     var body: some View {
         VStack {
             TextField("", text: $username)
@@ -43,7 +44,7 @@ struct RegisterUserView: View {
                 }
                 
                 
-                UserNetworking().registerUser(username: username.trimmingCharacters(in: .whitespacesAndNewlines), password: password.trimmingCharacters(in: .whitespacesAndNewlines), email: email.trimmingCharacters(in: .whitespacesAndNewlines), completion: { userWasCreatedResponse in
+                userService.registerUser(username: username.trimmingCharacters(in: .whitespacesAndNewlines), password: password.trimmingCharacters(in: .whitespacesAndNewlines), email: email.trimmingCharacters(in: .whitespacesAndNewlines), completion: { userWasCreatedResponse in
                     switch userWasCreatedResponse {
                         case .success(_):
                             DispatchQueue.main.async {

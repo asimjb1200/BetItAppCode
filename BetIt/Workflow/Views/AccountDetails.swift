@@ -19,6 +19,7 @@ struct AccountDetails: View {
     @State private var email: String = ""
     @State private var username: String = ""
     @State private var password: String = ""
+    private var userService: UserNetworking = .shared
     var body: some View {
         NavigationView {
             List {
@@ -31,13 +32,13 @@ struct AccountDetails: View {
                     case AccountDeets.support.rawValue:
                         NavigationLink("\(item)", destination: EmailSupport())
                     case AccountDeets.deactivate.rawValue:
-                        NavigationLink("\(item)", destination: Text("Deactivate Account"))
+                        NavigationLink("\(item)", destination: DeactivateAccount())
                     case AccountDeets.viewMyWagers.rawValue:
                         NavigationLink("\(item)", destination: StatusOfUsersWagers())
                     default:
                         Button(action: {
                             socket.closeConnection(walletAddress: user.walletAddress)
-                            UserNetworking().logout(accessToken: user.accessToken, completion: { loggedOutStatus in
+                            userService.logout(accessToken: user.accessToken, completion: { loggedOutStatus in
                                 switch loggedOutStatus {
                                 case .success( _):
                                     DispatchQueue.main.async {

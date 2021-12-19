@@ -14,6 +14,7 @@ struct ChangePassword: View {
     @State private var showAlert = false
     @State private var passwordState: PasswordStates = .noActionYet
     @EnvironmentObject var user: UserModel
+    private var userService: UserNetworking = .shared
     var body: some View {
         VStack {
             SecureField("", text: $currentPassword)
@@ -119,7 +120,7 @@ struct ChangePassword: View {
 
 extension ChangePassword {
     func updatePassword(newPassword: String, oldPassword: String) {
-        UserNetworking().changePassword(newPassword: newPassword, username: user.username, oldPassword: oldPassword, token: user.accessToken, completion: { pStatus in
+        userService.changePassword(newPassword: newPassword, username: user.username, oldPassword: oldPassword, token: user.accessToken, completion: { pStatus in
             switch pStatus{
             case .success(let status):
                 if status == .updated {

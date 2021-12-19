@@ -7,6 +7,7 @@
 
 import Foundation
 final class EmailSupportViewModel: ObservableObject {
+    private var userService: UserNetworking = .shared
     var subjectLine = ""
     var message = ""
     @Published var invalidText: Bool = false
@@ -15,7 +16,7 @@ final class EmailSupportViewModel: ObservableObject {
     @Published var deliveryHeading: String = ""
     
     func sendEmail(user: UserModel) {
-        UserNetworking().emailSupport(subject: self.subjectLine, message: self.message, token: user.accessToken, completion: {[weak self] (emailSentResponse) in
+        userService.emailSupport(subject: self.subjectLine, message: self.message, token: user.accessToken, completion: {[weak self] (emailSentResponse) in
             switch (emailSentResponse) {
                 case .success(_):
                     DispatchQueue.main.async {
