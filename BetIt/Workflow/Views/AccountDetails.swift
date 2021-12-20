@@ -40,14 +40,13 @@ struct AccountDetails: View {
                             socket.closeConnection(walletAddress: user.walletAddress)
                             userService.logout(accessToken: user.accessToken, completion: { loggedOutStatus in
                                 switch loggedOutStatus {
-                                case .success( _):
-                                    DispatchQueue.main.async {
-                                        user.logUserOut()
-                                    }
-                                case .failure(let err):
-                                    print(err)
+                                    case .success( _):
+                                        DispatchQueue.main.async {
+                                            user.logUserOut()
+                                        }
+                                    case .failure(let err):
+                                        print(err)
                                 }
-        
                             })
                         }, label: {
                             Text("Log Out")

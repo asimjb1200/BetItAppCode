@@ -13,18 +13,22 @@ struct StatusOfUsersWagers: View {
     var body: some View {
         VStack {
             Text("Your Current Wagers").font(.custom("MontserratAlternates-Regular", size: 25)).padding(.bottom)
-            ScrollView {
-                VStack{
-                    ForEach(viewModel.myWagers, id: \.self) { wager in
-                        MySingleWager(ltcAmount: wager.amount, chosenTeam: wager.chosenTeam, gameDate: dateToString(date: wager.gameStartTime), wagerId: wager.wagerId)
+            
+            if !viewModel.myWagers.isEmpty {
+                Text("Note: You can only cancel a bet if no one has taken it yet.")
+                    .font(.custom("MontserratAlternates-Light", size: 15))
+                ScrollView {
+                    VStack{
+                        ForEach(viewModel.myWagers, id: \.self) { wager in
+                            MySingleWager(ltcAmount: wager.amount, chosenTeam: wager.chosenTeam, gameDate: dateToString(date: wager.gameStartTime), wagerId: wager.wagerId, isActive: wager.isActive)
+                        }
                     }
                 }
+            } else {
+                Text("You don't have any active wagers right now").font(.custom("MontserratAlternates-Regular", size: 19))
             }
-
         }.onAppear() {
-            if viewModel.myWagers.isEmpty {
-                viewModel.getUsersWagers(token: user.accessToken, bettor: user.walletAddress, user: user)
-            }
+            viewModel.getUsersWagers(token: user.accessToken, bettor: user.walletAddress, user: user)
         }
     }
 }

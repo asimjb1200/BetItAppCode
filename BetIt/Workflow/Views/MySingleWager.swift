@@ -12,6 +12,7 @@ struct MySingleWager: View {
     var chosenTeam: Int
     var gameDate: String
     var wagerId: Int
+    var isActive: Bool
     @EnvironmentObject private var user: UserModel
     @State var showAlert: Bool = false
     var gameIsOver: Bool?
@@ -25,23 +26,8 @@ struct MySingleWager: View {
                 Text("Game Time: \(gameDate)")
                 Text("Wager Amount: \(NSDecimalNumber(decimal: ltcAmount).stringValue) LTC")
                 Text("Your Chosen Team: \(teams[UInt8(chosenTeam)]!)")
-                
-                if (gameIsOver ?? false) {
-                    Text(
-                        (userIsWinner ?? false) ?
-                            "Congrats your team won! Your payout will arrive shortly."
-                            :
-                            "Sorry, you didn't win this one."
-                    )
-                        .font(.custom("MontserratAlternates-Regular", size: 25))
-                        .multilineTextAlignment(.center)
-                        .padding(.top)
-                } else {
-                    Text("Bet Is Active: No")
-                    Text("Winning Team: N/A")
-                }
 
-                if !(gameIsOver ?? false) {
+                if !isActive {
                     Button("Cancel Wager") {
                         showAlert.toggle()
                     }
@@ -64,7 +50,7 @@ struct MySingleWager: View {
               alignment: .center
             )
             .background(
-                RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/)
+                RoundedRectangle(cornerRadius: 25.0)
                     .fill(davysGray)
             )
         } else {
@@ -93,6 +79,6 @@ extension MySingleWager {
 
 struct MySingleWager_Previews: PreviewProvider {
     static var previews: some View {
-        MySingleWager(ltcAmount: 3, chosenTeam: 4, gameDate: "Sept 4th 2021 4:30pm", wagerId: 5, userIsWinner: false)
+        MySingleWager(ltcAmount: 3, chosenTeam: 4, gameDate: "Sept 4th 2021 4:30pm", wagerId: 5, isActive: true, userIsWinner: false)
     }
 }
