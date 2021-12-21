@@ -47,12 +47,16 @@ final class GameWagersViewModel: ObservableObject {
     
     
     
-    func getGameTime(token: String, gameId: UInt) {
-        GameService().getGameTime(gameId: gameId, token: token, completion: { [weak self] gameTimeResult in
+    func getGameTime(gameId: UInt, user: UserModel) {
+        GameService().getGameTime(gameId: gameId, token: user.accessToken, completion: { [weak self] gameTimeResult in
             switch gameTimeResult {
-            case .success(let gameTime):
+            case .success(let gameTimeResponse):
                 DispatchQueue.main.async {
-                    self?.gameStarts = gameTime
+                    self?.gameStarts = gameTimeResponse.dataForClient.gameTime
+                    guard let newAccessToken = gameTimeResponse.newAccessToken else {
+                        return
+                    }
+                    user.accessToken = newAccessToken
                 }
             case .failure(let err):
                 print(err)
@@ -61,20 +65,34 @@ final class GameWagersViewModel: ObservableObject {
     }
     
     func getWagersByGameId(token: String, gameId: UInt, user: UserModel) {
-        self.wagers = []
+        //self.wagers = []
         wagerService.getWagersForGameId(token: token, gameId: gameId, completion: {[weak self] (wagers) in
             switch wagers {
             case .success(let gameWagers):
-                if gameWagers.isEmpty {
+                if gameWagers.dataForClient.isEmpty {
                     DispatchQueue.main.async {
-                        self?.isLoading = false
                         self?.wagersNotFound = true
+                        self?.isLoading = false
+                        self?.wagers = []
+                        guard let
+                                newAccessToken = gameWagers.newAccessToken
+                        else {
+                            return // if newAccessToken is nil, the function will return and skip the code below
+                        }
+                        user.accessToken = newAccessToken
                     }
                 } else {
                     DispatchQueue.main.async {
-                        self?.wagers = gameWagers
+                        self?.wagers = gameWagers.dataForClient
                         self?.wagersNotFound = false
                         self?.isLoading = false
+                        
+                        guard let
+                                newAccessToken = gameWagers.newAccessToken
+                        else {
+                            return // if newAccessToken is nil, the function will return and skip the code below
+                        }
+                        user.accessToken = newAccessToken
                     }
                 }
             case .failure(let err):
@@ -98,15 +116,18 @@ final class GameWagersViewModel: ObservableObject {
     func updateWager(token: String, wagerId: Int, fader: String, user: UserModel) {
         wagerService.updateWager(token: token, wagerId: wagerId, fader: fader, completion: {(updatedWager) in
             switch updatedWager {
-                case .success(let newWager):
+                case .success(let newWagerResponse):
                     DispatchQueue.main.async {
-                        self.wagers = self.wagers.filter{$0.id != newWager.id}
+                        self.wagers = self.wagers.filter{$0.id != newWagerResponse.dataForClient.id}
                         self.dataSubmitted = true
                         // disable the button to prevent double submittal
                         self.buttonPressed = true
                         
                         // inform the user that the bet has been successfully submitted
                         self.showingAlert = true
+                        
+                        guard let newAccessToken = newWagerResponse.newAccessToken else { return }
+                        user.accessToken = newAccessToken
                     }
                 case .failure(let err):
                     DispatchQueue.main.async {
@@ -139,14 +160,16 @@ final class GameWagersViewModel: ObservableObject {
     func checkWalletBalance(address: String, username: String, token: String, amount: Decimal, user: UserModel) {
         service.getWalletBalance(address: address, username: username, token: token, completion: {[weak self]  walletBalanceResponse in
             switch walletBalanceResponse {
-                case .success(let wallet):
+                case .success(let walletResponse):
                     DispatchQueue.main.sync {
                         // let litoshiBalance = amount/100000000 // buffer room to work with tx fees
-                        if wallet.balance <= amount {
+                        if walletResponse.dataForClient.balance <= amount {
                             self?.hasEnoughCrypto = false
                             self?.buttonPressed = true
                             self?.showingAlert = true
                         }
+                        guard let newAccessToken = walletResponse.newAccessToken else {return}
+                        user.accessToken = newAccessToken
                     }
                 case .failure(let err):
                     DispatchQueue.main.async {

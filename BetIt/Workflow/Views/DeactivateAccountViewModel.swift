@@ -36,7 +36,7 @@ final class DeactivateAccountViewModel: ObservableObject {
             switch (walletRes) {
             case .success(let wallet):
                 DispatchQueue.main.async {
-                    if wallet.balance > 0 {
+                    if wallet.dataForClient.balance > 0 {
                         self?.walletHasBalance = true
                     }
                 }

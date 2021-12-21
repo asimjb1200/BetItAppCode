@@ -21,7 +21,10 @@ final class StatusOfUsersWagersVM: ObservableObject {
             switch usersWagersResponse {
                 case .success(let usersWagers):
                     DispatchQueue.main.async {
-                        self?.myWagers = usersWagers
+                        self?.myWagers = usersWagers.dataForClient
+                        
+                        guard let newAccessToken = usersWagers.newAccessToken else { return }
+                        user.accessToken = newAccessToken
                     }
                 case .failure(let err):
                     if err == .tokenExpired {

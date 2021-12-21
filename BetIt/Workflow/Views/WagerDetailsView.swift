@@ -102,7 +102,7 @@ struct WagerDetailsView: View {
         .padding()
         .disabled(viewModel.buttonPressed)
         .onAppear() {
-            viewModel.getGameTime(token: user.accessToken, gameId: UInt(wager.game_id))
+            viewModel.getGameTime(gameId: UInt(wager.game_id), user: user)
             if (viewModel.bettorAndFaderAddressMatch(fader: user.walletAddress, bettor: wager.bettor)) {
                 viewModel.buttonPressed.toggle()
                 viewModel.showingAlert.toggle()

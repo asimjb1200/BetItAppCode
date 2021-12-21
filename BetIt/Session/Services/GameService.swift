@@ -17,56 +17,7 @@ class GameService {
     let networker: Networker = .shared
     static let shared: GameService = GameService()
     
-    func getUpcomingGames(completion: @escaping (Result<[DBGame], CustomError>) -> Void) {
-        let url = URL(string: "https://www.bet-it-casino.com/sports-handler/bball/games-this-week")!
-        let cachedData: [DBGame]? = try? self.searchCacheForGamesByDate(dateKey: "210603")
-        if (cachedData != nil) {
-            completion(.success(cachedData!))
-        } else {
-            URLSession.shared.dataTask(with: url) { (data, response, error) in
-                print("you've now hit the url")
-                // check for error
-                if error != nil || data == nil {
-                    completion(.failure(.invalidResponse))
-                    print("Client error!")
-                    return
-                }
-                
-                // check for the OK status code
-                guard let response = response as? HTTPURLResponse else {
-                    return
-                }
-                
-                if response.statusCode == 403 {
-                    completion(.failure(.tokenExpired))
-                }
-                
-                guard let data = data else {
-                    completion(.failure(.invalidResponse))
-                    return
-                }
-                
-                do {
-                    self.dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-                    self.dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-                    
-                    self.decoder.dateDecodingStrategy = .formatted(self.dateFormatter)
-                    let games = try self.decoder.decode([DBGame].self, from: data)
-                    
-                    let dateKey = self.convertDateToString(date: games[0].game_begins)
-                    
-                    self.cacheGameSchedule(dateKey: dateKey, gamesThatDay: games)
-                    
-                    completion(.success(games))
-                } catch let err {
-                    print("error fetching data: \(err)")
-                    completion(.failure(.invalidData))
-                }
-            }.resume()
-        }
-    }
-    
-    func getGamesByDate(token: String, date: Date, completion: @escaping (Result<[DBGame], GameFetchError>) -> ()) {
+    func getGamesByDate(token: String, date: Date, completion: @escaping (Result<MainResponseToClient<[DBGame]>, GameFetchError>) -> ()) {
         // grab the user's current timezone so that I can process it in the db
         var localTimeZoneIdentifier: String { return TimeZone.current.identifier }
         let formatter = DateFormatter()
@@ -79,7 +30,7 @@ class GameService {
         let body = ["date": stringifiedDate, "timeZone": localTimeZoneIdentifier]
         
         // start preparing the url request
-        let reqWithoutBody = networker.constructRequest(uri: "https://www.bet-it-casino.com/sports-handler/bball/games-by-date", token: token, post: true)
+        let reqWithoutBody = networker.constructRequest(uri: "http://localhost:4000/sports-handler/bball/games-by-date", token: token, post: true)
         
         let request = networker.buildReqBody(req: reqWithoutBody, body: body)
         
@@ -106,7 +57,7 @@ class GameService {
                     formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
                     
                     self.decoder.dateDecodingStrategy = .formatted(formatter)
-                    let gameData = try self.decoder.decode([DBGame].self, from: data)
+                    let gameData = try self.decoder.decode(MainResponseToClient<[DBGame]>.self, from: data)
                     completion(.success(gameData))
                 } catch let error {
                     print("problem occurred when turning response into DBGame: \(error)")
@@ -116,9 +67,9 @@ class GameService {
         }.resume()
     }
     
-    func getGameTime(gameId: UInt, token: String, completion: @escaping (Result<Date, CustomError>) -> ()) {
+    func getGameTime(gameId: UInt, token: String, completion: @escaping (Result<MainResponseToClient<GameTime>, CustomError>) -> ()) {
         
-        let request = networker.constructRequest(uri: "https://www.bet-it-casino.com/sports-handler/bball/get-game-time?gameId=\(gameId)", token: token)
+        let request = networker.constructRequest(uri: "http://localhost:4000/sports-handler/bball/get-game-time?gameId=\(gameId)", token: token)
         
         URLSession.shared.dataTask(with: request) {(data, response, err) in
             // check for the OK status code
@@ -148,8 +99,8 @@ class GameService {
                 
                 self.decoder.dateDecodingStrategy = .formatted(self.dateFormatter)
                 
-                let decodedData = try self.decoder.decode(GameTime.self, from: data)
-                completion(.success(decodedData.gameTime))
+                let decodedData = try self.decoder.decode(MainResponseToClient<GameTime>.self, from: data)
+                completion(.success(decodedData))
             } catch let err{
                 print(err)
                 completion(.failure(.invalidData))
@@ -222,6 +173,6 @@ class GameService {
     }
 }
 
-struct GameTime: Decodable {
+struct GameTime: Codable {
     var gameTime: Date
 }

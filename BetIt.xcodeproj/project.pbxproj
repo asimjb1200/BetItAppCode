@@ -26,6 +26,7 @@
 		681AD4BB268BB1FA00EE4348 /* AccountDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681AD4BA268BB1FA00EE4348 /* AccountDetails.swift */; };
 		6822D5F6276DAD6800762413 /* DeactivateAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6822D5F5276DAD6800762413 /* DeactivateAccount.swift */; };
 		6822D5F8276DB72600762413 /* DeactivateAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6822D5F7276DB72600762413 /* DeactivateAccountViewModel.swift */; };
+		6826DF3D27715937006F282E /* MainResponseToClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6826DF3C27715937006F282E /* MainResponseToClient.swift */; };
 		6835648B2662BF7900344E6C /* BetItApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835648A2662BF7900344E6C /* BetItApp.swift */; };
 		6835648D2662BF7900344E6C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835648C2662BF7900344E6C /* ContentView.swift */; };
 		6835648F2662BF7B00344E6C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6835648E2662BF7B00344E6C /* Assets.xcassets */; };
@@ -110,6 +111,7 @@
 		681AD4BA268BB1FA00EE4348 /* AccountDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetails.swift; sourceTree = "<group>"; };
 		6822D5F5276DAD6800762413 /* DeactivateAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeactivateAccount.swift; sourceTree = "<group>"; };
 		6822D5F7276DB72600762413 /* DeactivateAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeactivateAccountViewModel.swift; sourceTree = "<group>"; };
+		6826DF3C27715937006F282E /* MainResponseToClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainResponseToClient.swift; sourceTree = "<group>"; };
 		683564872662BF7900344E6C /* BetIt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BetIt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6835648A2662BF7900344E6C /* BetItApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetItApp.swift; sourceTree = "<group>"; };
 		6835648C2662BF7900344E6C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -375,6 +377,7 @@
 				68CA44AD26AFB12900B4784F /* AccountDetailsEnum.swift */,
 				68456A1426D05CD7002B8E83 /* WagerStatus.swift */,
 				6894A3BF270BDF91004F6985 /* WalletTransaction.swift */,
+				6826DF3C27715937006F282E /* MainResponseToClient.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -558,6 +561,7 @@
 				6882F04326705EB800046367 /* GameAndWagersView.swift in Sources */,
 				68456A1326D05C0B002B8E83 /* StatusOfUsersWagersViewModel.swift in Sources */,
 				6822D5F8276DB72600762413 /* DeactivateAccountViewModel.swift in Sources */,
+				6826DF3D27715937006F282E /* MainResponseToClient.swift in Sources */,
 				6894A3BC270BDE62004F6985 /* WalletHistory.swift in Sources */,
 				68EC37C52663241A00E99FE5 /* UpcomingGames.swift in Sources */,
 				681485AF276840C600BDEF6D /* EmailSupportViewModel.swift in Sources */,

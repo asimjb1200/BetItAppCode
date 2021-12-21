@@ -14,8 +14,8 @@ final class WalletService {
     static let shared = WalletService()
     private init() {}
     
-    func getWalletBalance(address: String, username: String, token: String, completion: @escaping (Result<WalletModel, WalletErrors>) -> ()) {
-        let reqWithoutBody: URLRequest = networker.constructRequest(uri: "https://www.bet-it-casino.com/wallet-handler/get-wallet-balance", token: token, post: true)
+    func getWalletBalance(address: String, username: String, token: String, completion: @escaping (Result<MainResponseToClient<WalletModel>, WalletErrors>) -> ()) {
+        let reqWithoutBody: URLRequest = networker.constructRequest(uri: "http://localhost:4000/wallet-handler/get-wallet-balance", token: token, post: true)
         
         let session = URLSession.shared
         let body = ["username": username, "address": address]
@@ -45,7 +45,7 @@ final class WalletService {
                 }
                 
                 do {
-                    let walletBalance = try self.decoder.decode(WalletModel.self, from: data)
+                    let walletBalance = try self.decoder.decode(MainResponseToClient<WalletModel>.self, from: data)
                     completion(.success(walletBalance))
                 } catch let err {
                     print(err)
@@ -105,7 +105,7 @@ final class WalletService {
     }
     
     func transferFromWallet(fromAddress: String, toAddress: String, ltcAmount: Decimal, token: String, completion: @escaping (Result<Bool, WalletErrors>) -> ()) {
-        let reqWithoutBody: URLRequest = networker.constructRequest(uri: "https://www.bet-it-casino.com/wallet-handler/pay-user", token: token, post: true)
+        let reqWithoutBody: URLRequest = networker.constructRequest(uri: "http://localhost:4000/wallet-handler/pay-user", token: token, post: true)
         
         let body:[String: Any] = ["fromAddress":fromAddress, "toAddress":toAddress, "ltcAmount":ltcAmount]
         let session = URLSession.shared
@@ -141,8 +141,8 @@ final class WalletService {
         
     }
     
-    func getWalletHistory(walletAddress: String, token: String, completion: @escaping (Result<[WalletTransactionPreview], WalletErrors>) -> ()) {
-        let requestWithoutBody: URLRequest = networker.constructRequest(uri: "https://www.bet-it-casino.com/wallet-handler/wallet-history/\(walletAddress)", token: token, post: false)
+    func getWalletHistory(walletAddress: String, token: String, completion: @escaping (Result<MainResponseToClient<[WalletTransactionPreview]>, WalletErrors>) -> ()) {
+        let requestWithoutBody: URLRequest = networker.constructRequest(uri: "http://localhost:4000/wallet-handler/wallet-history/\(walletAddress)", token: token, post: false)
         
         let session = URLSession.shared
         
@@ -180,7 +180,7 @@ final class WalletService {
                 }
                 
                 do {
-                    let walletLedger = try self.decoder.decode([WalletTransactionPreview].self, from: data)
+                    let walletLedger = try self.decoder.decode(MainResponseToClient<[WalletTransactionPreview]>.self, from: data)
                     completion(.success(walletLedger))
                 } catch let err {
                     DispatchQueue.main.async {

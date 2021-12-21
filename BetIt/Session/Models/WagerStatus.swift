@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct WagerStatus: Decodable, Hashable {
+struct WagerStatus: Codable, Hashable {
     var wagerId: Int
     var isActive: Bool
     var amount: Decimal

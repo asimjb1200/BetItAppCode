@@ -23,11 +23,13 @@ struct CreateWager: View {
         VStack(alignment: .leading) {
                 if viewModel.canWager {
                     DatePicker("Game Date: ",  selection: $viewModel.selectedDate, in: viewModel.range, displayedComponents: .date)
+                        .accentColor(Color("Accent2"))
                         .font(.custom("MontserratAlternates-Regular", size: 15))
                         .padding(.bottom, 20.0)
                         .onChange(of: viewModel.selectedDate, perform: { chosenDate in
                             viewModel.loadGames(date: chosenDate, token: user.accessToken, user: user)
                         })
+                        
                         
                     if viewModel.games.isEmpty {
                         Text("Either no games are being played on that date, or they are too close to starting. Pick another date.").font(.custom("MontserratAlternates-Regular", size: 20))
@@ -39,6 +41,7 @@ struct CreateWager: View {
                             }
                         }
                         .font(.custom("MontserratAlternates-Regular", size: 15))
+                        .foregroundColor(Color("Accent2"))
                         .pickerStyle(MenuPickerStyle())
                         
                         if viewModel.selectedGame.game_id == 0 {
@@ -130,7 +133,7 @@ struct CreateWager: View {
                     viewModel.loadGames(date: viewModel.selectedDate, token: user.accessToken, user: user)
                 }
             }
-        }
+        }.foregroundColor(Color("Accent2"))
     }
 }
 

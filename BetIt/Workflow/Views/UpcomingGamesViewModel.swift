@@ -14,19 +14,6 @@ final class UpcomingGamesViewModel: ObservableObject {
     @Published var userTokenExpired = false
     let gameService: GameService = .shared
     
-    func getGamesSchedule() {
-        gameService.getUpcomingGames(completion: {[weak self]  (games) in
-            switch games {
-            case .success(let gameData):
-                DispatchQueue.main.async {
-                    self?.upcomingGames = gameData
-                }
-            case .failure(let err):
-                print(err)
-            }
-        })
-    }
-    
     func dateFormatting(date: Date) -> String {
         // Create Date Formatter
         let dateFormatter = DateFormatter()
@@ -42,14 +29,26 @@ final class UpcomingGamesViewModel: ObservableObject {
         gameService.getGamesByDate(token: token, date: selectedDate, completion: {[weak self] (todaysGames) in
             switch todaysGames {
             case .success(let scheduleToday):
-                if scheduleToday.isEmpty {
+                if scheduleToday.dataForClient.isEmpty {
                     DispatchQueue.main.async {
                         self?.gamesAvailable = false
+                        guard let
+                                newAccessToken = scheduleToday.newAccessToken
+                        else {
+                            return // if newAccessToken is nil, the function will return and skip the code below
+                        }
+                        user.accessToken = newAccessToken
                     }
                 } else {
                     DispatchQueue.main.async {
                         self?.gamesAvailable = true
-                        self?.upcomingGames = scheduleToday
+                        self?.upcomingGames = scheduleToday.dataForClient
+                        guard let
+                                newAccessToken = scheduleToday.newAccessToken
+                        else {
+                            return // if newAccessToken is nil, the function will return and skip the code below
+                        }
+                        user.accessToken = newAccessToken
                     }
                 }
             case .failure(let err):

@@ -17,8 +17,11 @@ final class WalletHistoryViewModel: ObservableObject {
             switch walletHistoyRes {
             case .success(let walletHistory):
                 DispatchQueue.main.async {
-                    self?.walletTransactions = walletHistory
+                    self?.walletTransactions = walletHistory.dataForClient
                     self?.txsLoading.toggle()
+                    
+                    guard let newAccessToken = walletHistory.newAccessToken else { return }
+                    user.accessToken = newAccessToken
                 }
             case .failure(let err):
                 if err == .tokenExpired {

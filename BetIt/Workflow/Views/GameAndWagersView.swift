@@ -16,25 +16,24 @@ struct GameAndWagersView: View {
     var body: some View {
         let gameHeader = "\(Teams[selectedGame.home_team]!) vs. \(Teams[selectedGame.visitor_team]!)"
         NavigationView {
-            if viewModel.isLoading {
-                LoadingView()
+            if viewModel.wagers.isEmpty {
+                WagersNotFound()
+                    .navigationTitle(gameHeader)
             } else {
-                if viewModel.wagersNotFound {
-                    WagersNotFound()
-                        .navigationTitle(gameHeader)
-                } else {
-                    ScrollView {
-                        LazyVStack{
-                            ForEach(viewModel.wagers) { wager in
-                                GameWagersPreview(wager: wager)
-                            }
+                ScrollView {
+                    LazyVStack{
+                        ForEach(viewModel.wagers) { wager in
+                            GameWagersPreview(wager: wager)
                         }
-                    }.navigationTitle(gameHeader)
-                }
+                    }
+                }.navigationTitle(gameHeader)
             }
         }.onAppear() {
-            viewModel.getWagersByGameId(token: user.accessToken, gameId: selectedGame.game_id, user: user)
+            if viewModel.wagers.isEmpty {
+                viewModel.getWagersByGameId(token: user.accessToken, gameId: selectedGame.game_id, user: user)
+            }
         }
+        .accentColor(Color("Accent2"))
     }
 }
 

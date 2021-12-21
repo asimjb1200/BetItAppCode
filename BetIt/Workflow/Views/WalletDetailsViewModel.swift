@@ -30,9 +30,12 @@ final class WalletDetailsViewModel: ObservableObject {
             switch walletData {
                 case .success(let balPresent):
                     DispatchQueue.main.async {
-                        self?.ltcBalance = NSDecimalNumber(decimal: balPresent.balance).doubleValue
-                        self?.dollarBalance = NSDecimalNumber(decimal: balPresent.dollarEquivalent).doubleValue
+                        self?.ltcBalance = NSDecimalNumber(decimal: balPresent.dataForClient.balance).doubleValue
+                        self?.dollarBalance = NSDecimalNumber(decimal: balPresent.dataForClient.dollarEquivalent).doubleValue
                         self?.balanceIsLoading = false
+                        
+                        guard let newAccessToken = balPresent.newAccessToken else { return }
+                        user.accessToken = newAccessToken
                     }
                 case .failure(let err):
                     if err == .tokenExpired {
@@ -71,7 +74,7 @@ final class WalletDetailsViewModel: ObservableObject {
     func checkForLtcTiedUpInWagers(token: String, walletAddr: String, user: UserModel) -> () {
         wagerService.getAllUsersWagers(token: token, bettor: walletAddr, completion: { [weak self] wagerStatusArrayResponse in
             switch wagerStatusArrayResponse {
-                case .success(let wagerStatusArray):
+                case .success(let wagerStatusResponse):
                     DispatchQueue.main.async {
                         let totalLtcBal: Decimal = Decimal(self?.ltcBalance ?? 0.0)
                         guard
@@ -81,7 +84,7 @@ final class WalletDetailsViewModel: ObservableObject {
                         }
                         
                         var ltcAmountTiedUpInWagers: Decimal = 0
-                        for wager in wagerStatusArray {
+                        for wager in wagerStatusResponse.dataForClient {
                             if !wager.isActive { // wagers that aren't active haven't been taken out of the user's wallet yet. so I need to make sure that it can be covered
                                 ltcAmountTiedUpInWagers += wager.amount
                             }
@@ -96,6 +99,9 @@ final class WalletDetailsViewModel: ObservableObject {
                             return
                         }
 
+                        if let newAccessToken = wagerStatusResponse.newAccessToken {
+                            user.accessToken = newAccessToken
+                        }
                         self?.transferFromWallet(fromAddress: walletAddr, token: token, user: user)
                     }
                 case .failure(let err):

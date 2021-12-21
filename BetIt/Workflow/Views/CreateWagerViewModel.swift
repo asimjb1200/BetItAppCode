@@ -45,12 +45,16 @@ final class CreateWagerViewModel: ObservableObject {
     func checkWagerCount(bettor: String, token: String, user: UserModel) {
         wagerService.checkUserWagerCount(token: token, bettor: bettor, completion: {[weak self] apiResponse in
             switch apiResponse {
-            case .success(let numOfWagers):
+            case .success(let numOfWagersResponse):
                 DispatchQueue.main.async {
-                    if numOfWagers >= 2 {
+                    if numOfWagersResponse.dataForClient.numberOfBets >= 2 {
                         self?.canWager = false
                     } else {
                         self?.canWager = true
+                    }
+                    
+                    if let newAccessToken = numOfWagersResponse.newAccessToken {
+                        user.accessToken = newAccessToken
                     }
                 }
             case .failure(let err):
@@ -67,12 +71,19 @@ final class CreateWagerViewModel: ObservableObject {
             switch gameResults {
             case .success(let gamesOnDate):
                     DispatchQueue.main.async {
-                        self?.games = gamesOnDate
-                        if !gamesOnDate.isEmpty {
-                            self?.selectedGame = gamesOnDate[0]
+                        self?.games = gamesOnDate.dataForClient
+                        if !gamesOnDate.dataForClient.isEmpty {
+                            self?.selectedGame = gamesOnDate.dataForClient[0]
                         }
                         // reset the selected team everytime a game is loaded
                         self?.selectedTeam = 0
+                        
+                        guard let
+                                newAccessToken = gamesOnDate.newAccessToken
+                        else {
+                            return // if newAccessToken is nil, the function will return and skip the code below
+                        }
+                        user.accessToken = newAccessToken
                     }
             case .failure(let err):
                 if err == .tokenExpired {
@@ -144,12 +155,15 @@ final class CreateWagerViewModel: ObservableObject {
                         guard let cryptoAmount = self?.calcLtcAmount(wagerAmountInDollars: self?.wagerAmount ?? "0") else {
                             return
                         }
-                        if walletData.balance <= cryptoAmount {
+                        if walletData.dataForClient.balance <= cryptoAmount {
                             self?.notEnoughCrypto = true
                             self?.showAlert = true
                         } else {
                             self?.placeBet(token: token, bettor: address, user: user)
                         }
+                        
+                        guard let newAccessToken = walletData.newAccessToken else { return }
+                        user.accessToken = newAccessToken
                     }
                 case .failure(let err):
                     if err == .tokenExpired {
