@@ -12,6 +12,7 @@ final class CreateWagerViewModel: ObservableObject {
     @Published var selectedDate = Date()
     @Published var wagerAmount = "0.0"
     @Published var games = [DBGame]()
+//    @Published var games: [DBGame] = [DBGame(game_id: 0, sport: "", home_team: 0, visitor_team: 0, game_begins: Date(), season: 0), DBGame(game_id: 1, sport: "", home_team: 0, visitor_team: 0, game_begins: Date(), season: 0)]
     @Published var selectedTeam: UInt8 = 0
     @Published var showAlert = false
     @Published var canWager: Bool = true
