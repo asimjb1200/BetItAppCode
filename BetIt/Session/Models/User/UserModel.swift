@@ -14,6 +14,7 @@ class UserModel: ObservableObject, Identifiable, Codable {
      @Published var isLoggedIn = false
      var exp: Int
      var walletAddress: String
+    private var userService: UserNetworking = .shared
 
      let decoder = JSONDecoder()
 
@@ -82,6 +83,7 @@ extension UserModel {
         self.refreshToken = ""
         self.walletAddress = ""
         self.exp = 0
+        userService.deleteAccessToken()
         self.isLoggedIn = false
     }
     

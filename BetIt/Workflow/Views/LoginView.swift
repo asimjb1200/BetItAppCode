@@ -80,6 +80,8 @@ extension LoginView {
                 case .success(let foundUser):
                     DispatchQueue.main.async {
                         self.isLoading.toggle()
+                        userService.saveAccessToken(accessToken: foundUser.accessToken)
+                        userService.saveUserToDevice(user: foundUser)
                         user.logUserIn(usr: foundUser)
                     }
                 case .failure( _):

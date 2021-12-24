@@ -6,10 +6,13 @@
 //
 
 import Foundation
+import Security
 
 final class UserNetworking {
     let networker: Networker = .shared
     static let shared: UserNetworking = UserNetworking()
+    private let keyChainLabel = "bet-it-casino-access-token"
+    
     func login(username:String, pw: String, completion: @escaping (Result<ServiceUser, UserErrors>) -> ()) {
 
         let reqWithoutBody: URLRequest = networker.constructRequest(uri: "http://localhost:4000/users/login", post: true)
@@ -248,6 +251,88 @@ final class UserNetworking {
             } else {
                 completion(.failure(.serverError))
             }
+        }
+    }
+    
+    func saveAccessToken(accessToken: String) {
+        // save the access token to the device in a set place
+        let key = accessToken
+        let addquery = [
+            kSecClass: kSecClassKey,
+            kSecAttrLabel: self.keyChainLabel,
+            kSecValueData: Data(key.utf8)
+        ] as CFDictionary
+        
+        let status = SecItemAdd(addquery, nil)
+        print("Save operation finished with status: \(status)")
+    }
+    
+    func saveUserToDevice(user: ServiceUser) {
+        let defaults: UserDefaults = .standard
+        // store the user's info
+        defaults.set(user.username, forKey: "Username")
+        defaults.set(user.walletAddress, forKey: "WalletAddr")
+    }
+    
+    func loadUserFromDevice() -> UserModel? {
+        let defaults: UserDefaults = .standard
+        let username = defaults.string(forKey: "Username")
+        let walletAddr = defaults.string(forKey: "WalletAddr")
+        guard
+            let username = username,
+            let walletAddr = walletAddr
+        else {
+            return nil
+        }
+
+        // let serviceUser: ServiceUser = ServiceUser(username: username, accessToken: "", refreshToken: "", exp: 0, walletAddress: walletAddr)
+        let user: UserModel = .buildUser(username: username, access_token: "", refresh_token: "", wallet_address: walletAddr, exp: 0, isLoggedIn: false)
+        
+        return user
+    }
+    
+    func updateAccessToken(newToken: String) {
+        let findTokenQuery = [
+            kSecClass: kSecClassKey,
+            kSecAttrLabel: self.keyChainLabel
+        ] as CFDictionary
+        
+        let updateQuery = [
+            kSecValueData: Data(newToken.utf8)
+        ] as CFDictionary
+        
+        let status = SecItemUpdate(findTokenQuery, updateQuery)
+        print("Update Finished with a status of \(status)")
+    }
+    
+    func deleteAccessToken() {
+        let delquery = [
+            kSecClass: kSecClassKey,
+            kSecAttrLabel: self.keyChainLabel
+        ] as CFDictionary
+        let status = SecItemDelete(delquery)
+        print("Delete operation finished with status: \(status)")
+    }
+    
+    func loadAccessToken() -> String? {
+        let getquery = [
+            kSecClass: kSecClassKey,
+            kSecAttrLabel: self.keyChainLabel,
+            kSecReturnData: true,
+            kSecReturnAttributes: true
+        ] as CFDictionary
+        
+        var item: AnyObject?
+        let status = SecItemCopyMatching(getquery as CFDictionary, &item)
+        print("Load operation finished with status: \(status)")
+        let dict = item as? NSDictionary
+        if dict != nil {
+            let keyData = dict![kSecValueData] as! Data
+            let accessToken = String(data: keyData, encoding: .utf8)!
+            print("Loaded access token: \(accessToken)")
+            return accessToken
+        } else {
+            return nil
         }
     }
 }
