@@ -57,6 +57,9 @@ extension BetItApp {
             user.accessToken = storedAccessToken
             user.isLoggedIn = true
             self.isLoading = false
+        } else {
+            // user.isLoggedIn = false
+            self.isLoading = false
         }
     }
 }

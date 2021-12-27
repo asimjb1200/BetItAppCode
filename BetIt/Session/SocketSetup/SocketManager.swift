@@ -73,7 +73,6 @@ final class SocketIOManager: ObservableObject {
     }
     
     func gameStartingNoti(walletAddr: String) {
-        
         manager.defaultSocket.on("game starting") { data, ack in
             do {
                 guard let dict = data[0] as? [String: Any] else { return }
@@ -81,7 +80,7 @@ final class SocketIOManager: ObservableObject {
                 let gameNotiDecoded = try JSONDecoder().decode(GameStartingInfo.self, from: gameNotiRaw)
                 print("Your game noti is here: \(gameNotiDecoded) \n for wallet addy: \(walletAddr)")
             } catch let err {
-                print(err)
+                print(err.localizedDescription)
             }
         }
     }

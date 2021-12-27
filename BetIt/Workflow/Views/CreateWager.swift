@@ -58,6 +58,9 @@ struct CreateWager: View {
                             
                             if viewModel.selectedTeam == 0 {
                                 Text("Select a team").font(.custom("MontserratAlternates-Regular", size: 15))
+                                    .alert(isPresented: $viewModel.teamNotSelected) {
+                                        Alert(title: Text("Select A Team"), message: Text("You have to pick a team to bet on."), dismissButton: .default(Text("OK")))
+                                    }
                             } else {
                                 Text("I'm betting on: \(teams[viewModel.selectedTeam]!) to win.").font(.custom("MontserratAlternates-Regular", size: 15))
                             }
@@ -108,26 +111,44 @@ struct CreateWager: View {
                             Spacer()
                             Button("Place Wager") {
                                 guard
+                                    viewModel.selectedTeam == viewModel.selectedGame.visitor_team ||
+                                    viewModel.selectedTeam == viewModel.selectedGame.home_team
+                                else {
+                                    viewModel.teamNotSelected = true
+                                    return
+                                }
+                                
+                                guard
                                     !viewModel.wagerAmount.isEmpty,
-                                    viewModel.wagerAmount != "0" && viewModel.wagerAmount != "0.0"
+                                    viewModel.wagerAmount != "0" &&
+                                    viewModel.wagerAmount != "0.0"
                                 else {
                                     return
                                 }
+                                
                                 // check that they didn't enter a number below 0
                                 let tempNum = Decimal(string: viewModel.wagerAmount) ?? 0
-                                guard tempNum > 0 else {
+                                guard
+                                    tempNum > 0,
+                                    tempNum >= 50
+                                else {
+                                    viewModel.notOver50USD = true
                                     return
                                 }
+                                
                                 viewModel.checkWalletBalance(address: user.walletAddress, username: user.username, token: user.accessToken, user: user)
                             }
                             .font(.custom("MontserratAlternates-Regular", size: 15.0))
                             .padding(.all)
                             .disabled(viewModel.notEnoughCrypto)
                             .background(
-                                RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/).fill(Color("Accent2"))
+                                RoundedRectangle(cornerRadius: 25.0).fill(Color("Accent2"))
                             )
                             .foregroundColor(.black)
                             .padding(.bottom)
+                            .alert(isPresented: $viewModel.notOver50USD) {
+                                Alert(title: Text("Increase Your Bet"), message: Text("There is a $50 minimum to bet."), dismissButton: .default(Text("OK")))
+                            }
                         }
                     }
                 } else {
