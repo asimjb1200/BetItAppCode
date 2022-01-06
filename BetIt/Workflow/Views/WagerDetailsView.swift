@@ -9,12 +9,8 @@ import SwiftUI
 
 struct WagerDetailsView: View {
     @ObservedObject var wager: WagerModel
-    @StateObject var viewModel: GameWagersViewModel = .shared
+    @StateObject var viewModel: WagerDetailsViewModel = WagerDetailsViewModel()
     @EnvironmentObject var user: UserModel
-    @State private var dataSubmitted = false
-    //var gameTime: Date
-    var usdPrice: Float = 0.0
-    var service: WalletService = .shared
     let teams = TeamsMapper().Teams
     let accentColor = Color("Accent2")
     let davysGray = Color(white: 0.342)
@@ -65,6 +61,11 @@ struct WagerDetailsView: View {
             Spacer()
             
             Button("Place bet") {
+                guard
+                    viewModel.buttonPressed == false,
+                    viewModel.dataSubmitted == false
+                else { return }
+
                 // Add logic to save the bet if the fader confirms
                 viewModel.updateWager(token: user.accessToken, wagerId: wager.id, fader: user.walletAddress, user: user)
             }
@@ -103,7 +104,7 @@ struct WagerDetailsView: View {
         .disabled(viewModel.buttonPressed)
         .onAppear() {
             viewModel.getGameTime(gameId: UInt(wager.game_id), user: user)
-            if (viewModel.bettorAndFaderAddressMatch(fader: user.walletAddress, bettor: wager.bettor)) {
+            if (user.walletAddress == wager.bettor) {
                 viewModel.buttonPressed.toggle()
                 viewModel.showingAlert.toggle()
             }

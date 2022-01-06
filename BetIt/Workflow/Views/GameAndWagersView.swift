@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct GameAndWagersView: View {
-    @StateObject private var viewModel: GameWagersViewModel = .shared
+    @StateObject private var viewModel: GameWagersViewModel = GameWagersViewModel()
     @EnvironmentObject private var user: UserModel
     var selectedGame: DBGame
     private let Teams: [UInt8: String] = TeamsMapper().Teams
@@ -29,9 +29,7 @@ struct GameAndWagersView: View {
                 }.navigationTitle(gameHeader)
             }
         }.onAppear() {
-            if viewModel.wagers.isEmpty {
-                viewModel.getWagersByGameId(token: user.accessToken, gameId: selectedGame.game_id, user: user)
-            }
+            viewModel.getWagersByGameId(token: user.accessToken, gameId: selectedGame.game_id, user: user)
         }
         .accentColor(Color("Accent2"))
     }
