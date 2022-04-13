@@ -3,23 +3,84 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6810217C26699CB3006BF130 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6810217B26699CB3006BF130 /* Roboto-Medium.ttf */; };
+		681097AC2695F91F000E323F /* WalletDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681097AB2695F91F000E323F /* WalletDetailsView.swift */; };
+		681097B126960D0C000E323F /* QRGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681097B026960D0C000E323F /* QRGenerator.swift */; };
+		681485AD27683CBB00BDEF6D /* EmailSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681485AC27683CBB00BDEF6D /* EmailSupport.swift */; };
+		681485AF276840C600BDEF6D /* EmailSupportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681485AE276840C600BDEF6D /* EmailSupportViewModel.swift */; };
+		68176A1A26F04262007D73DD /* MontserratAlternates-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68176A1926F04262007D73DD /* MontserratAlternates-SemiBold.ttf */; };
+		68176A1B26F04262007D73DD /* MontserratAlternates-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68176A1926F04262007D73DD /* MontserratAlternates-SemiBold.ttf */; };
+		68176A1E26F0437B007D73DD /* MontserratAlternates-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68176A1D26F0437B007D73DD /* MontserratAlternates-ExtraBold.ttf */; };
+		68189DBB266B3E6100D767C4 /* Wagers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68189DBA266B3E6100D767C4 /* Wagers.swift */; };
+		681AD4A6268B6C8700EE4348 /* ServiceUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681AD4A5268B6C8700EE4348 /* ServiceUser.swift */; };
+		681AD4A8268B6CAA00EE4348 /* UserProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681AD4A7268B6CAA00EE4348 /* UserProtocol.swift */; };
+		681AD4AA268B6CE500EE4348 /* UserErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681AD4A9268B6CE500EE4348 /* UserErrors.swift */; };
+		681AD4AF268B6DD600EE4348 /* HasJSONEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681AD4AE268B6DD600EE4348 /* HasJSONEncoder.swift */; };
+		681AD4B1268B6DED00EE4348 /* HasJSONDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681AD4B0268B6DED00EE4348 /* HasJSONDecoder.swift */; };
+		681AD4B7268BA26F00EE4348 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681AD4B6268BA26F00EE4348 /* UserModel.swift */; };
+		681AD4B9268BA45700EE4348 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681AD4B8268BA45700EE4348 /* UserService.swift */; };
+		681AD4BB268BB1FA00EE4348 /* AccountDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681AD4BA268BB1FA00EE4348 /* AccountDetails.swift */; };
+		6822D5F6276DAD6800762413 /* DeactivateAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6822D5F5276DAD6800762413 /* DeactivateAccount.swift */; };
+		6822D5F8276DB72600762413 /* DeactivateAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6822D5F7276DB72600762413 /* DeactivateAccountViewModel.swift */; };
+		6826DF3D27715937006F282E /* MainResponseToClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6826DF3C27715937006F282E /* MainResponseToClient.swift */; };
 		6835648B2662BF7900344E6C /* BetItApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835648A2662BF7900344E6C /* BetItApp.swift */; };
 		6835648D2662BF7900344E6C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835648C2662BF7900344E6C /* ContentView.swift */; };
 		6835648F2662BF7B00344E6C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6835648E2662BF7B00344E6C /* Assets.xcassets */; };
 		683564922662BF7B00344E6C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 683564912662BF7B00344E6C /* Preview Assets.xcassets */; };
 		6835649D2662BF7B00344E6C /* BetItTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835649C2662BF7B00344E6C /* BetItTests.swift */; };
-		683564A82662BF7B00344E6C /* BetItUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683564A72662BF7B00344E6C /* BetItUITests.swift */; };
+		68456A1126D0561B002B8E83 /* StatusOfUsersWagers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68456A1026D0561B002B8E83 /* StatusOfUsersWagers.swift */; };
+		68456A1326D05C0B002B8E83 /* StatusOfUsersWagersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68456A1226D05C0B002B8E83 /* StatusOfUsersWagersViewModel.swift */; };
+		68456A1526D05CD7002B8E83 /* WagerStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68456A1426D05CD7002B8E83 /* WagerStatus.swift */; };
+		684FF22C26A3A74B004FA282 /* WalletService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684FF22B26A3A74B004FA282 /* WalletService.swift */; };
+		684FF22E26A3BE0C004FA282 /* WalletModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684FF22D26A3BE0C004FA282 /* WalletModel.swift */; };
+		685E8E312677EFD8006AA79E /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685E8E302677EFD8006AA79E /* LoginView.swift */; };
+		686AB98C26E33C300021BA86 /* RegisterUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686AB98B26E33C300021BA86 /* RegisterUserView.swift */; };
 		686D492226641DE100605AD5 /* GameService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686D492126641DE100605AD5 /* GameService.swift */; };
-		68CE1CCC2663DF6E00632279 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CE1CCB2663DF6E00632279 /* User.swift */; };
+		686FEC7027571631008015C6 /* PriceDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686FEC6F27571631008015C6 /* PriceDataView.swift */; };
+		68762740278655ED00D5BE4C /* WagerDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6876273F278655ED00D5BE4C /* WagerDetailsViewModel.swift */; };
+		6878B1AC26B650CB003C3FF9 /* ChangePassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6878B1AB26B650CB003C3FF9 /* ChangePassword.swift */; };
+		687A851A2680D605003732B1 /* SocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687A85192680D605003732B1 /* SocketManager.swift */; };
+		687B338026AB75CF00ED7C68 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687B337F26AB75CF00ED7C68 /* LoadingView.swift */; };
+		687B338226AB917F00ED7C68 /* CoinbaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687B338126AB917F00ED7C68 /* CoinbaseResponse.swift */; };
+		687D867D26BB79D1005E5A52 /* ChangeEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D867C26BB79D1005E5A52 /* ChangeEmail.swift */; };
+		68814ABA26D6A33F0012A464 /* MySingleWager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68814AB926D6A33F0012A464 /* MySingleWager.swift */; };
+		6882F03F26704E0400046367 /* GameWagersPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6882F03E26704E0400046367 /* GameWagersPreview.swift */; };
+		6882F0412670577800046367 /* WagerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6882F0402670577800046367 /* WagerService.swift */; };
+		6882F04326705EB800046367 /* GameAndWagersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6882F04226705EB800046367 /* GameAndWagersView.swift */; };
+		688EDF0E26C220D000A4EAB7 /* CreateWager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688EDF0D26C220D000A4EAB7 /* CreateWager.swift */; };
+		6894A3BC270BDE62004F6985 /* WalletHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6894A3BB270BDE62004F6985 /* WalletHistory.swift */; };
+		6894A3BE270BDE82004F6985 /* WalletHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6894A3BD270BDE82004F6985 /* WalletHistoryViewModel.swift */; };
+		6894A3C0270BDF91004F6985 /* WalletTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6894A3BF270BDF91004F6985 /* WalletTransaction.swift */; };
+		689E31602671BF210052452D /* WagerDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689E315F2671BF210052452D /* WagerDetailsView.swift */; };
+		689F9D0B269725C3001DB52E /* GameWagersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689F9D0A269725C3001DB52E /* GameWagersViewModel.swift */; };
+		689F9D0F26974654001DB52E /* UpcomingGamesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689F9D0E26974654001DB52E /* UpcomingGamesViewModel.swift */; };
+		689F9D1126975ADB001DB52E /* WalletDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689F9D1026975ADB001DB52E /* WalletDetailsViewModel.swift */; };
+		68A45792275BDD0B00493E12 /* PriceDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A45791275BDD0B00493E12 /* PriceDataViewModel.swift */; };
+		68A97148268182470005FE58 /* MontserratAlternates-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68A97140268182460005FE58 /* MontserratAlternates-Regular.ttf */; };
+		68A97149268182470005FE58 /* MontserratAlternates-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68A97141268182460005FE58 /* MontserratAlternates-LightItalic.ttf */; };
+		68A9714A268182470005FE58 /* MontserratAlternates-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68A97142268182470005FE58 /* MontserratAlternates-Light.ttf */; };
+		68A9714B268182470005FE58 /* MontserratAlternates-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68A97143268182470005FE58 /* MontserratAlternates-ThinItalic.ttf */; };
+		68A9714C268182470005FE58 /* MontserratAlternates-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68A97144268182470005FE58 /* MontserratAlternates-ExtraLight.ttf */; };
+		68A9714D268182470005FE58 /* MontserratAlternates-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68A97145268182470005FE58 /* MontserratAlternates-Thin.ttf */; };
+		68A9714E268182470005FE58 /* MontserratAlternates-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68A97146268182470005FE58 /* MontserratAlternates-Italic.ttf */; };
+		68A9714F268182470005FE58 /* MontserratAlternates-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68A97147268182470005FE58 /* MontserratAlternates-ExtraLightItalic.ttf */; };
+		68A9ECE8267C1120000F4FC1 /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = 68A9ECE7267C1120000F4FC1 /* SocketIO */; };
+		68ADCFD626C358B2000D4644 /* CreateWagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68ADCFD526C358B2000D4644 /* CreateWagerViewModel.swift */; };
+		68AE2B9026864275001BD37D /* GamesNotFound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AE2B8F26864275001BD37D /* GamesNotFound.swift */; };
+		68AE2B9226864D4A001BD37D /* WagersNotFound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AE2B9126864D4A001BD37D /* WagersNotFound.swift */; };
+		68C6081826E8535B009578FA /* WalletTransactionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C6081726E8535B009578FA /* WalletTransactionsView.swift */; };
+		68CA44AE26AFB12900B4784F /* AccountDetailsEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CA44AD26AFB12900B4784F /* AccountDetailsEnum.swift */; };
+		68CC10312684F5A400207C81 /* NetworkingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CC10302684F5A400207C81 /* NetworkingHelper.swift */; };
 		68CE1CD12663DF8C00632279 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CE1CD02663DF8C00632279 /* Game.swift */; };
+		68EB61FC273A01300012C451 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 68EB61FB273A01300012C451 /* Toast */; };
+		68EB6201273A0D080012C451 /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = 68EB6200273A0D080012C451 /* AlertToast */; };
 		68EC37C52663241A00E99FE5 /* UpcomingGames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68EC37C42663241A00E99FE5 /* UpcomingGames.swift */; };
 		68EC37CA266324A900E99FE5 /* GamePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68EC37C9266324A900E99FE5 /* GamePreview.swift */; };
 		68EC37CF26632AC900E99FE5 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68EC37CE26632AC900E99FE5 /* Roboto-Light.ttf */; };
-		68EC37D426632CBD00E99FE5 /* UserOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68EC37D326632CBD00E99FE5 /* UserOptions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,16 +91,28 @@
 			remoteGlobalIDString = 683564862662BF7900344E6C;
 			remoteInfo = BetIt;
 		};
-		683564A42662BF7B00344E6C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6835647F2662BF7900344E6C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 683564862662BF7900344E6C;
-			remoteInfo = BetIt;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6810217B26699CB3006BF130 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
+		681097AB2695F91F000E323F /* WalletDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletDetailsView.swift; sourceTree = "<group>"; };
+		681097B026960D0C000E323F /* QRGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRGenerator.swift; sourceTree = "<group>"; };
+		681485AC27683CBB00BDEF6D /* EmailSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSupport.swift; sourceTree = "<group>"; };
+		681485AE276840C600BDEF6D /* EmailSupportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSupportViewModel.swift; sourceTree = "<group>"; };
+		68176A1926F04262007D73DD /* MontserratAlternates-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MontserratAlternates-SemiBold.ttf"; sourceTree = "<group>"; };
+		68176A1D26F0437B007D73DD /* MontserratAlternates-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MontserratAlternates-ExtraBold.ttf"; sourceTree = "<group>"; };
+		68189DBA266B3E6100D767C4 /* Wagers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wagers.swift; sourceTree = "<group>"; };
+		681AD4A5268B6C8700EE4348 /* ServiceUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceUser.swift; sourceTree = "<group>"; };
+		681AD4A7268B6CAA00EE4348 /* UserProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProtocol.swift; sourceTree = "<group>"; };
+		681AD4A9268B6CE500EE4348 /* UserErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserErrors.swift; sourceTree = "<group>"; };
+		681AD4AE268B6DD600EE4348 /* HasJSONEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasJSONEncoder.swift; sourceTree = "<group>"; };
+		681AD4B0268B6DED00EE4348 /* HasJSONDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasJSONDecoder.swift; sourceTree = "<group>"; };
+		681AD4B6268BA26F00EE4348 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		681AD4B8268BA45700EE4348 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		681AD4BA268BB1FA00EE4348 /* AccountDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetails.swift; sourceTree = "<group>"; };
+		6822D5F5276DAD6800762413 /* DeactivateAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeactivateAccount.swift; sourceTree = "<group>"; };
+		6822D5F7276DB72600762413 /* DeactivateAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeactivateAccountViewModel.swift; sourceTree = "<group>"; };
+		6826DF3C27715937006F282E /* MainResponseToClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainResponseToClient.swift; sourceTree = "<group>"; };
 		683564872662BF7900344E6C /* BetIt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BetIt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6835648A2662BF7900344E6C /* BetItApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetItApp.swift; sourceTree = "<group>"; };
 		6835648C2662BF7900344E6C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -49,16 +122,52 @@
 		683564982662BF7B00344E6C /* BetItTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BetItTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6835649C2662BF7B00344E6C /* BetItTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetItTests.swift; sourceTree = "<group>"; };
 		6835649E2662BF7B00344E6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		683564A32662BF7B00344E6C /* BetItUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BetItUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		683564A72662BF7B00344E6C /* BetItUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetItUITests.swift; sourceTree = "<group>"; };
-		683564A92662BF7B00344E6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		68456A1026D0561B002B8E83 /* StatusOfUsersWagers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusOfUsersWagers.swift; sourceTree = "<group>"; };
+		68456A1226D05C0B002B8E83 /* StatusOfUsersWagersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusOfUsersWagersViewModel.swift; sourceTree = "<group>"; };
+		68456A1426D05CD7002B8E83 /* WagerStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WagerStatus.swift; sourceTree = "<group>"; };
+		684FF22B26A3A74B004FA282 /* WalletService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletService.swift; sourceTree = "<group>"; };
+		684FF22D26A3BE0C004FA282 /* WalletModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletModel.swift; sourceTree = "<group>"; };
+		685E8E302677EFD8006AA79E /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		686AB98B26E33C300021BA86 /* RegisterUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserView.swift; sourceTree = "<group>"; };
 		686D492126641DE100605AD5 /* GameService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameService.swift; sourceTree = "<group>"; };
-		68CE1CCB2663DF6E00632279 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		686FEC6F27571631008015C6 /* PriceDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceDataView.swift; sourceTree = "<group>"; };
+		6876273F278655ED00D5BE4C /* WagerDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WagerDetailsViewModel.swift; sourceTree = "<group>"; };
+		6878B1AB26B650CB003C3FF9 /* ChangePassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePassword.swift; sourceTree = "<group>"; };
+		687A85192680D605003732B1 /* SocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketManager.swift; sourceTree = "<group>"; };
+		687B337F26AB75CF00ED7C68 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		687B338126AB917F00ED7C68 /* CoinbaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinbaseResponse.swift; sourceTree = "<group>"; };
+		687D867C26BB79D1005E5A52 /* ChangeEmail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeEmail.swift; sourceTree = "<group>"; };
+		68814AB926D6A33F0012A464 /* MySingleWager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySingleWager.swift; sourceTree = "<group>"; };
+		6882F03E26704E0400046367 /* GameWagersPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameWagersPreview.swift; sourceTree = "<group>"; };
+		6882F0402670577800046367 /* WagerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WagerService.swift; sourceTree = "<group>"; };
+		6882F04226705EB800046367 /* GameAndWagersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameAndWagersView.swift; sourceTree = "<group>"; };
+		688EDF0D26C220D000A4EAB7 /* CreateWager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWager.swift; sourceTree = "<group>"; };
+		6894A3BB270BDE62004F6985 /* WalletHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletHistory.swift; sourceTree = "<group>"; };
+		6894A3BD270BDE82004F6985 /* WalletHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletHistoryViewModel.swift; sourceTree = "<group>"; };
+		6894A3BF270BDF91004F6985 /* WalletTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletTransaction.swift; sourceTree = "<group>"; };
+		689E315F2671BF210052452D /* WagerDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WagerDetailsView.swift; sourceTree = "<group>"; };
+		689F9D0A269725C3001DB52E /* GameWagersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameWagersViewModel.swift; sourceTree = "<group>"; };
+		689F9D0E26974654001DB52E /* UpcomingGamesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingGamesViewModel.swift; sourceTree = "<group>"; };
+		689F9D1026975ADB001DB52E /* WalletDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletDetailsViewModel.swift; sourceTree = "<group>"; };
+		68A45791275BDD0B00493E12 /* PriceDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceDataViewModel.swift; sourceTree = "<group>"; };
+		68A97140268182460005FE58 /* MontserratAlternates-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MontserratAlternates-Regular.ttf"; sourceTree = "<group>"; };
+		68A97141268182460005FE58 /* MontserratAlternates-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MontserratAlternates-LightItalic.ttf"; sourceTree = "<group>"; };
+		68A97142268182470005FE58 /* MontserratAlternates-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MontserratAlternates-Light.ttf"; sourceTree = "<group>"; };
+		68A97143268182470005FE58 /* MontserratAlternates-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MontserratAlternates-ThinItalic.ttf"; sourceTree = "<group>"; };
+		68A97144268182470005FE58 /* MontserratAlternates-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MontserratAlternates-ExtraLight.ttf"; sourceTree = "<group>"; };
+		68A97145268182470005FE58 /* MontserratAlternates-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MontserratAlternates-Thin.ttf"; sourceTree = "<group>"; };
+		68A97146268182470005FE58 /* MontserratAlternates-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MontserratAlternates-Italic.ttf"; sourceTree = "<group>"; };
+		68A97147268182470005FE58 /* MontserratAlternates-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MontserratAlternates-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
+		68ADCFD526C358B2000D4644 /* CreateWagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWagerViewModel.swift; sourceTree = "<group>"; };
+		68AE2B8F26864275001BD37D /* GamesNotFound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesNotFound.swift; sourceTree = "<group>"; };
+		68AE2B9126864D4A001BD37D /* WagersNotFound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WagersNotFound.swift; sourceTree = "<group>"; };
+		68C6081726E8535B009578FA /* WalletTransactionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletTransactionsView.swift; sourceTree = "<group>"; };
+		68CA44AD26AFB12900B4784F /* AccountDetailsEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsEnum.swift; sourceTree = "<group>"; };
+		68CC10302684F5A400207C81 /* NetworkingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingHelper.swift; sourceTree = "<group>"; };
 		68CE1CD02663DF8C00632279 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		68EC37C42663241A00E99FE5 /* UpcomingGames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingGames.swift; sourceTree = "<group>"; };
 		68EC37C9266324A900E99FE5 /* GamePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePreview.swift; sourceTree = "<group>"; };
 		68EC37CE26632AC900E99FE5 /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
-		68EC37D326632CBD00E99FE5 /* UserOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserOptions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +175,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68EB6201273A0D080012C451 /* AlertToast in Frameworks */,
+				68EB61FC273A01300012C451 /* Toast in Frameworks */,
+				68A9ECE8267C1120000F4FC1 /* SocketIO in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,23 +188,75 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		683564A02662BF7B00344E6C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		681097AD2695F96E000E323F /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				689F9D0A269725C3001DB52E /* GameWagersViewModel.swift */,
+				689F9D0E26974654001DB52E /* UpcomingGamesViewModel.swift */,
+				689F9D1026975ADB001DB52E /* WalletDetailsViewModel.swift */,
+				68ADCFD526C358B2000D4644 /* CreateWagerViewModel.swift */,
+				68456A1226D05C0B002B8E83 /* StatusOfUsersWagersViewModel.swift */,
+				6894A3BD270BDE82004F6985 /* WalletHistoryViewModel.swift */,
+				68A45791275BDD0B00493E12 /* PriceDataViewModel.swift */,
+				681485AE276840C600BDEF6D /* EmailSupportViewModel.swift */,
+				6822D5F7276DB72600762413 /* DeactivateAccountViewModel.swift */,
+				6876273F278655ED00D5BE4C /* WagerDetailsViewModel.swift */,
+			);
+			name = ViewModels;
+			sourceTree = "<group>";
+		};
+		681AD4A4268B6C2000EE4348 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				681AD4A5268B6C8700EE4348 /* ServiceUser.swift */,
+				681AD4A7268B6CAA00EE4348 /* UserProtocol.swift */,
+				681AD4A9268B6CE500EE4348 /* UserErrors.swift */,
+				681AD4B6268BA26F00EE4348 /* UserModel.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		681AD4AD268B6D9800EE4348 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				681AD4AE268B6DD600EE4348 /* HasJSONEncoder.swift */,
+				681AD4B0268B6DED00EE4348 /* HasJSONDecoder.swift */,
+				681097B026960D0C000E323F /* QRGenerator.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		681AD4B2268B6EAA00EE4348 /* Session */ = {
+			isa = PBXGroup;
+			children = (
+				681AD4AD268B6D9800EE4348 /* Utilities */,
+				687A85182680D5EE003732B1 /* SocketSetup */,
+				686D492026641DC600605AD5 /* Services */,
+				68CE1CCA2663DF5A00632279 /* Models */,
+			);
+			path = Session;
+			sourceTree = "<group>";
+		};
+		681AD4B3268B6EEA00EE4348 /* Workflow */ = {
+			isa = PBXGroup;
+			children = (
+				6835648A2662BF7900344E6C /* BetItApp.swift */,
+				6835648C2662BF7900344E6C /* ContentView.swift */,
+				68A9713E2681754F0005FE58 /* Views */,
+			);
+			path = Workflow;
+			sourceTree = "<group>";
+		};
 		6835647E2662BF7900344E6C = {
 			isa = PBXGroup;
 			children = (
 				683564892662BF7900344E6C /* BetIt */,
 				6835649B2662BF7B00344E6C /* BetItTests */,
-				683564A62662BF7B00344E6C /* BetItUITests */,
 				683564882662BF7900344E6C /* Products */,
+				68EB61FD273A07CB0012C451 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -101,7 +265,6 @@
 			children = (
 				683564872662BF7900344E6C /* BetIt.app */,
 				683564982662BF7B00344E6C /* BetItTests.xctest */,
-				683564A32662BF7B00344E6C /* BetItUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -109,17 +272,12 @@
 		683564892662BF7900344E6C /* BetIt */ = {
 			isa = PBXGroup;
 			children = (
-				686D492026641DC600605AD5 /* Services */,
-				68CE1CCA2663DF5A00632279 /* Models */,
-				68CE1CC92663D7DC00632279 /* AcctDetails */,
-				68EC37C3266323CA00E99FE5 /* UpcomingGames */,
-				6835648A2662BF7900344E6C /* BetItApp.swift */,
-				68EC37CE26632AC900E99FE5 /* Roboto-Light.ttf */,
-				6835648C2662BF7900344E6C /* ContentView.swift */,
+				681AD4B3268B6EEA00EE4348 /* Workflow */,
+				681AD4B2268B6EAA00EE4348 /* Session */,
+				68A9713F268180F90005FE58 /* Fonts */,
 				6835648E2662BF7B00344E6C /* Assets.xcassets */,
 				683564932662BF7B00344E6C /* Info.plist */,
 				683564902662BF7B00344E6C /* Preview Content */,
-				68EC37D326632CBD00E99FE5 /* UserOptions.swift */,
 			);
 			path = BetIt;
 			sourceTree = "<group>";
@@ -141,46 +299,96 @@
 			path = BetItTests;
 			sourceTree = "<group>";
 		};
-		683564A62662BF7B00344E6C /* BetItUITests */ = {
-			isa = PBXGroup;
-			children = (
-				683564A72662BF7B00344E6C /* BetItUITests.swift */,
-				683564A92662BF7B00344E6C /* Info.plist */,
-			);
-			path = BetItUITests;
-			sourceTree = "<group>";
-		};
 		686D492026641DC600605AD5 /* Services */ = {
 			isa = PBXGroup;
 			children = (
 				686D492126641DE100605AD5 /* GameService.swift */,
+				6882F0402670577800046367 /* WagerService.swift */,
+				68CC10302684F5A400207C81 /* NetworkingHelper.swift */,
+				681AD4B8268BA45700EE4348 /* UserService.swift */,
+				684FF22B26A3A74B004FA282 /* WalletService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
 		};
-		68CE1CC92663D7DC00632279 /* AcctDetails */ = {
+		687A85182680D5EE003732B1 /* SocketSetup */ = {
 			isa = PBXGroup;
 			children = (
+				687A85192680D605003732B1 /* SocketManager.swift */,
 			);
-			path = AcctDetails;
+			path = SocketSetup;
+			sourceTree = "<group>";
+		};
+		68A9713E2681754F0005FE58 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				68EC37C9266324A900E99FE5 /* GamePreview.swift */,
+				681097AD2695F96E000E323F /* ViewModels */,
+				6882F03E26704E0400046367 /* GameWagersPreview.swift */,
+				6882F04226705EB800046367 /* GameAndWagersView.swift */,
+				689E315F2671BF210052452D /* WagerDetailsView.swift */,
+				685E8E302677EFD8006AA79E /* LoginView.swift */,
+				68EC37C42663241A00E99FE5 /* UpcomingGames.swift */,
+				68AE2B8F26864275001BD37D /* GamesNotFound.swift */,
+				68AE2B9126864D4A001BD37D /* WagersNotFound.swift */,
+				681AD4BA268BB1FA00EE4348 /* AccountDetails.swift */,
+				681097AB2695F91F000E323F /* WalletDetailsView.swift */,
+				687B337F26AB75CF00ED7C68 /* LoadingView.swift */,
+				6878B1AB26B650CB003C3FF9 /* ChangePassword.swift */,
+				687D867C26BB79D1005E5A52 /* ChangeEmail.swift */,
+				688EDF0D26C220D000A4EAB7 /* CreateWager.swift */,
+				68456A1026D0561B002B8E83 /* StatusOfUsersWagers.swift */,
+				68814AB926D6A33F0012A464 /* MySingleWager.swift */,
+				686AB98B26E33C300021BA86 /* RegisterUserView.swift */,
+				68C6081726E8535B009578FA /* WalletTransactionsView.swift */,
+				6894A3BB270BDE62004F6985 /* WalletHistory.swift */,
+				686FEC6F27571631008015C6 /* PriceDataView.swift */,
+				681485AC27683CBB00BDEF6D /* EmailSupport.swift */,
+				6822D5F5276DAD6800762413 /* DeactivateAccount.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		68A9713F268180F90005FE58 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				68176A1D26F0437B007D73DD /* MontserratAlternates-ExtraBold.ttf */,
+				68176A1926F04262007D73DD /* MontserratAlternates-SemiBold.ttf */,
+				68A97144268182470005FE58 /* MontserratAlternates-ExtraLight.ttf */,
+				68A97147268182470005FE58 /* MontserratAlternates-ExtraLightItalic.ttf */,
+				68A97146268182470005FE58 /* MontserratAlternates-Italic.ttf */,
+				68A97142268182470005FE58 /* MontserratAlternates-Light.ttf */,
+				68A97141268182460005FE58 /* MontserratAlternates-LightItalic.ttf */,
+				68A97140268182460005FE58 /* MontserratAlternates-Regular.ttf */,
+				68A97145268182470005FE58 /* MontserratAlternates-Thin.ttf */,
+				68A97143268182470005FE58 /* MontserratAlternates-ThinItalic.ttf */,
+				6810217B26699CB3006BF130 /* Roboto-Medium.ttf */,
+				68EC37CE26632AC900E99FE5 /* Roboto-Light.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		68CE1CCA2663DF5A00632279 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				68CE1CCB2663DF6E00632279 /* User.swift */,
+				681AD4A4268B6C2000EE4348 /* User */,
 				68CE1CD02663DF8C00632279 /* Game.swift */,
+				68189DBA266B3E6100D767C4 /* Wagers.swift */,
+				684FF22D26A3BE0C004FA282 /* WalletModel.swift */,
+				687B338126AB917F00ED7C68 /* CoinbaseResponse.swift */,
+				68CA44AD26AFB12900B4784F /* AccountDetailsEnum.swift */,
+				68456A1426D05CD7002B8E83 /* WagerStatus.swift */,
+				6894A3BF270BDF91004F6985 /* WalletTransaction.swift */,
+				6826DF3C27715937006F282E /* MainResponseToClient.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
 		};
-		68EC37C3266323CA00E99FE5 /* UpcomingGames */ = {
+		68EB61FD273A07CB0012C451 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				68EC37C42663241A00E99FE5 /* UpcomingGames.swift */,
-				68EC37C9266324A900E99FE5 /* GamePreview.swift */,
 			);
-			path = UpcomingGames;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -199,6 +407,11 @@
 			dependencies = (
 			);
 			name = BetIt;
+			packageProductDependencies = (
+				68A9ECE7267C1120000F4FC1 /* SocketIO */,
+				68EB61FB273A01300012C451 /* Toast */,
+				68EB6200273A0D080012C451 /* AlertToast */,
+			);
 			productName = BetIt;
 			productReference = 683564872662BF7900344E6C /* BetIt.app */;
 			productType = "com.apple.product-type.application";
@@ -221,24 +434,6 @@
 			productReference = 683564982662BF7B00344E6C /* BetItTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		683564A22662BF7B00344E6C /* BetItUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 683564B22662BF7B00344E6C /* Build configuration list for PBXNativeTarget "BetItUITests" */;
-			buildPhases = (
-				6835649F2662BF7B00344E6C /* Sources */,
-				683564A02662BF7B00344E6C /* Frameworks */,
-				683564A12662BF7B00344E6C /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				683564A52662BF7B00344E6C /* PBXTargetDependency */,
-			);
-			name = BetItUITests;
-			productName = BetItUITests;
-			productReference = 683564A32662BF7B00344E6C /* BetItUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -255,10 +450,6 @@
 						CreatedOnToolsVersion = 12.3;
 						TestTargetID = 683564862662BF7900344E6C;
 					};
-					683564A22662BF7B00344E6C = {
-						CreatedOnToolsVersion = 12.3;
-						TestTargetID = 683564862662BF7900344E6C;
-					};
 				};
 			};
 			buildConfigurationList = 683564822662BF7900344E6C /* Build configuration list for PBXProject "BetIt" */;
@@ -270,13 +461,17 @@
 				Base,
 			);
 			mainGroup = 6835647E2662BF7900344E6C;
+			packageReferences = (
+				68A9ECE6267C1120000F4FC1 /* XCRemoteSwiftPackageReference "socket" */,
+				68EB61FA273A01300012C451 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
+				68EB61FF273A0D080012C451 /* XCRemoteSwiftPackageReference "AlertToast" */,
+			);
 			productRefGroup = 683564882662BF7900344E6C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				683564862662BF7900344E6C /* BetIt */,
 				683564972662BF7B00344E6C /* BetItTests */,
-				683564A22662BF7B00344E6C /* BetItUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -286,9 +481,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68176A1E26F0437B007D73DD /* MontserratAlternates-ExtraBold.ttf in Resources */,
+				6810217C26699CB3006BF130 /* Roboto-Medium.ttf in Resources */,
+				68176A1A26F04262007D73DD /* MontserratAlternates-SemiBold.ttf in Resources */,
 				683564922662BF7B00344E6C /* Preview Assets.xcassets in Resources */,
+				68A9714E268182470005FE58 /* MontserratAlternates-Italic.ttf in Resources */,
 				6835648F2662BF7B00344E6C /* Assets.xcassets in Resources */,
+				68A97149268182470005FE58 /* MontserratAlternates-LightItalic.ttf in Resources */,
+				68A97148268182470005FE58 /* MontserratAlternates-Regular.ttf in Resources */,
+				68A9714F268182470005FE58 /* MontserratAlternates-ExtraLightItalic.ttf in Resources */,
+				68A9714C268182470005FE58 /* MontserratAlternates-ExtraLight.ttf in Resources */,
 				68EC37CF26632AC900E99FE5 /* Roboto-Light.ttf in Resources */,
+				68A9714A268182470005FE58 /* MontserratAlternates-Light.ttf in Resources */,
+				68A9714B268182470005FE58 /* MontserratAlternates-ThinItalic.ttf in Resources */,
+				68A9714D268182470005FE58 /* MontserratAlternates-Thin.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,13 +502,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		683564A12662BF7B00344E6C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				68176A1B26F04262007D73DD /* MontserratAlternates-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,14 +513,61 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				68EC37D426632CBD00E99FE5 /* UserOptions.swift in Sources */,
+				68456A1126D0561B002B8E83 /* StatusOfUsersWagers.swift in Sources */,
+				6894A3C0270BDF91004F6985 /* WalletTransaction.swift in Sources */,
+				68CC10312684F5A400207C81 /* NetworkingHelper.swift in Sources */,
+				68762740278655ED00D5BE4C /* WagerDetailsViewModel.swift in Sources */,
+				681AD4B9268BA45700EE4348 /* UserService.swift in Sources */,
+				681AD4BB268BB1FA00EE4348 /* AccountDetails.swift in Sources */,
 				68EC37CA266324A900E99FE5 /* GamePreview.swift in Sources */,
 				68CE1CD12663DF8C00632279 /* Game.swift in Sources */,
-				68CE1CCC2663DF6E00632279 /* User.swift in Sources */,
+				6882F0412670577800046367 /* WagerService.swift in Sources */,
+				684FF22E26A3BE0C004FA282 /* WalletModel.swift in Sources */,
+				689F9D0B269725C3001DB52E /* GameWagersViewModel.swift in Sources */,
+				687B338226AB917F00ED7C68 /* CoinbaseResponse.swift in Sources */,
+				681AD4A6268B6C8700EE4348 /* ServiceUser.swift in Sources */,
+				687D867D26BB79D1005E5A52 /* ChangeEmail.swift in Sources */,
+				6822D5F6276DAD6800762413 /* DeactivateAccount.swift in Sources */,
+				689F9D0F26974654001DB52E /* UpcomingGamesViewModel.swift in Sources */,
+				687A851A2680D605003732B1 /* SocketManager.swift in Sources */,
+				68A45792275BDD0B00493E12 /* PriceDataViewModel.swift in Sources */,
+				681AD4A8268B6CAA00EE4348 /* UserProtocol.swift in Sources */,
+				689F9D1126975ADB001DB52E /* WalletDetailsViewModel.swift in Sources */,
+				686FEC7027571631008015C6 /* PriceDataView.swift in Sources */,
+				687B338026AB75CF00ED7C68 /* LoadingView.swift in Sources */,
+				681485AD27683CBB00BDEF6D /* EmailSupport.swift in Sources */,
+				681AD4AA268B6CE500EE4348 /* UserErrors.swift in Sources */,
+				681097B126960D0C000E323F /* QRGenerator.swift in Sources */,
+				681AD4B7268BA26F00EE4348 /* UserModel.swift in Sources */,
 				6835648D2662BF7900344E6C /* ContentView.swift in Sources */,
+				689E31602671BF210052452D /* WagerDetailsView.swift in Sources */,
+				68AE2B9026864275001BD37D /* GamesNotFound.swift in Sources */,
+				68C6081826E8535B009578FA /* WalletTransactionsView.swift in Sources */,
+				68456A1526D05CD7002B8E83 /* WagerStatus.swift in Sources */,
 				6835648B2662BF7900344E6C /* BetItApp.swift in Sources */,
+				68814ABA26D6A33F0012A464 /* MySingleWager.swift in Sources */,
+				68AE2B9226864D4A001BD37D /* WagersNotFound.swift in Sources */,
+				6894A3BE270BDE82004F6985 /* WalletHistoryViewModel.swift in Sources */,
+				68CA44AE26AFB12900B4784F /* AccountDetailsEnum.swift in Sources */,
+				688EDF0E26C220D000A4EAB7 /* CreateWager.swift in Sources */,
+				681097AC2695F91F000E323F /* WalletDetailsView.swift in Sources */,
+				681AD4AF268B6DD600EE4348 /* HasJSONEncoder.swift in Sources */,
+				685E8E312677EFD8006AA79E /* LoginView.swift in Sources */,
+				6878B1AC26B650CB003C3FF9 /* ChangePassword.swift in Sources */,
+				6882F04326705EB800046367 /* GameAndWagersView.swift in Sources */,
+				68456A1326D05C0B002B8E83 /* StatusOfUsersWagersViewModel.swift in Sources */,
+				6822D5F8276DB72600762413 /* DeactivateAccountViewModel.swift in Sources */,
+				6826DF3D27715937006F282E /* MainResponseToClient.swift in Sources */,
+				6894A3BC270BDE62004F6985 /* WalletHistory.swift in Sources */,
 				68EC37C52663241A00E99FE5 /* UpcomingGames.swift in Sources */,
+				681485AF276840C600BDEF6D /* EmailSupportViewModel.swift in Sources */,
 				686D492226641DE100605AD5 /* GameService.swift in Sources */,
+				68189DBB266B3E6100D767C4 /* Wagers.swift in Sources */,
+				68ADCFD626C358B2000D4644 /* CreateWagerViewModel.swift in Sources */,
+				686AB98C26E33C300021BA86 /* RegisterUserView.swift in Sources */,
+				681AD4B1268B6DED00EE4348 /* HasJSONDecoder.swift in Sources */,
+				684FF22C26A3A74B004FA282 /* WalletService.swift in Sources */,
+				6882F03F26704E0400046367 /* GameWagersPreview.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,14 +579,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6835649F2662BF7B00344E6C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				683564A82662BF7B00344E6C /* BetItUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -347,11 +586,6 @@
 			isa = PBXTargetDependency;
 			target = 683564862662BF7900344E6C /* BetIt */;
 			targetProxy = 683564992662BF7B00344E6C /* PBXContainerItemProxy */;
-		};
-		683564A52662BF7B00344E6C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 683564862662BF7900344E6C /* BetIt */;
-			targetProxy = 683564A42662BF7B00344E6C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -414,6 +648,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -468,6 +703,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -560,46 +796,6 @@
 			};
 			name = Release;
 		};
-		683564B32662BF7B00344E6C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = P2B946HD8M;
-				INFOPLIST_FILE = BetItUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = TechWorldSolutions.BetItUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = BetIt;
-			};
-			name = Debug;
-		};
-		683564B42662BF7B00344E6C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = P2B946HD8M;
-				INFOPLIST_FILE = BetItUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = TechWorldSolutions.BetItUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = BetIt;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -630,16 +826,52 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		683564B22662BF7B00344E6C /* Build configuration list for PBXNativeTarget "BetItUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				683564B32662BF7B00344E6C /* Debug */,
-				683564B42662BF7B00344E6C /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		68A9ECE6267C1120000F4FC1 /* XCRemoteSwiftPackageReference "socket" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/socketio/socket.io-client-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 16.0.1;
+			};
+		};
+		68EB61FA273A01300012C451 /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scalessec/Toast-Swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.1;
+			};
+		};
+		68EB61FF273A0D080012C451 /* XCRemoteSwiftPackageReference "AlertToast" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/elai950/AlertToast";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.3.7;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		68A9ECE7267C1120000F4FC1 /* SocketIO */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68A9ECE6267C1120000F4FC1 /* XCRemoteSwiftPackageReference "socket" */;
+			productName = SocketIO;
+		};
+		68EB61FB273A01300012C451 /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68EB61FA273A01300012C451 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
+			productName = Toast;
+		};
+		68EB6200273A0D080012C451 /* AlertToast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68EB61FF273A0D080012C451 /* XCRemoteSwiftPackageReference "AlertToast" */;
+			productName = AlertToast;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 6835647F2662BF7900344E6C /* Project object */;
 }
